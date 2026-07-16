@@ -1,6 +1,6 @@
-# Asistente Creativo — Ideas de primera necesidad, comercialización y gestión
+# Kri-ai — Asistente creativo de ideas de primera necesidad, comercialización y gestión
 
-Este directorio contiene todo lo necesario para usar el **Asistente Creativo**: un
+Este directorio contiene todo lo necesario para usar **Kri-ai**, tu asistente creativo: un
 asistente de IA especializado en generar y desarrollar ideas de negocio basadas en
 **necesidades reales** (productos y servicios de primera necesidad), con vocación de
 **prevalecer en el tiempo**, y con una mirada experta en **comercialización y
@@ -8,7 +8,7 @@ administración**.
 
 ## ¿Qué hace?
 
-Dado un contexto (una zona, un público, un problema, un presupuesto), el asistente:
+Dado un contexto (una zona, un público, un problema, un presupuesto), Kri-ai:
 
 1. **Detecta necesidades reales** — prioriza alimentación, salud, vivienda, agua,
    energía, transporte, cuidado de personas, educación básica y seguridad.
@@ -27,15 +27,15 @@ Dado un contexto (una zona, un público, un problema, un presupuesto), el asiste
 | `plantillas/02-plan-comercial.md` | Plantilla del plan de comercialización (venta, precio, canales, marca). |
 | `plantillas/03-plan-administrativo.md` | Plantilla del plan de operación y administración (costos, equipo, finanzas, riesgos). |
 
-Además, el asistente queda registrado como **subagente de Claude Code** en
-`.claude/agents/asistente-creativo.md`: dentro de este repositorio puedes pedirle a
-Claude Code que use el agente `asistente-creativo` para generar propuestas.
+Además, Kri-ai queda registrado como **subagente de Claude Code** en
+`.claude/agents/kri-ai.md`: dentro de este repositorio puedes pedirle a
+Claude Code que use el agente `kri-ai` para generar propuestas.
 
 ## Cómo usarlo
 
 ### Opción A — En Claude Code (este repo)
 
-> Usa el agente asistente-creativo: necesito una idea de negocio para un barrio
+> Usa el agente kri-ai: necesito una idea de negocio para un barrio
 > residencial con poca oferta de alimentos frescos, presupuesto inicial bajo.
 
 ### Opción B — En claude.ai u otra herramienta
@@ -45,10 +45,10 @@ Claude Code que use el agente `asistente-creativo` para generar propuestas.
 3. Pide una o varias propuestas. Guarda los resultados usando las plantillas de
    `plantillas/` para comparar ideas de forma ordenada.
 
-## Criterios que el asistente siempre aplica
+## Criterios que Kri-ai siempre aplica
 
 - **Necesidad real primero**: si la gente puede vivir sin el producto, la idea baja de prioridad.
 - **Prevalencia**: la demanda debe existir hoy y en 10 años.
-- **Comercialización concreta**: nada de "hacer marketing"; el asistente dice qué vender, a quién, a qué precio, por qué canal y con qué mensaje.
+- **Comercialización concreta**: nada de "hacer marketing"; Kri-ai dice qué vender, a quién, a qué precio, por qué canal y con qué mensaje.
 - **Administrable**: la propuesta incluye cómo operarla día a día con recursos realistas.
 - **Honestidad**: si una idea es débil, lo dice y explica por qué.

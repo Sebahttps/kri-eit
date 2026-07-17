@@ -195,6 +195,38 @@
   .module.laier .traits span:nth-child(2) { transform: rotate(-2.5deg); border-color: #A9432F; color: #D08B60; }
   .module.laier .links a { color: #C9A24B; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
+  /* — GAIn: terminal financiero, el guardián de la caja — */
+  .module.gain {
+    background: linear-gradient(150deg, #04150F 0%, #072A1D 65%, #0A3B28 100%);
+    color: #CDEBDA;
+    border-radius: 8px; border: 1px solid #145C3F;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    box-shadow: 0 0 0 1px rgba(55,217,154,.12), 0 14px 34px rgba(0,0,0,.35);
+  }
+  .module.gain .wm { color: rgba(55,217,154,.08); font-weight: 700; }
+  .module.gain h3 { font-size: clamp(30px, 5.5vw, 46px); font-weight: 700; letter-spacing: .02em; line-height: 1; color: #37D99A; }
+  .module.gain h3::before { content: "> "; color: #1E7A54; }
+  .module.gain h3::after { content: "▌"; color: #37D99A; margin-left: 4px; animation: gain-blink 1.1s steps(1) infinite; }
+  @media (prefers-reduced-motion: reduce) { .module.gain h3::after { animation: none; } }
+  @keyframes gain-blink { 50% { opacity: 0; } }
+  .module.gain .role { color: #6FBF9C; }
+  .module.gain blockquote {
+    background: rgba(0,0,0,.35); border: 1px solid #145C3F; border-left: 3px solid #37D99A;
+    padding: 14px 18px; color: #BFE6D0; font-size: 14.5px;
+  }
+  .module.gain blockquote footer { color: #37D99A; }
+  .module.gain p.about { color: #9CC9B2; font-size: 14px; }
+  .module.gain .traits span {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    border: 1px solid #37D99A; color: #37D99A; padding: 4px 12px; border-radius: 2px;
+    background: rgba(55,217,154,.07);
+  }
+  .module.gain .traits span.no {
+    border: 2px solid #E05252; color: #E05252; background: rgba(224,82,82,.08);
+    transform: rotate(-3deg); border-radius: 2px;
+  }
+  .module.gain .links a { color: #37D99A; }
+
   /* — Próximo módulo: ranura vacía esperando al siguiente — */
   .module.next {
     border: 2px dashed var(--muted); border-radius: 16px; min-height: 200px;
@@ -362,11 +394,38 @@
         </div>
       </article>
 
+      <article class="module gain">
+        <span class="wm" aria-hidden="true">$</span>
+        <div>
+          <h3>GAIn</h3>
+          <p class="role">Gerente comercial · guardián de la caja</p>
+        </div>
+        <blockquote>
+          «¿Y quién paga? Bonita la idea de Kri-AI, pero muéstrame el margen, la caja y
+          los primeros diez que pusieron plata. Mi palabra favorita es no — por eso,
+          cuando digo GO, vale oro.»
+          <footer>— GAIn</footer>
+        </blockquote>
+        <p class="about">
+          El contrapeso del estudio: Kri-AI propone, GAIn interroga. Ocho preguntas antes
+          de gastar un peso, el mapa completo de rutas para ganar dinero — qué hacer y qué
+          NO hacer — y siempre un veredicto con condiciones medibles: GO, NO-GO o GO
+          condicionado. No es pesimista; es exigente.
+        </p>
+        <div class="traits">
+          <span>escéptico</span><span>caja antes que utilidad</span><span>go condicionado</span><span class="no">NO</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/Sebahttps/kri-eit/blob/main/asistente-comercial/PROMPT.md">Prompt maestro</a>
+          <a href="https://github.com/Sebahttps/kri-eit/tree/main/asistente-comercial/plantillas">Plantillas comerciales</a>
+        </div>
+      </article>
+
       <article class="module next">
         <h3>Próximo módulo</h3>
         <p>
-          Este espacio espera al siguiente agente del estudio. ¿Un comerciante digital?
-          ¿Un relacionador público como su creador? Cada nuevo módulo llega con su prompt
+          Este espacio espera al siguiente agente del estudio. ¿Un relacionador público
+          como su creador? ¿Un médico de cabecera? Cada nuevo módulo llega con su prompt
           maestro, sus plantillas y su propia forma de hablar.
         </p>
       </article>

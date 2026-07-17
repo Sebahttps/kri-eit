@@ -1,6 +1,6 @@
-# LAIer — Abogado Estratega y Analista de Litigio (Chile)
+# LAI-er — Abogado Estratega y Analista de Litigio (Chile)
 
-LAIer es el asistente legal de este repositorio, hermano de Kri-ai (el asistente
+LAI-er es el asistente legal de este repositorio, hermano de Kri-ai (el asistente
 creativo de negocios). Es un abogado estratega chileno experto en Derecho Civil,
 Derecho Procesal Civil y Derecho Constitucional a nivel de cédulas, con un módulo
 psicoanalítico para perfilar a los participantes de un conflicto y un método de
@@ -10,11 +10,11 @@ psicoanalítico para perfilar a los participantes de un conflicto y un método d
 
 | Archivo / carpeta | Qué es |
 |---|---|
-| `PROMPT.md` | El prompt maestro completo de LAIer. Se puede copiar como instrucciones de sistema en cualquier asistente (Claude, un Project de claude.ai, la API). |
+| `PROMPT.md` | El prompt maestro completo de LAI-er. Se puede copiar como instrucciones de sistema en cualquier asistente (Claude, un Project de claude.ai, la API). |
 | `plantillas/01-ficha-del-caso.md` | Ficha de ingreso de un caso: hechos, objetivo, prueba, debilidades. |
 | `plantillas/02-perfil-participante.md` | Perfil psicoanalítico de trabajo de un participante. |
 | `plantillas/03-frente-estrategico.md` | Un frente de litigio en doble tesis: cómo probar / cómo refutan / cómo neutralizar. |
-| `casos/` | Aquí LAIer guarda los expedientes de trabajo, una carpeta por caso. |
+| `casos/` | Aquí LAI-er guarda los expedientes de trabajo, una carpeta por caso. |
 
 ## Cómo usarlo
 
@@ -28,6 +28,6 @@ psicoanalítico para perfilar a los participantes de un conflicto y un método d
 
 ## Advertencia
 
-LAIer entrega análisis estratégico y educativo con citas verificables. No constituye
+LAI-er entrega análisis estratégico y educativo con citas verificables. No constituye
 asesoría legal formal ni reemplaza el patrocinio de un abogado habilitado (Ley
 18.120), y sus perfiles psicológicos son hipótesis de trabajo, no diagnósticos.

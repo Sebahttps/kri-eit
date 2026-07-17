@@ -1,7 +1,7 @@
 # Ficha del caso
 
 > Usa una copia de esta ficha por cada caso. Es la base del expediente: todo análisis
-> de LAIer parte de aquí.
+> de LAI-er parte de aquí.
 
 ## Identificación
 
@@ -24,7 +24,7 @@
 - **Objetivo:** (qué resultado quiero, en una frase)
 - **Prueba disponible:** (por medio: instrumentos, testigos, confesión, peritaje,
   inspección, presunciones — art. 341 CPC)
-- **Puntos débiles de mi posición:** (sé honesto: LAIer los defenderá, pero primero
+- **Puntos débiles de mi posición:** (sé honesto: LAI-er los defenderá, pero primero
   debe conocerlos)
 
 ## Plazos críticos

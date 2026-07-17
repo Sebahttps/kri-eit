@@ -3,55 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="KRI-EIT — el estudio personal de Sebastián: agentes con personalidad propia como módulos de creación.">
-<title>KRI-EIT — Estudio de agentes</title>
+<meta name="description" content="KRI-EIT — el estudio de Sebastián Tapia Mena: agentes con personalidad propia como módulos de creación, desde Viña del Mar.">
+<title>KRI-EIT — El estudio de Sebastián Tapia Mena</title>
 </head>
 <body>
 <style>
   :root {
-    --bg: #EFEFEC;
-    --surface: #FAFAF7;
-    --line: #D6D6D0;
-    --ink: #1C1E22;
-    --ink-soft: #52555C;
-    --muted: #83868D;
-    --brand: #0E6E5F;
-    --brand-soft: #DDEBE6;
-    --kri: #B8641B;
-    --kri-soft: #F3E6D6;
+    --bg: #ECEAE5;
+    --surface: #F8F7F3;
+    --line: #D5D2CA;
+    --ink: #23262E;
+    --ink-soft: #555860;
+    --muted: #85878D;
+    --brand: #B4472F;
+    --brand-2: #D97E4A;
+    --brand-soft: #F2E1D8;
+    --kri: #A96313;
+    --kri-soft: #F1E5D0;
     --laier: #7C2B36;
-    --laier-soft: #F0E1E3;
-    --gold: #8F6F27;
-    --shadow: 0 1px 3px rgba(28,30,34,.07), 0 8px 24px rgba(28,30,34,.06);
+    --laier-soft: #EFE0E2;
+    --shadow: 0 1px 3px rgba(35,38,46,.08), 0 8px 24px rgba(35,38,46,.07);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #131417; --surface: #1C1E23; --line: #33363D;
-      --ink: #E9E7E1; --ink-soft: #B0B2AC; --muted: #7E8188;
-      --brand: #4FB3A0; --brand-soft: #1B2E2A;
-      --kri: #D89A55; --kri-soft: #322415;
+      --bg: #181B21; --surface: #21252D; --line: #363A44;
+      --ink: #E9E6DF; --ink-soft: #B2B0A9; --muted: #7F828A;
+      --brand: #E8845A; --brand-2: #F2B279; --brand-soft: #35251E;
+      --kri: #D89A55; --kri-soft: #322515;
       --laier: #C97883; --laier-soft: #33232A;
-      --gold: #CBA34D;
       --shadow: 0 1px 3px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.35);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #131417; --surface: #1C1E23; --line: #33363D;
-    --ink: #E9E7E1; --ink-soft: #B0B2AC; --muted: #7E8188;
-    --brand: #4FB3A0; --brand-soft: #1B2E2A;
-    --kri: #D89A55; --kri-soft: #322415;
+    --bg: #181B21; --surface: #21252D; --line: #363A44;
+    --ink: #E9E6DF; --ink-soft: #B2B0A9; --muted: #7F828A;
+    --brand: #E8845A; --brand-2: #F2B279; --brand-soft: #35251E;
+    --kri: #D89A55; --kri-soft: #322515;
     --laier: #C97883; --laier-soft: #33232A;
-    --gold: #CBA34D;
     --shadow: 0 1px 3px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.35);
   }
   :root[data-theme="light"] {
-    --bg: #EFEFEC; --surface: #FAFAF7; --line: #D6D6D0;
-    --ink: #1C1E22; --ink-soft: #52555C; --muted: #83868D;
-    --brand: #0E6E5F; --brand-soft: #DDEBE6;
-    --kri: #B8641B; --kri-soft: #F3E6D6;
-    --laier: #7C2B36; --laier-soft: #F0E1E3;
-    --gold: #8F6F27;
-    --shadow: 0 1px 3px rgba(28,30,34,.07), 0 8px 24px rgba(28,30,34,.06);
+    --bg: #ECEAE5; --surface: #F8F7F3; --line: #D5D2CA;
+    --ink: #23262E; --ink-soft: #555860; --muted: #85878D;
+    --brand: #B4472F; --brand-2: #D97E4A; --brand-soft: #F2E1D8;
+    --kri: #A96313; --kri-soft: #F1E5D0;
+    --laier: #7C2B36; --laier-soft: #EFE0E2;
+    --shadow: 0 1px 3px rgba(35,38,46,.08), 0 8px 24px rgba(35,38,46,.07);
   }
 
   * { box-sizing: border-box; }
@@ -65,10 +62,15 @@
   a { color: var(--brand); }
   ::selection { background: var(--brand-soft); }
 
-  /* ---------- Hero: entrada de diccionario ---------- */
-  header.hero { padding: clamp(56px, 12vh, 120px) 0 28px; border-bottom: 1px solid var(--line); }
-  .hero .entry { font-size: clamp(52px, 11vw, 116px); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; }
-  .hero .entry .dot { color: var(--brand); }
+  /* ---------- Hero: entrada de diccionario con sol poniente ---------- */
+  header.hero { padding: clamp(56px, 12vh, 120px) 0 0; }
+  .hero .entry { font-size: clamp(50px, 11vw, 116px); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 0; display: flex; align-items: center; flex-wrap: wrap; }
+  .hero .sun {
+    display: inline-block; width: .38em; height: .38em; border-radius: 50%;
+    margin: 0 .08em; transform: translateY(.06em);
+    background: radial-gradient(circle at 38% 32%, var(--brand-2), var(--brand) 70%);
+    box-shadow: 0 0 .35em color-mix(in srgb, var(--brand) 45%, transparent);
+  }
   .hero .phon {
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px;
     margin: 14px 0 0; font-size: 17px; color: var(--ink-soft);
@@ -79,6 +81,10 @@
   .hero .defs li { display: flex; gap: 14px; padding: 5px 0; font-size: clamp(16px, 2.2vw, 19px); }
   .hero .defs .n { color: var(--muted); font-variant-numeric: tabular-nums; flex: none; }
   .hero .defs em { color: var(--brand); font-style: italic; }
+  .horizon {
+    margin-top: 40px; height: 3px; border: none; border-radius: 3px;
+    background: linear-gradient(90deg, var(--brand-2), var(--brand) 45%, transparent 95%);
+  }
 
   /* ---------- Section scaffolding ---------- */
   section { padding: 56px 0 8px; }
@@ -86,7 +92,23 @@
   h2 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 14px; letter-spacing: -0.01em; text-wrap: balance; }
   .lede { color: var(--ink-soft); max-width: 64ch; margin: 0; }
 
-  /* ---------- Manifiesto ---------- */
+  /* ---------- El creador ---------- */
+  .bio { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; margin-top: 8px; }
+  @media (max-width: 820px) { .bio { grid-template-columns: 1fr; } }
+  .bio .story p { margin: 0 0 16px; color: var(--ink-soft); max-width: 60ch; }
+  .bio .story p strong { color: var(--ink); }
+  .bio .story .said {
+    font-size: clamp(19px, 2.6vw, 23px); color: var(--ink); line-height: 1.45;
+    border-left: 3px solid var(--brand); padding-left: 18px; margin: 0 0 20px; font-style: italic;
+  }
+  .facts { display: flex; flex-direction: column; gap: 10px; }
+  .facts div {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 16px; font-size: 14px; color: var(--ink-soft); box-shadow: var(--shadow);
+  }
+  .facts div strong { display: block; color: var(--ink); font-size: 14.5px; }
+
+  /* ---------- Lo que me mueve ---------- */
   .creed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
   @media (max-width: 760px) { .creed { grid-template-columns: 1fr; } }
   .creed article { border-top: 3px solid var(--brand); padding: 16px 4px 0; }
@@ -102,9 +124,7 @@
     box-shadow: var(--shadow); padding: 26px 26px 22px; display: flex; flex-direction: column; gap: 14px;
     position: relative; overflow: hidden;
   }
-  .module::after {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--acc);
-  }
+  .module::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--acc); }
   .module .head { display: flex; align-items: center; gap: 14px; }
   .module .sigil {
     width: 52px; height: 52px; border-radius: 12px; flex: none;
@@ -164,39 +184,70 @@
 
 <main>
   <header class="hero">
-    <h1 class="entry serif">kri<span class="dot">·</span>eit</h1>
+    <h1 class="entry serif">kri<span class="sun" aria-hidden="true"></span>eit</h1>
     <p class="phon">
-      <span class="ipa">/kri·éit/ — del inglés <i>create</i>, escrito como suena</span>
+      <span class="ipa">/kri·éit/ — del inglés <i>create</i>, escrito como suena (porque el inglés, todavía no)</span>
       <span class="pos">verbo transitivo</span>
     </p>
     <ol class="defs serif">
       <li><span class="n">1.</span><span>Dar existencia a algo que antes no existía.</span></li>
       <li><span class="n">2.</span><span>Resolver un problema real construyendo, no esperando.</span></li>
-      <li><span class="n">3.</span><span><em>fig.</em> Rodearse de agentes con personalidad propia para crear más y mejor.</span></li>
+      <li><span class="n">3.</span><span><em>fig.</em> Rodearse de agentes con personalidad propia para crear más, desde casa y con estilo.</span></li>
     </ol>
+    <hr class="horizon" aria-hidden="true">
   </header>
 
+  <section id="creador">
+    <p class="eyebrow">El creador</p>
+    <h2>Sebastián Ignacio de Jesús Tapia Mena</h2>
+    <div class="bio">
+      <div class="story">
+        <p class="said serif">«Nací pa' dentro, digo yo — era muy tímido de pequeño, y algo queda todavía. Pero la vida, tan curiosa, me llevó a estudiar comunicaciones.»</p>
+        <p>
+          Soy <strong>viñamarino</strong>: amante de los atardeceres, de la música fuerte en
+          los oídos y de un patín que me lleve por todo el borde costero — antes un skate,
+          hoy un scooter eléctrico. Vengo de una buena familia, y su valor principal no fue
+          el dinero: me criaron <strong>buenas personas</strong>, y reconozco eso en mí también.
+        </p>
+        <p>
+          Soy <strong>relacionador público</strong> y <strong>licenciado en comunicación
+          multimedia</strong>. He viajado por más de 30 países y la gente me percibe como
+          alguien singular — algunos dicen que exótico, por estos rasgos entre indios y
+          árabes. Desde niño fui del grupo que llama la atención sin buscarlo; de adulto,
+          eso se nota antes que el resto.
+        </p>
+        <p>
+          Soy sensible — otras veces no tanto — e intento ser práctico para casi todo.
+          Me <strong>fascina la IA</strong>, y este estudio es mi apuesta: volverme más
+          comerciante y ganarme la vida desde casa potenciando ese gusto, con estos
+          agentes como socios.
+        </p>
+      </div>
+      <aside class="facts" aria-label="Datos rápidos">
+        <div><strong>Base</strong>Viña del Mar, Chile — con el Pacífico de testigo</div>
+        <div><strong>Formación</strong>Relaciones Públicas · Lic. en Comunicación Multimedia</div>
+        <div><strong>Kilometraje</strong>30+ países recorridos (el inglés viene en camino)</div>
+        <div><strong>Rituales</strong>Atardeceres, música fuerte, borde costero en scooter</div>
+        <div><strong>Estilo</strong>Básicos bien usados: negro, azul marino, verde oscuro, gris marengo — y los colores del atardecer</div>
+      </aside>
+    </div>
+  </section>
+
   <section id="manifiesto">
-    <p class="eyebrow">El estudio</p>
-    <h2>Un estudio personal de creación</h2>
-    <p class="lede">
-      KRI-EIT es el taller de <strong>Sebastián</strong>: un lugar donde las ideas se toman en serio.
-      Aquí nacen negocios de primera necesidad, estrategias legales con cabeza fría y las
-      herramientas para llevarlas a cabo. Cada área del estudio la habita un agente con
-      identidad, método y voz propios — y la familia sigue creciendo.
-    </p>
+    <p class="eyebrow">Lo que me mueve</p>
+    <h2>Tres cosas que no se negocian</h2>
     <div class="creed">
       <article>
-        <h3>Necesidades reales</h3>
-        <p>Lo que se crea aquí resuelve problemas que la gente tiene todos los días, no modas pasajeras. Si no sirve en 10 años, no entra.</p>
+        <h3>Buena gente primero</h3>
+        <p>El valor que traigo de casa. Lo que se crea aquí se hace derecho: sin inflar cifras, sin vender humo, tratando bien a las personas.</p>
       </article>
       <article>
-        <h3>Honestidad brutal</h3>
-        <p>Las ideas débiles se dicen débiles, con respeto y fundamento. Cifras estimadas se declaran estimadas. Nada se infla.</p>
+        <h3>Práctico y sensible</h3>
+        <p>Cabeza fría para decidir y piel para percibir. Las ideas se evalúan con números concretos, pero se eligen las que le sirven a gente real.</p>
       </article>
       <article>
-        <h3>Del dicho al hecho</h3>
-        <p>Toda idea sale con su plan: cómo venderla, cómo administrarla, cómo defenderla. Nunca una ocurrencia suelta.</p>
+        <h3>Básicos con estilo</h3>
+        <p>Como en el vestir: pocas piezas, bien usadas, elegantes. Herramientas simples que lucen y duran — nada recargado, nada de moda pasajera.</p>
       </article>
     </div>
   </section>
@@ -204,7 +255,11 @@
   <section id="modulos">
     <p class="eyebrow">Los agentes</p>
     <h2>Módulos del estudio</h2>
-    <p class="lede">Cada agente es un módulo independiente: tiene su propio prompt maestro, sus plantillas de trabajo y su carácter. Se les habla como a personas, porque casi lo son.</p>
+    <p class="lede">
+      Cada agente es un módulo independiente: tiene su propio prompt maestro, sus plantillas
+      de trabajo y su carácter. Son el equipo con el que quiero comerciar desde casa —
+      se les habla como a personas, porque casi lo son.
+    </p>
 
     <div class="modules">
       <article class="module kri">
@@ -267,9 +322,9 @@
       <article class="module next">
         <h3>Próximo módulo</h3>
         <p>
-          Este espacio espera al siguiente agente del estudio. ¿Un médico de cabecera?
-          ¿Un arquitecto? ¿Un profesor? Cada nuevo módulo llega con su prompt maestro,
-          sus plantillas y su propia forma de hablar.
+          Este espacio espera al siguiente agente del estudio. ¿Un comerciante digital?
+          ¿Un relacionador público como su creador? Cada nuevo módulo llega con su prompt
+          maestro, sus plantillas y su propia forma de hablar.
         </p>
       </article>
     </div>
@@ -287,7 +342,7 @@
   </section>
 
   <footer class="foot">
-    <span>KRI-EIT · el estudio de Sebastián · Chile</span>
+    <span>KRI-EIT · el estudio de Sebastián Tapia Mena · Viña del Mar, Chile</span>
     <a href="https://github.com/Sebahttps/kri-eit">github.com/Sebahttps/kri-eit</a>
   </footer>
 </main>

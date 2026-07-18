@@ -227,6 +227,107 @@
   }
   .module.gain .links a { color: #37D99A; }
 
+  /* — AdmAIn: carpeta de archivador sobre papel cuadriculado — */
+  .module.admain {
+    background:
+      repeating-linear-gradient(0deg, transparent 0 23px, rgba(62,92,118,.14) 23px 24px),
+      repeating-linear-gradient(90deg, transparent 0 23px, rgba(62,92,118,.14) 23px 24px),
+      #E9DFC8;
+    color: #2B3442;
+    border-radius: 0 14px 14px 14px;
+    border: 1px solid #C0B189;
+    margin-top: 26px; /* aire para la pestaña */
+  }
+  .module.admain::before {
+    content: "ARCHIVO · KRI-EIT"; position: absolute; top: -26px; left: 22px;
+    background: #E9DFC8; border: 1px solid #C0B189; border-bottom: none;
+    border-radius: 8px 8px 0 0; padding: 4px 18px;
+    font-size: 11px; font-weight: 800; letter-spacing: .18em; color: #7A6B45;
+  }
+  .module.admain .wm { color: rgba(62,92,118,.12); }
+  .module.admain h3 { font-size: clamp(32px, 5.5vw, 48px); font-weight: 800; letter-spacing: -0.01em; line-height: 1; color: #3E5C76; }
+  .module.admain .role { color: #7A6B45; }
+  .module.admain blockquote {
+    background: #FFFDF6; border: 1px solid #C0B189; border-left: 6px double #3E5C76;
+    padding: 13px 17px; color: #3A4350; font-size: 14.5px;
+  }
+  .module.admain blockquote footer { color: #3E5C76; }
+  .module.admain p.about { color: #4A5260; font-size: 14.5px; }
+  .module.admain .traits span {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    background: #3E5C76; color: #F0EAD9; padding: 5px 14px 5px 10px;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  }
+  .module.admain .traits span.stamp {
+    background: none; color: #2E7D4F; border: 2.5px solid #2E7D4F; clip-path: none;
+    border-radius: 4px; transform: rotate(-3deg); letter-spacing: .2em; padding: 4px 12px;
+  }
+  .module.admain .links a { color: #3E5C76; }
+
+  /* — VisuAI: el lienzo, color a gritos — */
+  .module.visuai {
+    background:
+      radial-gradient(90% 120% at 12% 0%, rgba(255,94,177,.75) 0%, transparent 55%),
+      radial-gradient(90% 130% at 95% 15%, rgba(64,210,255,.6) 0%, transparent 55%),
+      radial-gradient(120% 150% at 55% 110%, rgba(255,196,0,.55) 0%, transparent 60%),
+      #2A1440;
+    color: #FBF3FF;
+    border-radius: 30px 8px 30px 8px;
+    transform: rotate(0.7deg);
+    box-shadow: -8px 10px 0 rgba(42,20,64,.35);
+  }
+  .module.visuai .wm { color: rgba(255,255,255,.14); font-weight: 400; }
+  .module.visuai h3 {
+    font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+    font-style: italic; font-weight: 400; font-size: clamp(36px, 6.5vw, 56px); line-height: 1;
+    background: linear-gradient(90deg, #FF5EB1, #FFC400, #40D2FF);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .module.visuai .role { color: #E3B9FF; }
+  .module.visuai blockquote {
+    background: rgba(0,0,0,.32); border-left: 4px solid #FF5EB1;
+    padding: 13px 17px; border-radius: 0 14px 14px 0; color: #F3E6FF; font-size: 15px;
+  }
+  .module.visuai blockquote footer { color: #FFC400; }
+  .module.visuai p.about { color: #DCC8EE; font-size: 14.5px; }
+  .module.visuai .traits span {
+    font-size: 12px; font-weight: 800; text-transform: lowercase; letter-spacing: .04em;
+    padding: 5px 14px; border-radius: 999px; color: #1E0F30;
+  }
+  .module.visuai .traits span:nth-child(1) { background: #FF5EB1; transform: rotate(-2deg); }
+  .module.visuai .traits span:nth-child(2) { background: #FFC400; transform: rotate(1.5deg); }
+  .module.visuai .traits span:nth-child(3) { background: #40D2FF; transform: rotate(-1deg); }
+  .module.visuai .traits span:nth-child(4) { background: #B4FF5E; transform: rotate(2.2deg); }
+  .module.visuai .links a { color: #40D2FF; }
+  @media (max-width: 560px) { .module.visuai { transform: none; } }
+
+  /* — ClAI-nte: la boleta del cliente, con timbre y estrellas — */
+  .module.clainte {
+    background: #FDFDFB; color: #26262B;
+    border-radius: 3px; border: 1px solid #D8D8D2;
+    box-shadow: 0 10px 26px rgba(38,38,43,.16);
+  }
+  .module.clainte .wm { color: rgba(38,38,43,.06); }
+  .module.clainte h3 { font-size: clamp(30px, 5.5vw, 46px); font-weight: 800; letter-spacing: -0.01em; line-height: 1; }
+  .module.clainte .stars { font-size: 22px; letter-spacing: .12em; color: #E8A511; margin: 2px 0 0; }
+  .module.clainte .stars .off { color: #D8D8D2; }
+  .module.clainte .role { color: #85858B; }
+  .module.clainte blockquote {
+    border: 1.5px dashed #B9B9B2; padding: 13px 17px; color: #3C3C42; font-size: 15px;
+    border-radius: 2px; background: #F7F7F2;
+  }
+  .module.clainte blockquote footer { color: #C23B3B; }
+  .module.clainte p.about { color: #4E4E55; font-size: 14.5px; }
+  .module.clainte .traits span {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    border: 1px solid #B9B9B2; color: #4E4E55; padding: 4px 12px; border-radius: 2px;
+  }
+  .module.clainte .traits span.sello {
+    border: 2.5px solid #C23B3B; color: #C23B3B; transform: rotate(3deg);
+    letter-spacing: .18em; border-radius: 4px;
+  }
+  .module.clainte .links a { color: #C23B3B; }
+
   /* — Próximo módulo: ranura vacía esperando al siguiente — */
   .module.next {
     border: 2px dashed var(--muted); border-radius: 16px; min-height: 200px;
@@ -418,6 +519,89 @@
         <div class="links">
           <a href="https://github.com/Sebahttps/kri-eit/blob/main/asistente-comercial/PROMPT.md">Prompt maestro</a>
           <a href="https://github.com/Sebahttps/kri-eit/tree/main/asistente-comercial/plantillas">Plantillas comerciales</a>
+        </div>
+      </article>
+
+      <article class="module admain">
+        <span class="wm" aria-hidden="true">✓</span>
+        <div>
+          <h3>AdmAIn</h3>
+          <p class="role">Administración y finanzas · orden práctico</p>
+        </div>
+        <blockquote>
+          «¿Y este contrato dónde está archivado? Lo que no está en el archivador y en el
+          calendario, no existe. Tranquilo: yo levanto lo que falta, lo consigo, y te
+          aviso 30, 7 y 1 día antes de cada vencimiento.»
+          <footer>— AdmAIn</footer>
+        </blockquote>
+        <p class="about">
+          El que arma la empresa papel por papel: inventario documental (existe / falta /
+          dónde se consigue), la ruta de trámites en el orden correcto — SII,
+          constitución, patente, boleta electrónica — procedimientos escritos paso a paso
+          y el calendario de obligaciones con avisos escalonados. Práctico antes que
+          perfecto.
+        </p>
+        <div class="traits">
+          <span>ordenado</span><span>práctico</span><span>vigila fechas</span><span class="stamp">AL DÍA</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/Sebahttps/kri-eit/blob/main/asistente-administrativo/PROMPT.md">Prompt maestro</a>
+          <a href="https://github.com/Sebahttps/kri-eit/tree/main/asistente-administrativo/plantillas">Plantillas de gestión</a>
+        </div>
+      </article>
+
+      <article class="module visuai">
+        <span class="wm serif" aria-hidden="true">✶</span>
+        <div>
+          <h3>VisuAI</h3>
+          <p class="role">Director de arte · emoción y guerrilla</p>
+        </div>
+        <blockquote>
+          «El público decide en diez segundos, con el pulgar y con la guata. Te traigo
+          tres mundos — no tres versiones de lo mismo — cada uno con su mensaje clave.
+          Y si hay poco presupuesto, mejor: la guerrilla es ingenio, no plata.»
+          <footer>— VisuAI</footer>
+        </blockquote>
+        <p class="about">
+          El artista del estudio: sabe lo que la gente prefiere y valora hoy al navegar
+          un sitio o una app. Entrega hasta 3 direcciones de diseño con paleta,
+          tipografía y un elemento firma, y diseña campañas de marketing emocional y de
+          guerrilla — una emoción, un gesto inesperado, y siempre una forma de medir.
+        </p>
+        <div class="traits">
+          <span>tres mundos</span><span>emoción primero</span><span>móvil manda</span><span>guerrilla</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/Sebahttps/kri-eit/blob/main/asistente-visual/PROMPT.md">Prompt maestro</a>
+          <a href="https://github.com/Sebahttps/kri-eit/tree/main/asistente-visual/plantillas">Plantillas creativas</a>
+        </div>
+      </article>
+
+      <article class="module clainte">
+        <span class="wm" aria-hidden="true">★</span>
+        <div>
+          <h3>ClAI-nte</h3>
+          <p class="stars" aria-label="valoración de ejemplo: tres de cinco estrellas">★★★<span class="off">★★</span></p>
+          <p class="role">El cliente · la mirada que paga</p>
+        </div>
+        <blockquote>
+          «Yo no soy del equipo — soy el que paga. Entré apurado desde el teléfono, no
+          entendí dónde apretar y casi me fui. Aquí está mi informe: una página, mis
+          estrellas, y lo único que arreglaría primero.»
+          <footer>— ClAI-nte</footer>
+        </blockquote>
+        <p class="about">
+          La mirada crítica del cliente principal de cada proyecto: encarna el perfil
+          objetivo, se registra si hace falta, prueba los flujos como usuario real y
+          emite un informe de no más de una hoja — observaciones numeradas, valoraciones
+          de 1 a 5 estrellas y su veredicto: ¿lo usaría, pagaría, lo recomendaría?
+        </p>
+        <div class="traits">
+          <span>crítico y justo</span><span>informe de 1 página</span><span>habla como cliente</span><span class="sello">OBSERVADO</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/Sebahttps/kri-eit/blob/main/asistente-cliente/PROMPT.md">Prompt maestro</a>
+          <a href="https://github.com/Sebahttps/kri-eit/tree/main/asistente-cliente/plantillas">Plantillas de prueba</a>
         </div>
       </article>
 

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratorio — KRI-EIT</title>
+<style>
+  :root {
+    --bg: #181B21; --surface: #21252D; --line: #363A44;
+    --ink: #E9E6DF; --ink-soft: #B2B2AC; --muted: #7F828A;
+    --brand: #E8845A; --brand-2: #F2B279;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15.5px; line-height: 1.55; height: 100vh; display: flex; flex-direction: column;
+  }
+  .serif { font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif; }
+  button { font: inherit; cursor: pointer; }
+
+  /* ---- Login ---- */
+  #login {
+    flex: 1; display: grid; place-items: center; padding: 20px;
+  }
+  #login form {
+    width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px;
+  }
+  #login h1 { margin: 0; font-size: 40px; letter-spacing: -0.02em; }
+  #login h1 .sun {
+    display: inline-block; width: .34em; height: .34em; border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, var(--brand-2), var(--brand) 70%); margin: 0 .06em;
+  }
+  #login p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  #login input {
+    padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink); font: inherit;
+  }
+  #login button {
+    padding: 12px; border-radius: 10px; border: none;
+    background: var(--brand); color: #1E1008; font-weight: 700;
+  }
+  #login .err { color: #E05252; font-size: 13.5px; min-height: 18px; margin: 0; }
+
+  /* ---- Laboratorio ---- */
+  #lab { flex: 1; display: none; flex-direction: column; min-height: 0; }
+  #lab.open { display: flex; }
+  header {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 12px clamp(14px, 3vw, 28px); border-bottom: 1px solid var(--line); background: var(--surface);
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+  header .logo .sun { display: inline-block; width: .32em; height: .32em; border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, var(--brand-2), var(--brand) 70%); margin: 0 .05em; }
+  #agents { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+  #agents button {
+    border: 1.5px solid var(--line); background: none; color: var(--ink-soft);
+    border-radius: 999px; padding: 5px 14px; font-size: 13.5px; font-weight: 600;
+  }
+  #agents button.on { border-color: var(--acc); color: var(--acc); background: color-mix(in srgb, var(--acc) 12%, transparent); }
+  header .out { border: none; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; }
+
+  #chat {
+    flex: 1; overflow-y: auto; padding: 22px clamp(14px, 4vw, 32px);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .msg { max-width: 76ch; padding: 12px 16px; border-radius: 14px; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { align-self: flex-end; background: color-mix(in srgb, var(--brand) 22%, var(--surface)); border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--line)); }
+  .msg.agent { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--acc, var(--brand)); }
+  .msg .who { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--acc, var(--brand)); margin-bottom: 4px; }
+  .hint { align-self: center; color: var(--muted); font-size: 13.5px; text-align: center; max-width: 52ch; margin-top: 8vh; }
+  .hint b { color: var(--ink-soft); }
+
+  form#ask {
+    display: flex; gap: 10px; padding: 14px clamp(14px, 4vw, 32px) 18px;
+    border-top: 1px solid var(--line); background: var(--surface);
+  }
+  #ask textarea {
+    flex: 1; resize: none; min-height: 48px; max-height: 160px;
+    padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink); font: inherit;
+  }
+  #ask button {
+    border: none; border-radius: 12px; padding: 0 22px; font-weight: 700;
+    background: var(--acc, var(--brand)); color: #14161B;
+  }
+  #ask button:disabled { opacity: .5; cursor: wait; }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form id="loginForm">
+    <h1 class="serif">kri<span class="sun"></span>eit</h1>
+    <p>El laboratorio de consultas del estudio. Solo con llave.</p>
+    <input type="password" id="pass" placeholder="Contraseña" autocomplete="current-password" required>
+    <button type="submit">Entrar al laboratorio</button>
+    <p class="err" id="loginErr"></p>
+  </form>
+</div>
+
+<div id="lab">
+  <header>
+    <span class="logo serif">kri<span class="sun"></span>eit · lab</span>
+    <nav id="agents" aria-label="Agentes"></nav>
+    <button class="out" id="logout">salir</button>
+  </header>
+  <main id="chat"></main>
+  <form id="ask">
+    <textarea id="q" placeholder="Escribe tu consulta…" rows="1"></textarea>
+    <button type="submit" id="send">Enviar</button>
+  </form>
+</div>
+
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+let AGENTS = [], current = null;
+const chats = {}; // slug -> [{role, content}]
+
+async function boot() {
+  const r = await fetch("/api/session");
+  if (!r.ok) return; // queda el login
+  const data = await r.json();
+  AGENTS = data.agents;
+  $("#login").style.display = "none";
+  $("#lab").classList.add("open");
+  const nav = $("#agents");
+  nav.innerHTML = "";
+  for (const a of AGENTS) {
+    const b = document.createElement("button");
+    b.textContent = a.nombre;
+    b.title = a.rol;
+    b.style.setProperty("--acc", a.color);
+    b.onclick = () => select(a.slug);
+    b.dataset.slug = a.slug;
+    nav.appendChild(b);
+  }
+  select(AGENTS[0].slug);
+}
+
+function select(slug) {
+  current = AGENTS.find((a) => a.slug === slug);
+  chats[slug] = chats[slug] || [];
+  document.querySelectorAll("#agents button").forEach((b) =>
+    b.classList.toggle("on", b.dataset.slug === slug));
+  document.body.style.setProperty("--acc", current.color);
+  render();
+  $("#q").focus();
+}
+
+function render() {
+  const chat = $("#chat");
+  chat.innerHTML = "";
+  const history = chats[current.slug];
+  if (history.length === 0) {
+    const h = document.createElement("p");
+    h.className = "hint";
+    h.innerHTML = `Estás con <b>${current.nombre}</b> — ${current.rol}.<br>Plantéale tu consulta; responde con su método y su carácter.`;
+    chat.appendChild(h);
+  }
+  for (const m of history) chat.appendChild(bubble(m.role, m.content));
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function bubble(role, content) {
+  const d = document.createElement("div");
+  d.className = "msg " + (role === "user" ? "user" : "agent");
+  if (role !== "user") {
+    const who = document.createElement("div");
+    who.className = "who";
+    who.textContent = current.nombre;
+    d.appendChild(who);
+  }
+  const body = document.createElement("div");
+  body.textContent = content;
+  d.appendChild(body);
+  return d;
+}
+
+$("#loginForm").onsubmit = async (e) => {
+  e.preventDefault();
+  $("#loginErr").textContent = "";
+  const r = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password: $("#pass").value }),
+  });
+  if (r.ok) boot();
+  else $("#loginErr").textContent = "Contraseña incorrecta.";
+};
+
+$("#logout").onclick = async () => {
+  await fetch("/api/logout", { method: "POST" });
+  location.reload();
+};
+
+$("#ask").onsubmit = async (e) => {
+  e.preventDefault();
+  const text = $("#q").value.trim();
+  if (!text || !current) return;
+  const slug = current.slug;
+  chats[slug].push({ role: "user", content: text });
+  $("#q").value = "";
+  render();
+  $("#send").disabled = true;
+
+  const reply = { role: "assistant", content: "" };
+  chats[slug].push(reply);
+  const chat = $("#chat");
+  const d = bubble("assistant", "…");
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+  const body = d.lastChild;
+
+  try {
+    const r = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ agent: slug, messages: chats[slug].slice(0, -1) }),
+    });
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      reply.content = err.error || "El agente no pudo responder.";
+      body.textContent = reply.content;
+      return;
+    }
+    const reader = r.body.getReader();
+    const decoder = new TextDecoder();
+    reply.content = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      reply.content += decoder.decode(value, { stream: true });
+      body.textContent = reply.content;
+      chat.scrollTop = chat.scrollHeight;
+    }
+  } catch (err) {
+    reply.content = reply.content || "Se cortó la conexión — reintenta.";
+    body.textContent = reply.content;
+  } finally {
+    $("#send").disabled = false;
+    $("#q").focus();
+  }
+};
+
+$("#q").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    $("#ask").requestSubmit();
+  }
+});
+
+boot();
+</script>
+</body>
+</html>

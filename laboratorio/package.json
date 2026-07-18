@@ -1,0 +1,16 @@
+{
+  "name": "kri-eit-laboratorio",
+  "version": "1.0.0",
+  "description": "El laboratorio de consultas del estudio KRI-EIT: login y chat en vivo con los agentes del estudio.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.112.3",
+    "express": "^4.21.0"
+  }
+}

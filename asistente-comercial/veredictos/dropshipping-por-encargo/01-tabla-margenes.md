@@ -24,6 +24,11 @@ mercado declaradas** (típico: costo mayorista ≈ 50-60% del precio calle); la 
 - **Vía Dropi con contra entrega**: la plataforma descuenta ~5% de comisión + flete
   según producto → recalcular margen por producto en su catálogo antes de publicar.
 
+> **Actualización 2026-07-19:** Sebastián aportó una planilla con ~95 mayoristas
+> reales con WhatsApp — ver `asistente-administrativo/gestion/dropshipping-por-encargo/directorio-proveedores.md`,
+> sección PRIMERA OLA (20 proveedores de hogar para cotizar hoy). Las plataformas de
+> abajo se mantienen como complemento.
+
 ## Dónde cotizar hoy (proveedores reales encontrados por el estudio — verificar precios y condiciones al contactar)
 
 | Proveedor | Qué es | Clave |

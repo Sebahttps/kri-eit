@@ -7,7 +7,7 @@
 | ✔ | Paso | Material |
 |---|---|---|
 | ☐ | Registrarse gratis en Dropi (dropi.cl) y buscar los 10 productos del catálogo | tabla de GAIn |
-| ☐ | Enviar el mensaje de cotización a Chile Mayoristas, Meibo, Doral y Zaga | kit de venta §1 (Kri-AI) |
+| ☐ | Enviar el mensaje de cotización a la PRIMERA OLA del directorio (20 proveedores de hogar con WhatsApp) + Chile Mayoristas, Meibo, Doral y Zaga | directorio-proveedores.md + kit de venta §1 |
 | ☐ | Crear WhatsApp Business (gratis) con nombre "Al Tiro Store", foto y catálogo | — |
 | ☐ | Crear planilla de caja (Google Sheets): fecha · producto · canal · ingreso · costo · envío · margen | — |
 

@@ -1,0 +1,132 @@
+# Despliegue en producción
+
+Guía para levantar el sistema completo en un VPS con Docker Compose y HTTPS
+automático (Caddy + Let's Encrypt). Todo lo que se usa aquí vive en `infra/`:
+`docker-compose.prod.yml`, `Caddyfile` y `.env.prod.example`.
+
+## Requisitos
+
+- VPS Linux con **4 GB de RAM** o más (DigitalOcean, Hetzner, Vultr, etc.),
+  con los puertos **80 y 443** abiertos.
+- **Docker Engine + Docker Compose v2** instalados
+  (`curl -fsSL https://get.docker.com | sh`).
+- Un dominio con **tres registros A** apuntando a la IP del servidor, p. ej.:
+  - `tienda.tudominio.cl` → tienda B2C
+  - `panel.tudominio.cl` → dashboard del Supervisor
+  - `api.tudominio.cl` → gateway de negocio (webhooks de carriers y WebSocket)
+- Una clave de la API de Anthropic (para los dos agentes IA).
+
+## 1. Clonar y configurar
+
+```bash
+git clone https://github.com/Sebahttps/kri-eit.git
+cd kri-eit/dropshipping-ai/infra
+cp .env.prod.example .env.prod
+```
+
+Editar `.env.prod` y completar todas las variables. Los tres secretos son
+obligatorios — el compose se niega a arrancar si falta alguno:
+
+| Variable | Cómo generarla |
+|---|---|
+| `POSTGRES_PASSWORD` | `openssl rand -hex 24` |
+| `ANTHROPIC_API_KEY` | https://console.anthropic.com |
+| `BUSINESS_JWT_SECRET` | `openssl rand -hex 32` |
+| `STORE_DOMAIN` / `DASHBOARD_DOMAIN` / `API_DOMAIN` | tus subdominios (sin `https://`) |
+| `ACME_EMAIL` | email para avisos de Let's Encrypt |
+
+## 2. Levantar
+
+```bash
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+```
+
+La primera vez tarda unos minutos: construye las 4 imágenes, inicializa
+PostgreSQL (schema + triggers de las 5 promesas + seeds) y Caddy emite los
+certificados HTTPS. Verificar:
+
+```bash
+docker compose -f docker-compose.prod.yml --env-file .env.prod ps    # todo "Up"
+curl -I https://tienda.tudominio.cl                                   # 200 con TLS
+```
+
+Diferencias con el compose de desarrollo: los secretos no tienen valores por
+defecto, y **ningún servicio interno publica puertos** — postgres, redis, la
+API de agentes (8000), el gateway (4000) y las dos apps Next solo son
+accesibles dentro de la red de Docker; el único punto de entrada es Caddy
+(80/443).
+
+## 3. Endurecer antes de recibir tráfico real
+
+### Cambiar la contraseña del Supervisor
+
+El seed crea el supervisor con la contraseña de prueba `supervisor123`.
+No hay endpoint de cambio de contraseña, así que se actualiza directo en la
+base de datos:
+
+```bash
+cd kri-eit/dropshipping-ai/infra
+
+# 1. Generar el hash bcrypt de la nueva contraseña
+docker compose -f docker-compose.prod.yml --env-file .env.prod exec business-api \
+  node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 10))" 'TuNuevaClaveSegura'
+
+# 2. Guardarlo (pegar el hash del paso anterior)
+docker compose -f docker-compose.prod.yml --env-file .env.prod exec postgres \
+  psql -U dropship -d dropship \
+  -c "UPDATE supervisors SET password_hash = '<hash>' WHERE email = 'sebastianmenat@gmail.com';"
+```
+
+### Backups diarios de PostgreSQL
+
+La base de datos es el corazón del sistema (pedidos, garantías, retractos,
+auditoría de los agentes). Programar un dump diario:
+
+```bash
+crontab -e
+# Todos los días a las 03:30, conservando 14 días:
+30 3 * * * cd /ruta/a/kri-eit/dropshipping-ai/infra && docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T postgres pg_dump -U dropship dropship | gzip > /var/backups/dropship-$(date +\%F).sql.gz && find /var/backups -name 'dropship-*.sql.gz' -mtime +14 -delete
+```
+
+Idealmente, copiar además los dumps fuera del servidor (rclone a S3/Backblaze).
+
+### Datos reales en vez de seeds
+
+- **No aplicar `db/seed-demo.sql`** en producción: son 30 días de datos
+  ficticios solo para probar el dashboard.
+- Cargar los **proveedores B2B reales** (tabla `suppliers`): el Agente
+  Back-Office verifica stock contra la URL/API configurada en cada proveedor.
+- Revisar el **umbral de autonomía** del agente (monto sobre el cual pide
+  aprobación al Supervisor en vez de emitir la OC solo).
+
+### Webhooks de carriers
+
+Configurar en el courier (Chilexpress, Starken, etc.) la URL
+`https://api.tudominio.cl/webhooks/carrier` para que el seguimiento en tiempo
+real (promesa c) y la activación automática de garantía y retracto al entregar
+(promesas d y e) funcionen con envíos reales.
+
+## 4. Operación
+
+```bash
+# Actualizar a una nueva versión del código
+git pull && docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+
+# Logs de un servicio
+docker compose -f docker-compose.prod.yml --env-file .env.prod logs -f agents-service
+
+# Restaurar un backup (con el stack detenido salvo postgres)
+gunzip -c dropship-2026-07-25.sql.gz | docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T postgres psql -U dropship dropship
+```
+
+Los servicios tienen `restart: unless-stopped`, así que sobreviven reinicios
+del servidor. Los certificados HTTPS se renuevan solos.
+
+## Alternativa: plataformas gestionadas
+
+Si prefieres no administrar un VPS: dashboard y tienda en **Vercel**, y
+agentes + gateway + Postgres + Redis en **Railway/Render**. Requiere ajustar
+`AGENTS_API_URL` / `BUSINESS_API_URL` / `BUSINESS_CORS_ORIGIN` a las URLs
+públicas entre plataformas. El VPS con este compose es la vía con menos
+fricción porque replica exactamente la topología con la que el sistema fue
+probado de punta a punta.

@@ -51,6 +51,21 @@ ANTHROPIC_API_KEY=sk-... docker compose up --build
 Para ver el dashboard con datos de ejemplo, aplica además `db/seed-demo.sql`
 (30 días de pedidos, tickets y una sugerencia pendiente).
 
+## Correr en producción
+
+Hay un compose endurecido (`infra/docker-compose.prod.yml`): secretos
+obligatorios vía `.env.prod`, servicios internos sin puertos publicados y
+Caddy como único punto de entrada con HTTPS automático.
+
+```bash
+cd infra
+cp .env.prod.example .env.prod   # completar secretos y dominios
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+```
+
+Guía completa (DNS, backups, contraseña del Supervisor, webhooks de
+carriers): [`docs/deploy-production.md`](docs/deploy-production.md).
+
 ## Flujo de un pedido
 
 ```

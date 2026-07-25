@@ -1,0 +1,93 @@
+## Producción: secretos obligatorios vía .env (sin defaults), servicios internos
+## sin puertos publicados y Caddy como único punto de entrada (HTTPS automático).
+## Uso:  docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+## Guía completa: ../docs/deploy-production.md
+
+name: dropship
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dropship
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?definir en .env.prod}
+      POSTGRES_DB: dropship
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ../db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ../db/migrations/001_notify_events.sql:/docker-entrypoint-initdb.d/03-notify.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dropship -d dropship"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  agents-service:
+    build: ../apps/agents-service
+    restart: unless-stopped
+    environment:
+      AGENTS_DATABASE_URL: postgresql://dropship:${POSTGRES_PASSWORD}@postgres:5432/dropship
+      AGENTS_REDIS_URL: redis://redis:6379/0
+      AGENTS_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?definir en .env.prod}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  business-api:
+    build: ../apps/business-api
+    restart: unless-stopped
+    environment:
+      BUSINESS_DATABASE_URL: postgresql://dropship:${POSTGRES_PASSWORD}@postgres:5432/dropship
+      AGENTS_API_URL: http://agents-service:8000
+      BUSINESS_JWT_SECRET: ${BUSINESS_JWT_SECRET:?definir en .env.prod}
+      BUSINESS_CORS_ORIGIN: https://${STORE_DOMAIN},https://${DASHBOARD_DOMAIN}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      agents-service:
+        condition: service_started
+
+  dashboard:
+    build: ../apps/dashboard
+    restart: unless-stopped
+    environment:
+      AGENTS_API_URL: http://agents-service:8000
+    depends_on: [agents-service]
+
+  store:
+    build: ../apps/store
+    restart: unless-stopped
+    environment:
+      BUSINESS_API_URL: http://business-api:4000
+      AGENTS_API_URL: http://agents-service:8000
+    depends_on: [business-api]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      STORE_DOMAIN: ${STORE_DOMAIN:?definir en .env.prod}
+      DASHBOARD_DOMAIN: ${DASHBOARD_DOMAIN:?definir en .env.prod}
+      API_DOMAIN: ${API_DOMAIN:?definir en .env.prod}
+      ACME_EMAIL: ${ACME_EMAIL:?definir en .env.prod}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [store, dashboard, business-api]
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

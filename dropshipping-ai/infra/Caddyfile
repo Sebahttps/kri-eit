@@ -1,0 +1,22 @@
+# Reverse proxy de producción. Los dominios y el email ACME vienen de .env.prod
+# (ver docker-compose.prod.yml). Caddy emite y renueva los certificados solo,
+# y proxya WebSocket sin configuración extra.
+
+{
+	email {$ACME_EMAIL}
+}
+
+# Tienda B2C (pública)
+{$STORE_DOMAIN} {
+	reverse_proxy store:3001
+}
+
+# Dashboard del Supervisor (protegido por el login de la app)
+{$DASHBOARD_DOMAIN} {
+	reverse_proxy dashboard:3000
+}
+
+# Gateway de negocio: REST + WebSocket /eventos + webhooks de carriers
+{$API_DOMAIN} {
+	reverse_proxy business-api:4000
+}

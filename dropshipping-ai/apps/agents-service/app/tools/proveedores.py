@@ -71,7 +71,10 @@ async def verificar_stock(product_id: UUID, cantidad_pedida: int = 1) -> Resulta
     r = get_redis()
 
     t0 = time.perf_counter()
-    cached = await r.get(cache_key)
+    try:
+        cached = await r.get(cache_key)
+    except Exception:
+        cached = None      # caché best-effort: sin Redis se consulta directo al proveedor
     if cached:
         data = json.loads(cached)
         return ResultadoStock(
@@ -105,8 +108,11 @@ async def verificar_stock(product_id: UUID, cantidad_pedida: int = 1) -> Resulta
            VALUES ($1, $2, $3, $4, $5, $6) RETURNING id""",
         product_id, row["supplier_id"], en_stock, cantidad, latencia_ms, row["modo"],
     )
-    await r.set(cache_key, json.dumps({"en_stock": en_stock, "cantidad": cantidad}),
-                ex=settings.stock_cache_ttl_seg)
+    try:
+        await r.set(cache_key, json.dumps({"en_stock": en_stock, "cantidad": cantidad}),
+                    ex=settings.stock_cache_ttl_seg)
+    except Exception:
+        pass               # sin caché el sistema sigue funcionando, solo más lento
     await audit("back_office", "stock_verificado", "products", str(product_id),
                 {"en_stock": en_stock, "cantidad": cantidad, "latencia_ms": latencia_ms})
 

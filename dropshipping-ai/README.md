@@ -18,9 +18,9 @@ que solo aprueba decisiones críticas.
 ```
 apps/
   agents-service/   FastAPI + LangGraph (Python)  — los dos agentes + KPIs
-  business-api/     NestJS (pendiente)            — auth, pagos, WS
+  business-api/     NestJS                        — auth, pedidos/pagos, webhooks, WS
   dashboard/        Next.js                       — panel del Supervisor
-db/                 schema.sql + seed.sql + seed-demo.sql (PostgreSQL 16)
+db/                 schema.sql + seeds + migrations (PostgreSQL 16)
 infra/              docker-compose (postgres, redis, agents-service)
 packages/
   shared-types/     contratos compartidos (se generan del OpenAPI del servicio)
@@ -42,6 +42,7 @@ packages/
 cd infra
 ANTHROPIC_API_KEY=sk-... docker compose up --build
 # Dashboard del Supervisor:                http://localhost:3000
+# Gateway de negocio (REST + WebSocket):   http://localhost:4000
 # API de agentes + OpenAPI interactivo:    http://localhost:8000/docs
 ```
 

@@ -10,6 +10,7 @@ services:
       - pgdata:/var/lib/postgresql/data
       - ../db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
       - ../db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ../db/migrations/001_notify_events.sql:/docker-entrypoint-initdb.d/03-notify.sql:ro
 
   redis:
     image: redis:7-alpine
@@ -23,6 +24,16 @@ services:
       AGENTS_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?definir en .env}
     ports: ["8000:8000"]
     depends_on: [postgres, redis]
+
+  business-api:
+    build: ../apps/business-api
+    environment:
+      BUSINESS_DATABASE_URL: postgresql://dropship:dropship@postgres:5432/dropship
+      AGENTS_API_URL: http://agents-service:8000
+      BUSINESS_JWT_SECRET: ${BUSINESS_JWT_SECRET:-dev-secret-cambiar-en-produccion}
+      BUSINESS_CORS_ORIGIN: http://localhost:3000
+    ports: ["4000:4000"]
+    depends_on: [postgres, agents-service]
 
   dashboard:
     build: ../apps/dashboard

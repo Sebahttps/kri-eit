@@ -12,7 +12,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from .db import close_pool, get_pool
-from .routers import aprobaciones, back_office, front_office
+from .routers import aprobaciones, back_office, front_office, kpis
 
 
 @asynccontextmanager
@@ -31,6 +31,7 @@ app = FastAPI(
 app.include_router(front_office.router)
 app.include_router(back_office.router)
 app.include_router(aprobaciones.router)
+app.include_router(kpis.router)
 
 
 @app.get("/health", tags=["infra"])

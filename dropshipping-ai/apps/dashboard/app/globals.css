@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Paleta de referencia validada (dataviz skill) expresada por rol.
+   Los valores RGB sin envolver permiten <alpha-value> en Tailwind. */
+:root {
+  color-scheme: light;
+  --surface: 252 252 251;   /* #fcfcfb superficie de gráficos/tarjetas */
+  --plane: 249 249 247;     /* #f9f9f7 plano de página */
+  --ink: 11 11 11;          /* #0b0b0b tinta primaria */
+  --ink-2: 82 81 78;        /* #52514e tinta secundaria */
+  --muted: 137 135 129;     /* #898781 ejes y etiquetas */
+  --grid: 225 224 217;      /* #e1e0d9 gridline */
+
+  --series-1: #2a78d6;      /* azul — serie principal */
+  --series-2: #eb6834;      /* naranjo — serie secundaria */
+  --series-3: #1baf7a;      /* aqua — tercera serie */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+  --delta-good: #006300;    /* texto de éxito sobre superficie clara */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface: 26 26 25;    /* #1a1a19 */
+    --plane: 13 13 13;      /* #0d0d0d */
+    --ink: 255 255 255;
+    --ink-2: 195 194 183;   /* #c3c2b7 */
+    --muted: 137 135 129;
+    --grid: 44 44 42;       /* #2c2c2a */
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --delta-good: #0ca30c;
+  }
+}
+
+body {
+  @apply bg-plane text-ink;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.card {
+  @apply rounded-xl bg-surface p-5 shadow-sm;
+  border: 1px solid rgb(var(--ink) / 0.1);
+}
+
+.tabular { font-variant-numeric: tabular-nums; }

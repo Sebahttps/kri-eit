@@ -24,5 +24,12 @@ services:
     ports: ["8000:8000"]
     depends_on: [postgres, redis]
 
+  dashboard:
+    build: ../apps/dashboard
+    environment:
+      AGENTS_API_URL: http://agents-service:8000
+    ports: ["3000:3000"]
+    depends_on: [agents-service]
+
 volumes:
   pgdata:

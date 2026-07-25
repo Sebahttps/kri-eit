@@ -1,6 +1,8 @@
 -- Datos de ejemplo para desarrollo local
-INSERT INTO supervisors (email, nombre, password_hash)
-VALUES ('sebastianmenat@gmail.com', 'Supervisor', '$argon2id$PLACEHOLDER');
+-- UUID fijo: el dashboard lo usa como identidad por defecto hasta que
+-- el gateway (business-api) implemente auth real.
+INSERT INTO supervisors (id, email, nombre, password_hash)
+VALUES ('00000000-0000-0000-0000-000000000001', 'sebastianmenat@gmail.com', 'Supervisor', '$argon2id$PLACEHOLDER');
 
 INSERT INTO suppliers (id, nombre, modo, base_url, latencia_media_ms, confiabilidad) VALUES
   ('11111111-1111-1111-1111-111111111111', 'MayoristaExpress', 'api',      'https://api.mayoristaexpress.example', 120, 0.98),

@@ -17,10 +17,10 @@ que solo aprueba decisiones críticas.
 
 ```
 apps/
-  agents-service/   FastAPI + LangGraph (Python)  — los dos agentes
-  business-api/     NestJS (Paso 4)               — gateway de negocio + WS
-  dashboard/        Next.js (Paso 4)              — panel del Supervisor
-db/                 schema.sql + seed.sql (PostgreSQL 16)
+  agents-service/   FastAPI + LangGraph (Python)  — los dos agentes + KPIs
+  business-api/     NestJS (pendiente)            — auth, pagos, WS
+  dashboard/        Next.js                       — panel del Supervisor
+db/                 schema.sql + seed.sql + seed-demo.sql (PostgreSQL 16)
 infra/              docker-compose (postgres, redis, agents-service)
 packages/
   shared-types/     contratos compartidos (se generan del OpenAPI del servicio)
@@ -41,8 +41,12 @@ packages/
 ```bash
 cd infra
 ANTHROPIC_API_KEY=sk-... docker compose up --build
-# API de agentes + OpenAPI interactivo: http://localhost:8000/docs
+# Dashboard del Supervisor:                http://localhost:3000
+# API de agentes + OpenAPI interactivo:    http://localhost:8000/docs
 ```
+
+Para ver el dashboard con datos de ejemplo, aplica además `db/seed-demo.sql`
+(30 días de pedidos, tickets y una sugerencia pendiente).
 
 ## Flujo de un pedido
 

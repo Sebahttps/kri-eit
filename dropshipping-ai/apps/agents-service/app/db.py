@@ -9,10 +9,16 @@ from .config import settings
 _pool: asyncpg.Pool | None = None
 
 
+async def _init_conn(conn: asyncpg.Connection) -> None:
+    # jsonb <-> dict transparente en ambos sentidos
+    await conn.set_type_codec("jsonb", encoder=json.dumps, decoder=json.loads, schema="pg_catalog")
+
+
 async def get_pool() -> asyncpg.Pool:
     global _pool
     if _pool is None:
-        _pool = await asyncpg.create_pool(settings.database_url, min_size=2, max_size=10)
+        _pool = await asyncpg.create_pool(settings.database_url, min_size=2, max_size=10,
+                                          init=_init_conn)
     return _pool
 
 
@@ -30,5 +36,5 @@ async def audit(agente: str, accion: str, entidad: str | None = None,
     await pool.execute(
         """INSERT INTO agent_actions (agente, accion, entidad, entidad_id, detalle)
            VALUES ($1, $2, $3, $4, $5::jsonb)""",
-        agente, accion, entidad, entidad_id, json.dumps(detalle or {}),
+        agente, accion, entidad, entidad_id, detalle or {},
     )

@@ -1,5 +1,4 @@
 """API del Agente Back-Office (B2B): verificación de stock y órdenes de compra."""
-import json
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, HTTPException
@@ -77,7 +76,7 @@ async def emitir_orden_compra(req: PurchaseOrderRequest) -> PurchaseOrderRespons
         suggestion_id = await pool.fetchval(
             """INSERT INTO ai_suggestions (agente, tipo, titulo, detalle, thread_id)
                VALUES ('back_office', $1, $2, $3::jsonb, $4) RETURNING id""",
-            payload["tipo"], payload["titulo"], json.dumps(payload), thread_id)
+            payload["tipo"], payload["titulo"], payload, thread_id)
         await audit("back_office", "sugerencia_creada", "ai_suggestions", str(suggestion_id), payload)
         return PurchaseOrderResponse(
             status="pendiente_aprobacion", suggestion_id=suggestion_id,

@@ -60,9 +60,9 @@ accesibles dentro de la red de Docker; el único punto de entrada es Caddy
 
 ### Cambiar la contraseña del Supervisor
 
-El seed crea el supervisor con la contraseña de prueba `supervisor123`.
-No hay endpoint de cambio de contraseña, así que se actualiza directo en la
-base de datos:
+El seed crea el supervisor con una contraseña que no está en el repo (solo su
+hash bcrypt). Aun así conviene rotarla al desplegar. No hay endpoint de cambio
+de contraseña, así que se actualiza directo en la base de datos:
 
 ```bash
 cd kri-eit/dropshipping-ai/infra

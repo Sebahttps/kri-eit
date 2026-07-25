@@ -33,4 +33,7 @@ BUSINESS_DATABASE_URL=postgresql://... AGENTS_API_URL=http://localhost:8000 npm 
 Variables: `BUSINESS_DATABASE_URL`, `AGENTS_API_URL`, `BUSINESS_JWT_SECRET`
 (obligatoria en producción), `BUSINESS_CORS_ORIGIN`, `PORT`.
 
-Credenciales de desarrollo del seed: `sebastianmenat@gmail.com` / `supervisor123`.
+El seed crea el supervisor `sebastianmenat@gmail.com`; la contraseña no está en
+el repo (solo su hash bcrypt en `db/seed.sql`). Para usar la tuya en desarrollo,
+genera un hash y reemplázalo (ver `docs/deploy-production.md`, sección
+"Cambiar la contraseña del Supervisor").

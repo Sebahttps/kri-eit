@@ -1,9 +1,10 @@
 -- Datos de ejemplo para desarrollo local
--- UUID fijo (identidad por defecto del dashboard). Contraseña de desarrollo:
--- 'supervisor123' — cambiarla en producción vía business-api.
+-- UUID fijo (identidad por defecto del dashboard). La contraseña no está en el
+-- repo, solo su hash bcrypt; para usar la tuya, genera un hash y reemplázalo
+-- (ver docs/deploy-production.md, sección "Cambiar la contraseña del Supervisor").
 INSERT INTO supervisors (id, email, nombre, password_hash)
 VALUES ('00000000-0000-0000-0000-000000000001', 'sebastianmenat@gmail.com', 'Supervisor',
-        '$2a$10$JHwfYF4K7DBr5T5/ByGNW.8uxDDzxTQPJ31NBAeWK.pN0/Byyqzka');
+        '$2a$10$f3aWjjLDOEgCcYxKXougg.zeoKkO4f/vjx.H4FhZmNrppJWqyjp.i');
 
 INSERT INTO suppliers (id, nombre, modo, base_url, latencia_media_ms, confiabilidad) VALUES
   ('11111111-1111-1111-1111-111111111111', 'MayoristaExpress', 'api',      'https://api.mayoristaexpress.example', 120, 0.98),

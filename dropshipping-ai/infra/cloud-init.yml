@@ -1,0 +1,67 @@
+#cloud-config
+# Aprovisionamiento automático del VPS (Ubuntu 24.04).
+#
+# Pegar este archivo COMPLETO en el campo "User Data" / "Cloud-Init" del panel
+# del proveedor (Vultr, Hetzner, DigitalOcean, etc.) al crear el servidor.
+# Al primer arranque deja: Docker instalado, el repo clonado en /opt/kri-eit,
+# los secretos de Postgres y JWT ya generados en .env.prod, y el firewall
+# cerrado salvo SSH/80/443.
+#
+# Después, un único paso manual por SSH:
+#   dropship-setup
+# que pide la clave de Anthropic, los 3 dominios y el email ACME, levanta el
+# stack completo y deja el cron de backups diarios.
+
+package_update: true
+packages:
+  - git
+  - curl
+  - ufw
+  - openssl
+
+write_files:
+  - path: /usr/local/bin/dropship-setup
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      # Completa .env.prod (los secretos ya fueron generados por cloud-init),
+      # levanta el stack de producción y programa los backups diarios.
+      set -euo pipefail
+
+      ENVF=/opt/kri-eit/dropshipping-ai/infra/.env.prod
+      [ -f "$ENVF" ] || { echo "No existe $ENVF (¿terminó cloud-init? revisa /var/log/cloud-init-output.log)"; exit 1; }
+
+      ask() { local var=$1 prompt=$2 val; read -rp "$prompt: " val; sed -i "s|^${var}=.*|${var}=${val}|" "$ENVF"; }
+
+      echo "== Configuración del sistema de dropshipping =="
+      ask ANTHROPIC_API_KEY "Clave API de Anthropic (sk-ant-...)"
+      ask STORE_DOMAIN      "Dominio de la tienda (ej. tienda.midominio.cl)"
+      ask DASHBOARD_DOMAIN  "Dominio del panel (ej. panel.midominio.cl)"
+      ask API_DOMAIN        "Dominio del gateway (ej. api.midominio.cl)"
+      ask ACME_EMAIL        "Email para Let's Encrypt"
+
+      cd /opt/kri-eit/dropshipping-ai/infra
+      docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+
+      mkdir -p /var/backups
+      cat > /etc/cron.d/dropship-backup <<'CRON'
+      30 3 * * * root cd /opt/kri-eit/dropshipping-ai/infra && docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T postgres pg_dump -U dropship dropship | gzip > /var/backups/dropship-$(date +\%F).sql.gz && find /var/backups -name 'dropship-*.sql.gz' -mtime +14 -delete
+      CRON
+
+      echo
+      echo "Stack levantado. Verifica con:"
+      echo "  docker compose -f docker-compose.prod.yml --env-file .env.prod ps"
+      echo "y en unos minutos (emisión de certificados):"
+      echo "  curl -I https://$(grep ^STORE_DOMAIN= "$ENVF" | cut -d= -f2)"
+
+runcmd:
+  - curl -fsSL https://get.docker.com | sh
+  - git clone https://github.com/Sebahttps/kri-eit.git /opt/kri-eit
+  - cp /opt/kri-eit/dropshipping-ai/infra/.env.prod.example /opt/kri-eit/dropshipping-ai/infra/.env.prod
+  - sed -i "s|^POSTGRES_PASSWORD=.*|POSTGRES_PASSWORD=$(openssl rand -hex 24)|" /opt/kri-eit/dropshipping-ai/infra/.env.prod
+  - sed -i "s|^BUSINESS_JWT_SECRET=.*|BUSINESS_JWT_SECRET=$(openssl rand -hex 32)|" /opt/kri-eit/dropshipping-ai/infra/.env.prod
+  - chmod 600 /opt/kri-eit/dropshipping-ai/infra/.env.prod
+  - ufw allow OpenSSH
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw --force enable

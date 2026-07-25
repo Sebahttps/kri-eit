@@ -16,6 +16,29 @@ automático (Caddy + Let's Encrypt). Todo lo que se usa aquí vive en `infra/`:
   - `api.tudominio.cl` → gateway de negocio (webhooks de carriers y WebSocket)
 - Una clave de la API de Anthropic (para los dos agentes IA).
 
+## Vía rápida: aprovisionamiento automático con cloud-init
+
+Si el VPS aún no existe, la forma más simple es dejar que el propio proveedor
+lo configure al crearlo:
+
+1. Al crear el servidor (Ubuntu 24.04), pegar el contenido completo de
+   [`infra/cloud-init.yml`](../infra/cloud-init.yml) en el campo
+   **User Data / Cloud-Init** del panel del proveedor.
+2. Apuntar los 3 registros DNS a la IP asignada.
+3. Entrar una única vez por SSH y ejecutar:
+
+   ```bash
+   dropship-setup
+   ```
+
+   Pide la clave de Anthropic, los 3 dominios y el email ACME; el resto
+   (Docker, repo clonado en `/opt/kri-eit`, secretos de Postgres/JWT
+   generados, firewall UFW, stack levantado y cron de backups) ya quedó
+   hecho por cloud-init.
+
+Con eso el despliegue está completo — las secciones 1 y 2 siguientes son la
+alternativa manual, y la sección 3 ("Endurecer") aplica igual en ambos casos.
+
 ## 1. Clonar y configurar
 
 ```bash

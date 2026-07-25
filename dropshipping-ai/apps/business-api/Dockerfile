@@ -1,0 +1,15 @@
+FROM node:20-alpine AS build
+WORKDIR /srv
+COPY package.json package-lock.json* ./
+RUN npm install --no-audit --no-fund
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /srv
+ENV NODE_ENV=production
+COPY --from=build /srv/package.json ./
+COPY --from=build /srv/node_modules ./node_modules
+COPY --from=build /srv/dist ./dist
+EXPOSE 4000
+CMD ["node", "dist/main.js"]

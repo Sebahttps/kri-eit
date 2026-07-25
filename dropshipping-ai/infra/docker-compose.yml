@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: dropship
+      POSTGRES_PASSWORD: dropship
+      POSTGRES_DB: dropship
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ../db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ../db/migrations/001_notify_events.sql:/docker-entrypoint-initdb.d/03-notify.sql:ro
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  agents-service:
+    build: ../apps/agents-service
+    environment:
+      AGENTS_DATABASE_URL: postgresql://dropship:dropship@postgres:5432/dropship
+      AGENTS_REDIS_URL: redis://redis:6379/0
+      AGENTS_ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?definir en .env}
+    ports: ["8000:8000"]
+    depends_on: [postgres, redis]
+
+  business-api:
+    build: ../apps/business-api
+    environment:
+      BUSINESS_DATABASE_URL: postgresql://dropship:dropship@postgres:5432/dropship
+      AGENTS_API_URL: http://agents-service:8000
+      BUSINESS_JWT_SECRET: ${BUSINESS_JWT_SECRET:-dev-secret-cambiar-en-produccion}
+      BUSINESS_CORS_ORIGIN: http://localhost:3000
+    ports: ["4000:4000"]
+    depends_on: [postgres, agents-service]
+
+  dashboard:
+    build: ../apps/dashboard
+    environment:
+      AGENTS_API_URL: http://agents-service:8000
+    ports: ["3000:3000"]
+    depends_on: [agents-service]
+
+  store:
+    build: ../apps/store
+    environment:
+      BUSINESS_API_URL: http://business-api:4000
+      AGENTS_API_URL: http://agents-service:8000
+    ports: ["3001:3001"]
+    depends_on: [business-api]
+
+volumes:
+  pgdata:

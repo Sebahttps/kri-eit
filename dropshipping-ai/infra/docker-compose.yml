@@ -42,5 +42,13 @@ services:
     ports: ["3000:3000"]
     depends_on: [agents-service]
 
+  store:
+    build: ../apps/store
+    environment:
+      BUSINESS_API_URL: http://business-api:4000
+      AGENTS_API_URL: http://agents-service:8000
+    ports: ["3001:3001"]
+    depends_on: [business-api]
+
 volumes:
   pgdata:

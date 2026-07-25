@@ -18,8 +18,9 @@ que solo aprueba decisiones críticas.
 ```
 apps/
   agents-service/   FastAPI + LangGraph (Python)  — los dos agentes + KPIs
-  business-api/     NestJS                        — auth, pedidos/pagos, webhooks, WS
+  business-api/     NestJS                        — catálogo, auth, pedidos, webhooks, WS
   dashboard/        Next.js                       — panel del Supervisor
+  store/            Next.js                       — tienda B2C con chat del agente
 db/                 schema.sql + seeds + migrations (PostgreSQL 16)
 infra/              docker-compose (postgres, redis, agents-service)
 packages/
@@ -42,6 +43,7 @@ packages/
 cd infra
 ANTHROPIC_API_KEY=sk-... docker compose up --build
 # Dashboard del Supervisor:                http://localhost:3000
+# Tienda B2C:                              http://localhost:3001
 # Gateway de negocio (REST + WebSocket):   http://localhost:4000
 # API de agentes + OpenAPI interactivo:    http://localhost:8000/docs
 ```

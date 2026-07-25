@@ -66,6 +66,13 @@ docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
 Guía completa (DNS, backups, contraseña del Supervisor, webhooks de
 carriers): [`docs/deploy-production.md`](docs/deploy-production.md).
 
+## Modo híbrido con Shopify
+
+Opcionalmente, Shopify puede ser la vitrina y el checkout mientras los
+agentes siguen siendo el back-office (verificación de stock, OC, aprobación
+del Supervisor, garantías y retracto). Configuración y trade-offs:
+[`docs/shopify-hybrid.md`](docs/shopify-hybrid.md).
+
 ## Flujo de un pedido
 
 ```

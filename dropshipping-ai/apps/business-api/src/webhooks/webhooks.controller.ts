@@ -8,6 +8,7 @@ import {
 import { IsIn, IsOptional, IsString, MinLength } from "class-validator";
 import { Pool } from "pg";
 import { DB } from "../db/db.module";
+import { ShopifyService } from "../shopify/shopify.service";
 
 // Estados que reporta el carrier -> estados internos del envío/pedido.
 // 'entregado' dispara en la base la garantía de 6 meses y la ventana de
@@ -42,7 +43,10 @@ class CarrierEventDto {
 
 @Controller("webhooks")
 export class WebhooksController {
-  constructor(@Inject(DB) private readonly db: Pool) {}
+  constructor(
+    @Inject(DB) private readonly db: Pool,
+    private readonly shopify: ShopifyService,
+  ) {}
 
   /** Punto de entrada de los carriers: alimenta el seguimiento en tiempo real (promesa c). */
   @Post("carrier")
@@ -75,6 +79,15 @@ export class WebhooksController {
         [shipment.order_id, estadoPedido],
       );
     }
+
+    // Modo híbrido: si el pedido nació en Shopify, empuja el tracking allá.
+    // Best-effort en segundo plano: el webhook del carrier no debe fallar por Shopify.
+    void this.shopify.sincronizarSeguimiento(shipment.order_id, {
+      status: evento.status,
+      carrier: evento.carrier,
+      tracking_number: evento.tracking_number,
+    });
+
     return { ok: true, shipment_id: shipment.id, order_id: shipment.order_id };
   }
 }

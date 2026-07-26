@@ -18,16 +18,31 @@ los KPIs, la auditoría y los webhooks de carriers funcionan igual.
 La tienda propia (`apps/store`) puede seguir corriendo como canal secundario:
 ambos canales convergen en el mismo flujo de pedidos.
 
+> **Atajo (Windows)**: el script
+> [`scripts/configure-shopify.ps1`](../scripts/configure-shopify.ps1) hace por
+> API los pasos 2 y 3 de abajo (webhook + productos con SKUs correctos) desde
+> tu PC, pidiendo el dominio y el token de forma interactiva — las credenciales
+> no salen de tu máquina. El paso 1 (crear la app) y el 4 (COD) siguen siendo
+> manuales. Es idempotente: puedes re-ejecutarlo sin duplicar nada.
+
 ## Configuración en Shopify (una vez)
 
-1. **App personalizada**: Admin de Shopify → *Settings → Apps and sales
-   channels → Develop apps → Create an app*. Scopes de Admin API:
-   `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`.
-   Instalar la app y copiar el **Admin API access token** (`shpat_...`).
-2. **Webhook**: *Settings → Notifications → Webhooks → Create webhook*:
+1. **App personalizada** (desde enero de 2026 se crea en el **Dev Dashboard**,
+   ya no en el admin): *Admin → Configuración → Apps y canales de venta →
+   Desarrollar apps → "Crear apps en el Dev Dashboard"* (o directo en
+   `dev.shopify.com`). Crear la app, solicitar los scopes de Admin API
+   `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`,
+   e **instalarla en la tienda**: el **Admin API access token** (`shpat_...`)
+   se muestra una única vez al instalar (si se pierde, desinstalar y
+   reinstalar lo regenera). Anotar también el **Client Secret** de la app.
+2. **Webhook**: crearlo por API con `scripts/configure-shopify.ps1` (o a mano
+   en *Configuración → Notificaciones → Webhooks*):
    - Evento: **Order creation** · Formato: JSON
    - URL: `https://api.tudominio.cl/webhooks/shopify`
-   - Copiar el **secreto de firma** que muestra Shopify al pie de la lista.
+   - **Secreto de firma**: los webhooks creados **por API** se firman con el
+     **Client Secret de la app**; los creados a mano en el admin, con el
+     secreto que muestra esa pantalla al pie. `SHOPIFY_WEBHOOK_SECRET` debe
+     ser el que corresponda a cómo se creó el webhook.
 3. **SKUs**: cada variante en Shopify debe tener como SKU el mismo valor que
    `products.sku` en la base interna. Un pedido con SKUs sin mapear no se
    procesa (queda en el log del gateway para corregir y reprocesar).

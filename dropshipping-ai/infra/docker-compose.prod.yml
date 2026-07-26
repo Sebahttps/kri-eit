@@ -18,6 +18,7 @@ services:
       - ../db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
       - ../db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
       - ../db/migrations/001_notify_events.sql:/docker-entrypoint-initdb.d/03-notify.sql:ro
+      - ../db/migrations/002_shopify.sql:/docker-entrypoint-initdb.d/04-shopify.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U dropship -d dropship"]
       interval: 10s
@@ -49,6 +50,10 @@ services:
       AGENTS_API_URL: http://agents-service:8000
       BUSINESS_JWT_SECRET: ${BUSINESS_JWT_SECRET:?definir en .env.prod}
       BUSINESS_CORS_ORIGIN: https://${STORE_DOMAIN},https://${DASHBOARD_DOMAIN}
+      # Modo híbrido con Shopify (opcionales; vacíos = conector desactivado)
+      SHOPIFY_WEBHOOK_SECRET: ${SHOPIFY_WEBHOOK_SECRET:-}
+      SHOPIFY_STORE_DOMAIN: ${SHOPIFY_STORE_DOMAIN:-}
+      SHOPIFY_ADMIN_TOKEN: ${SHOPIFY_ADMIN_TOKEN:-}
     depends_on:
       postgres:
         condition: service_healthy

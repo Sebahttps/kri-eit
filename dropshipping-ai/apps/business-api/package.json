@@ -25,6 +25,7 @@
   "devDependencies": {
     "@nestjs/cli": "^10.4.9",
     "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.6",
     "@types/node": "^20",
     "@types/pg": "^8.11.10",
     "typescript": "^5.7.2"

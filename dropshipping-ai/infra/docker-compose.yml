@@ -11,6 +11,7 @@ services:
       - ../db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
       - ../db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
       - ../db/migrations/001_notify_events.sql:/docker-entrypoint-initdb.d/03-notify.sql:ro
+      - ../db/migrations/002_shopify.sql:/docker-entrypoint-initdb.d/04-shopify.sql:ro
 
   redis:
     image: redis:7-alpine

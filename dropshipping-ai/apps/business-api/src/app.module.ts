@@ -4,9 +4,18 @@ import { CatalogModule } from "./catalog/catalog.module";
 import { DbModule } from "./db/db.module";
 import { OrdersModule } from "./orders/orders.module";
 import { RealtimeModule } from "./realtime/realtime.module";
+import { ShopifyModule } from "./shopify/shopify.module";
 import { WebhooksModule } from "./webhooks/webhooks.module";
 
 @Module({
-  imports: [DbModule, AuthModule, CatalogModule, OrdersModule, WebhooksModule, RealtimeModule],
+  imports: [
+    DbModule,
+    AuthModule,
+    CatalogModule,
+    OrdersModule,
+    ShopifyModule,
+    WebhooksModule,
+    RealtimeModule,
+  ],
 })
 export class AppModule {}

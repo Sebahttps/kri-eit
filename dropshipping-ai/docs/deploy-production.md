@@ -6,8 +6,18 @@ automático (Caddy + Let's Encrypt). Todo lo que se usa aquí vive en `infra/`:
 
 ## Requisitos
 
-- VPS Linux con **4 GB de RAM** o más (DigitalOcean, Hetzner, Vultr, etc.),
-  con los puertos **80 y 443** abiertos.
+- VPS Linux con **4 GB de RAM** o más, con los puertos **80 y 443** abiertos.
+  Recomendado: **Vultr región Santiago** (`vhp-2c-4gb-amd`, ~US$24/mes) — para
+  una tienda chilena la latencia local es la diferencia más grande, y ni
+  DigitalOcean ni Hetzner tienen presencia en Sudamérica.
+
+  > **Memoria durante el build**: en runtime el stack completo ronda 1 GB, pero
+  > `up -d --build` compila cuatro imágenes en paralelo y cada build de Next.js
+  > puede pedir 1–2 GB. En 4 GB sin swap el despliegue puede morir con un OOM
+  > poco descriptivo. [`infra/cloud-init.yml`](../infra/cloud-init.yml) crea 4 GB
+  > de swap (con `vm.swappiness=10`, para que sea red de seguridad y no lastre
+  > el runtime). **Si instalas el VPS a mano, crea el swap antes del primer
+  > build** o usa un plan de 8 GB.
 - **Docker Engine + Docker Compose v2** instalados
   (`curl -fsSL https://get.docker.com | sh`).
 - Un dominio con **tres registros A** apuntando a la IP del servidor, p. ej.:

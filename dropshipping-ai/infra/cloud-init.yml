@@ -19,7 +19,24 @@ packages:
   - ufw
   - openssl
 
+# Swap de 4 GB. No es para el runtime —el stack completo ronda 1 GB— sino
+# para el pico de COMPILACIÓN: `up -d --build` construye cuatro imágenes y
+# Compose las paraleliza, y cada build de Next.js puede pedir 1-2 GB. En un
+# VPS de 4 GB eso es justo el momento en que el despliegue muere con un OOM
+# poco descriptivo. El módulo `mounts` corre en la fase temprana de
+# cloud-init, así que el swapfile ya existe cuando se instala Docker.
+swap:
+  filename: /swapfile
+  size: 4G
+  maxsize: 4G
+
 write_files:
+  - path: /etc/sysctl.d/99-dropship-swap.conf
+    content: |
+      # Red de seguridad, no sustituto de RAM: con swappiness bajo el kernel
+      # recurre al swap solo bajo presión real y el runtime sigue en memoria.
+      vm.swappiness=10
+
   - path: /usr/local/bin/dropship-setup
     permissions: "0755"
     content: |
@@ -55,6 +72,7 @@ write_files:
       echo "  curl -I https://$(grep ^STORE_DOMAIN= "$ENVF" | cut -d= -f2)"
 
 runcmd:
+  - sysctl --system
   - curl -fsSL https://get.docker.com | sh
   - git clone https://github.com/Sebahttps/kri-eit.git /opt/kri-eit
   - cp /opt/kri-eit/dropshipping-ai/infra/.env.prod.example /opt/kri-eit/dropshipping-ai/infra/.env.prod

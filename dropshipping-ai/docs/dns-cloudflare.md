@@ -21,7 +21,16 @@ segundo trámite:
    - Permisos: **Zone → Zone → Edit** (crear la zona) y **Zone → DNS → Edit**
      (los registros A).
    - Zone Resources: *Include → All zones from an account → (tu cuenta)*.
-   - El secreto **se muestra una sola vez**.
+   - **TTL**: ponerle expiración corta (una semana basta) y revocarlo al
+     terminar. Es mejor control que el filtro de IP de cliente, que con una
+     conexión residencial dinámica solo rompe el token cuando cambia la IP.
+   - El secreto **se muestra una sola vez**. No pegarlo en chats ni commits:
+     el script lo pide por consola y no sale de la máquina.
+
+   Un token con permisos solo de zona **no puede listar cuentas** (`/accounts`
+   devuelve vacío y `/memberships` da error 10000). No hace falta: si se omite
+   el campo `account` al crear la zona, Cloudflare lo infiere para usuarios de
+   una sola cuenta.
 2. **Crear la zona** — correr el script **sin IP** (ENTER en la pregunta de la
    IP). Devuelve los dos nameservers asignados, del tipo `xxx.ns.cloudflare.com`.
 3. **Inscribir en NIC Chile** — https://www.nic.cl, declarando esos dos
@@ -54,5 +63,9 @@ interruptor que se pueda dar vuelta sin tocar la configuración.
 |---|---|
 | `compai.cl` en NIC Chile | **No inscrito** (verificado 2026-07-28: WHOIS responde "Nombre de dominio no existe") |
 | `compay.cl` en NIC Chile | No inscrito |
-| Zona en Cloudflare | Pendiente de crear |
+| Zona `compai.cl` en Cloudflare | **Creada** 2026-07-28, estado `pending` |
+| Nameservers asignados | `aarav.ns.cloudflare.com` · `sierra.ns.cloudflare.com` |
 | Registros A | Pendientes — requieren la IP del VPS |
+
+Los nameservers de arriba son los que hay que declarar al inscribir `compai.cl`
+en NIC Chile. La zona pasa a `active` sola cuando la delegación se publique.

@@ -87,9 +87,12 @@ if ($cuentas.Count -eq 1) {
     $sel = Read-Host "Indice de la cuenta a usar"
     $AccountId = $cuentas[[int]$sel].id
 } else {
-    $AccountId = (Read-Host "Account ID (dashboard de Cloudflare, barra lateral derecha)").Trim()
+    # Un token con permisos solo de zona no puede listar cuentas (/accounts
+    # devuelve vacio y /memberships da 10000). No es un problema: si se omite
+    # el campo account, Cloudflare lo infiere para usuarios de una sola cuenta.
+    Write-Host "El token no puede listar cuentas (normal si solo tiene permisos de zona)." -ForegroundColor Yellow
+    $AccountId = (Read-Host "Account ID, o ENTER para que Cloudflare lo infiera").Trim()
 }
-if (-not $AccountId) { throw "No se pudo determinar el Account ID" }
 
 # --- 3. Zona: crear si no existe (idempotente) ---
 $zonas = @(Invoke-CF "/zones?name=$Dominio")
@@ -97,7 +100,9 @@ if ($zonas.Count -gt 0) {
     $Zona = $zonas[0]
     Write-Host ("Ya existe la zona " + $Dominio + " (id " + $Zona.id + ", estado " + $Zona.status + ") - se reutiliza")
 } else {
-    $Zona = Invoke-CF "/zones" "POST" @{ name = $Dominio; account = @{ id = $AccountId }; type = "full" }
+    $nueva = @{ name = $Dominio; type = "full" }
+    if ($AccountId) { $nueva.account = @{ id = $AccountId } }
+    $Zona = Invoke-CF "/zones" "POST" $nueva
     Write-Host ("Creada la zona " + $Dominio + " (id " + $Zona.id + ", estado " + $Zona.status + ")") -ForegroundColor Green
 }
 

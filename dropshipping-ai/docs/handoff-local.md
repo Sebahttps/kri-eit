@@ -43,11 +43,15 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    Client ID y Client Secret; verificar que los 4 productos quedaron creados
    (SKUs ME-001, ME-002, IS-101, IS-205 — deben coincidir con `db/seed.sql`).
    OMITIR el webhook hasta que el VPS exista.
-2. **Cloudflare**: leer https://developers.cloudflare.com/agent-setup/prompt.md
-   y configurar la zona `compai.cl` (cuenta Free del usuario): obtener los
-   nameservers para que el usuario los ponga en NIC Chile. Los registros A
-   (`tienda`, `panel`, `api` → IP del VPS, modo DNS-only/nube gris, Caddy
-   emite el TLS) se crean recién cuando el VPS exista.
+2. **Cloudflare**: configurar la zona `compai.cl` con
+   `scripts/configure-cloudflare.ps1` (requiere un API token del usuario con
+   Zone:Edit + DNS:Edit). Ver `docs/dns-cloudflare.md`.
+   **Corregido 2026-07-28**: `compai.cl` **NO está inscrito** en NIC Chile
+   (WHOIS: "Nombre de dominio no existe"), pese a lo que decía este handoff.
+   Como NIC Chile pide los nameservers durante la inscripción, el orden es:
+   crear la zona en Cloudflare primero → inscribir en NIC Chile con esos NS →
+   registros A al final. Los A (`tienda`, `panel`, `api` → IP del VPS) van en
+   modo DNS-only/nube gris porque Caddy emite el TLS.
 3. **Renombrar a CompAI**: nombre visible de la tienda Shopify
    (Configuración → General) y, en el repo, textos visibles de `apps/store`
    y materiales del sistema que digan nombres genéricos.

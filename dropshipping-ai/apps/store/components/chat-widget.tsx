@@ -11,7 +11,7 @@ export default function ChatWidget() {
     {
       rol: "agente",
       texto:
-        "¡Hola! Soy el asistente de la tienda. Puedo verificar stock, buscar productos, revisar tu pedido, gestionar garantías o retractos. ¿En qué te ayudo?",
+        "¡Hola! Soy el asistente de CompAI. Puedo verificar stock, buscar productos, revisar tu pedido, gestionar garantías o retractos. ¿En qué te ayudo?",
     },
   ]);
   const [texto, setTexto] = useState("");
@@ -77,7 +77,7 @@ export default function ChatWidget() {
         className="flex items-center justify-between px-4 py-3"
         style={{ backgroundColor: "var(--accent)", color: "var(--accent-ink)" }}
       >
-        <span className="text-sm font-medium">Asistente de la tienda</span>
+        <span className="text-sm font-medium">Asistente de CompAI</span>
         <button onClick={() => setAbierto(false)} aria-label="Cerrar chat">✕</button>
       </div>
 

@@ -52,9 +52,12 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    crear la zona en Cloudflare primero → inscribir en NIC Chile con esos NS →
    registros A al final. Los A (`tienda`, `panel`, `api` → IP del VPS) van en
    modo DNS-only/nube gris porque Caddy emite el TLS.
-3. **Renombrar a CompAI**: nombre visible de la tienda Shopify
-   (Configuración → General) y, en el repo, textos visibles de `apps/store`
-   y materiales del sistema que digan nombres genéricos.
+3. **Renombrar a CompAI**: ~~repo~~ **hecho 2026-07-28** — `apps/store` con
+   identidad completa (crema/cobre/verde, logotipo `comp`+`ai` en versalitas,
+   burbujas con doble check) y `apps/dashboard` con nombre y base crema,
+   conservando la paleta de series de los gráficos. Contrastes verificados.
+   **Pendiente del usuario**: nombre visible de la tienda Shopify
+   (Configuración → General).
 4. **Cuando el usuario contrate el VPS**: guiarlo con `infra/cloud-init.yml`
    (pegar como user-data), `dropship-setup` por SSH, variables `SHOPIFY_*`
    en `.env.prod` (webhook secret = Client Secret de la app del Dev

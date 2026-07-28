@@ -2,38 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Misma paleta validada del sistema; el acento de la tienda es el naranjo
-   (slot 2 categórico) para diferenciarse del dashboard. */
+/* Identidad CompAI: base crema, acento cobre y un verde de confirmación
+   reservado para el doble check (el elemento firma de la marca).
+   Contrastes verificados en claro y oscuro: cuerpo ≥ 7:1, texto secundario
+   y acentos ≥ 4.5:1, etiquetas ≥ 3:1. */
 :root {
   color-scheme: light;
-  --surface: 252 252 251;
-  --plane: 249 249 247;
-  --ink: 11 11 11;
-  --ink-2: 82 81 78;
-  --muted: 137 135 129;
-  --grid: 225 224 217;
+  --surface: 253 251 244;   /* #fdfbf4 crema claro — tarjetas */
+  --plane: 247 242 230;     /* #f7f2e6 crema — plano de página */
+  --ink: 28 25 23;          /* #1c1917 tinta cálida */
+  --ink-2: 84 77 66;        /* #544d42 tinta secundaria */
+  --muted: 133 124 109;     /* #857c6d etiquetas */
+  --grid: 229 220 200;      /* #e5dcc8 bordes */
 
-  --accent: #eb6834;
+  --accent: #a2551f;        /* cobre */
   --accent-ink: #ffffff;
+  --confirm: #15734a;       /* verde confirmación — solo para el doble check */
   --series-1: #2a78d6;
-  --status-good: #0ca30c;
-  --status-critical: #d03b3b;
-  --delta-good: #006300;
+  --status-good: #15734a;
+  --status-critical: #b3261e;
+  --delta-good: #15734a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --surface: 26 26 25;
-    --plane: 13 13 13;
-    --ink: 255 255 255;
-    --ink-2: 195 194 183;
-    --muted: 137 135 129;
-    --grid: 44 44 42;
+    --surface: 33 30 24;    /* #211e18 */
+    --plane: 20 18 14;      /* #14120e */
+    --ink: 245 240 228;     /* #f5f0e4 */
+    --ink-2: 201 192 173;   /* #c9c0ad */
+    --muted: 143 134 119;   /* #8f8677 */
+    --grid: 51 47 38;       /* #332f26 */
 
-    --accent: #d95926;
+    --accent: #d98a4e;
+    --accent-ink: #1c1917;
+    --confirm: #3fb27c;
     --series-1: #3987e5;
-    --delta-good: #0ca30c;
+    --status-good: #3fb27c;
+    --status-critical: #e88b82;
+    --delta-good: #3fb27c;
   }
 }
 
@@ -59,3 +66,23 @@ body {
 }
 
 .tabular { font-variant-numeric: tabular-nums; }
+
+/* Logotipo: "comp" en minúscula + "ai" en versalitas cobre. Se escribe en
+   minúscula a propósito: font-variant-caps solo actúa sobre minúsculas, y
+   así el lector de pantalla anuncia "compai" y no "comp A I". */
+.versalitas {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+}
+
+/* Elemento firma: cada promesa cumplida vive en una burbuja de chat con
+   doble check verde. La esquina inferior izquierda sin redondear es la que
+   la lee como burbuja, sin necesidad de un pseudo-elemento con triángulo. */
+.burbuja {
+  @apply bg-surface p-3;
+  border: 1px solid rgb(var(--grid));
+  border-radius: 0.75rem 0.75rem 0.75rem 0.15rem;
+}
+
+.doble-check { color: var(--confirm); flex: none; }

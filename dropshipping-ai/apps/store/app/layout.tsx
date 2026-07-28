@@ -6,9 +6,9 @@ import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "KRI·Tienda — productos en tendencia con garantías reales",
+  title: "CompAI — te confirmamos el stock antes de cobrarte",
   description:
-    "Stock confirmado antes de cobrarte, pago contra entrega, seguimiento en vivo, garantía de 6 meses y 10 días de retracto.",
+    "Te confirmamos el stock, pagas al recibir y la garantía responde. Palabra de CompAI.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

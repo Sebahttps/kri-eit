@@ -1,35 +1,61 @@
 // Las 5 promesas de venta, siempre visibles. No es marketing: cada una está
 // codificada como regla dura en el backend.
+//
+// Cada promesa se presenta como una burbuja de chat con doble check verde —
+// el elemento firma de CompAI. La lectura es deliberada: "esto ya está
+// entregado", no "esto te prometemos".
 const PROMESAS = [
-  { icono: "✔", texto: "Stock confirmado con el proveedor antes de cobrarte" },
-  { icono: "💵", texto: "Paga al recibir si prefieres" },
-  { icono: "📦", texto: "Seguimiento en tiempo real de tu despacho" },
-  { icono: "🛡", texto: "Garantía legal de 6 meses, gestión inmediata" },
-  { icono: "↩", texto: "10 días para retractarte, sin preguntas" },
+  "Stock confirmado con el proveedor antes de cobrarte",
+  "Paga al recibir si prefieres",
+  "Seguimiento en tiempo real de tu despacho",
+  "Garantía legal de 6 meses, gestión inmediata",
+  "10 días para retractarte, sin preguntas",
 ];
+
+/** Doble check de confirmación. Decorativo: el texto de la promesa ya lo dice. */
+function DobleCheck({ tam = 18 }: { tam?: number }) {
+  return (
+    <svg
+      className="doble-check"
+      width={tam}
+      height={(tam * 2) / 3}
+      viewBox="0 0 24 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M1 8.5 L5 12.5 L12 4" />
+      <path d="M10 8.5 L14 12.5 L21 4" />
+    </svg>
+  );
+}
 
 export default function Promesas({ compacto = false }: { compacto?: boolean }) {
   if (compacto) {
     return (
       <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-2">
-        {PROMESAS.map((p) => (
-          <li key={p.texto}>
-            <span aria-hidden>{p.icono}</span> {p.texto}
+        {PROMESAS.map((texto) => (
+          <li key={texto} className="flex items-center gap-1.5">
+            <DobleCheck tam={14} />
+            {texto}
           </li>
         ))}
       </ul>
     );
   }
   return (
-    <div className="card">
-      <ul className="grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-5">
-        {PROMESAS.map((p) => (
-          <li key={p.texto} className="flex items-start gap-2">
-            <span aria-hidden className="text-base">{p.icono}</span>
-            <span className="text-ink-2">{p.texto}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+      {PROMESAS.map((texto) => (
+        <li key={texto} className="burbuja flex items-start gap-2 text-sm">
+          <span className="pt-1">
+            <DobleCheck />
+          </span>
+          <span className="text-ink-2">{texto}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

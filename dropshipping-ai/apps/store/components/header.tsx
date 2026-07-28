@@ -8,8 +8,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-grid bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-semibold">
-          KRI<span style={{ color: "var(--accent)" }}>·</span>Tienda
+        <Link href="/" className="text-lg font-semibold tracking-tight" aria-label="CompAI, ir al inicio">
+          comp<span className="versalitas">ai</span>
         </Link>
         <button
           onClick={() => setAbierto(true)}

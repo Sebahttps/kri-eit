@@ -11,16 +11,21 @@ export default function Catalogo() {
   return (
     <main className="mx-auto max-w-5xl space-y-6 px-4 py-6">
       <section className="space-y-2">
-        <h1 className="text-2xl font-semibold">
-          Productos en tendencia, promesas que se cumplen solas
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Te confirmamos el stock antes de cobrarte
         </h1>
         <p className="text-sm text-ink-2">
-          Cada promesa de esta tienda está programada en el sistema: no dependemos
-          de la buena voluntad de nadie.
+          Cada promesa de CompAI está programada como regla dura en el sistema:
+          no dependen de la buena voluntad de nadie.
         </p>
       </section>
 
       <Promesas />
+
+      <p className="text-sm text-ink-2">
+        Te confirmamos el stock, pagas al recibir y la garantía responde.{" "}
+        <span className="font-medium text-ink">Palabra de CompAI.</span>
+      </p>
 
       {error && (
         <p className="card text-sm" style={{ color: "var(--status-critical)" }}>

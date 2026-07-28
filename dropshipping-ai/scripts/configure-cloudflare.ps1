@@ -5,13 +5,22 @@
 #   1. Verifica el API token y detecta el Account ID.
 #   2. Crea la zona si no existe (plan Free) y muestra los NAMESERVERS que
 #      hay que declarar en NIC Chile.
-#   3. (Opcional) Crea/actualiza los registros A de tienda, panel y api
+#   3. (Opcional) Apunta la raiz y www a Shopify, que es la vitrina publica
+#      del modo hibrido. Esto NO depende del VPS: se puede hacer de inmediato.
+#   4. (Opcional) Crea/actualiza los registros A de hola, panel y api
 #      apuntando a la IP del VPS. Hazlo solo cuando el VPS ya exista; si no,
 #      deja la IP en blanco y re-ejecuta este script mas tarde.
 #
-# Los registros A se crean en modo DNS-only (nube gris) A PROPOSITO: Caddy
-# emite y renueva los certificados TLS por ACME contra Let's Encrypt, y el
-# proxy naranja de Cloudflare interferiria con el desafio HTTP-01.
+# Reparto del dominio en modo hibrido:
+#   raiz y www  -> Shopify (vitrina y checkout), TLS emitido por Shopify
+#   hola        -> VPS, tienda propia (canal secundario), TLS por Caddy
+#   panel       -> VPS, dashboard del Supervisor
+#   api         -> VPS, gateway y webhook orders/create
+#
+# TODOS los registros se crean en DNS-only (nube gris) A PROPOSITO, por dos
+# motivos independientes que apuntan a lo mismo: Caddy necesita el desafio
+# HTTP-01 de ACME para los subdominios, y Shopify NO soporta el proxy de
+# Cloudflare en la raiz (deja el certificado colgado en "pending").
 #
 # ORDEN CORRECTO para un dominio .cl que AUN NO esta inscrito:
 #   a) correr este script sin IP  -> obtienes los nameservers
@@ -24,7 +33,12 @@
 # Mensajes sin tildes a proposito: PowerShell 5.1 lee mal el UTF-8 sin BOM.
 
 param(
-    [string]$Dominio = "compai.cl"
+    [string]$Dominio = "compai.cl",
+    # Agrega el AAAA de Shopify en la raiz. Opcional: Shopify lo documenta,
+    # pero un AAAA equivocado rompe solo a los usuarios con IPv6 mientras el
+    # resto navega bien, que es una falla dificil de notar. Por eso no va por
+    # defecto: activalo si el panel de Shopify te lo pide explicitamente.
+    [switch]$ConIPv6
 )
 
 $ErrorActionPreference = "Stop"
@@ -116,7 +130,56 @@ if ($Zona.status -ne "active") {
     Write-Host ""
 }
 
-# --- 4. Registros A (solo con el VPS ya creado) ---
+# Crea o corrige un registro, comparando contra los ya existentes. Todos van
+# en DNS-only: el proxy naranja rompe el ACME de Caddy en los subdominios y la
+# validacion de Shopify en la raiz. "@" significa la raiz del dominio.
+function Set-Registro($Zona, $Existentes, [string]$Tipo, [string]$Nombre, [string]$Contenido) {
+    $fqdn = if ($Nombre -eq "@") { $Dominio } else { "$Nombre.$Dominio" }
+    $cuerpo = @{ type = $Tipo; name = $Nombre; content = $Contenido; ttl = 300; proxied = $false }
+    $actual = $Existentes | Where-Object { $_.type -eq $Tipo -and $_.name -eq $fqdn }
+
+    if ($actual) {
+        if ($actual.content -eq $Contenido -and -not $actual.proxied) {
+            Write-Host ("Ya correcto  " + $fqdn.PadRight(28) + $Tipo.PadRight(6) + $Contenido)
+            return
+        }
+        [void](Invoke-CF ("/zones/" + $Zona.id + "/dns_records/" + $actual.id) "PUT" $cuerpo)
+        Write-Host ("Actualizado  " + $fqdn.PadRight(28) + $Tipo.PadRight(6) + $Contenido) -ForegroundColor Green
+    } else {
+        [void](Invoke-CF ("/zones/" + $Zona.id + "/dns_records") "POST" $cuerpo)
+        Write-Host ("Creado       " + $fqdn.PadRight(28) + $Tipo.PadRight(6) + $Contenido) -ForegroundColor Green
+    }
+}
+
+$existentes = @(Invoke-CF ("/zones/" + $Zona.id + "/dns_records?per_page=100"))
+
+# --- 4. Shopify en la raiz (no depende del VPS: se puede hacer ya) ---
+# En modo hibrido la vitrina publica es Shopify, que se queda con la raiz y
+# con www. Valores de la guia oficial de Shopify para dominios de terceros.
+$ShopifyIp = "23.227.38.65"
+$ShopifyCname = "shops.myshopify.com"
+
+$resp = Read-Host "Apuntar la raiz y www a Shopify (vitrina publica)? [s/N]"
+if ($resp -match '^[sSyY]') {
+    Set-Registro $Zona $existentes "A"     "@"   $ShopifyIp
+    Set-Registro $Zona $existentes "CNAME" "www" $ShopifyCname
+    if ($ConIPv6) {
+        Set-Registro $Zona $existentes "AAAA" "@" "2620:0127:f00f:5::"
+    } else {
+        Write-Host "AAAA (IPv6) omitido. Shopify lo documenta como opcional; si su panel" -ForegroundColor Yellow
+        Write-Host "te lo pide, re-ejecuta con -ConIPv6." -ForegroundColor Yellow
+    }
+    Write-Host ""
+    Write-Host "En Shopify: Configuracion > Dominios > $Dominio > cambiar tipo a" -ForegroundColor Yellow
+    Write-Host "DOMINIO PRINCIPAL (no 'redireccion', que dejaria el .myshopify.com a la" -ForegroundColor Yellow
+    Write-Host "vista, ni 'alias', que duplica contenido y perjudica el SEO)." -ForegroundColor Yellow
+    Write-Host ""
+    $existentes = @(Invoke-CF ("/zones/" + $Zona.id + "/dns_records?per_page=100"))
+} else {
+    Write-Host "Registros de Shopify omitidos."
+}
+
+# --- 5. Subdominios del VPS (solo con el VPS ya creado) ---
 $Ip = Read-Host "IP publica del VPS para los registros A, o ENTER para omitir"
 if ($Ip.Trim()) {
     $Ip = $Ip.Trim()
@@ -128,24 +191,8 @@ if ($Ip.Trim()) {
     # Subdominios del Caddyfile: STORE_DOMAIN, DASHBOARD_DOMAIN, API_DOMAIN.
     # "hola" y no "tienda": la vitrina publica vive en la raiz del dominio
     # (Shopify), y llamar "tienda" al canal secundario invita a confusion.
-    $Sub = @("hola", "panel", "api")
-    $existentes = @(Invoke-CF ("/zones/" + $Zona.id + "/dns_records?per_page=100"))
-
-    foreach ($s in $Sub) {
-        $fqdn = "$s.$Dominio"
-        $actual = $existentes | Where-Object { $_.type -eq "A" -and $_.name -eq $fqdn }
-        $cuerpo = @{ type = "A"; name = $s; content = $Ip; ttl = 300; proxied = $false }
-        if ($actual) {
-            if ($actual.content -eq $Ip -and $actual.proxied -eq $false) {
-                Write-Host ("Ya correcto  " + $fqdn + " -> " + $Ip + " (DNS-only)")
-                continue
-            }
-            [void](Invoke-CF ("/zones/" + $Zona.id + "/dns_records/" + $actual.id) "PUT" $cuerpo)
-            Write-Host ("Actualizado  " + $fqdn + " -> " + $Ip + " (DNS-only)") -ForegroundColor Green
-        } else {
-            [void](Invoke-CF ("/zones/" + $Zona.id + "/dns_records") "POST" $cuerpo)
-            Write-Host ("Creado       " + $fqdn + " -> " + $Ip + " (DNS-only)") -ForegroundColor Green
-        }
+    foreach ($s in @("hola", "panel", "api")) {
+        Set-Registro $Zona $existentes "A" $s $Ip
     }
 
     Write-Host ""
@@ -154,7 +201,7 @@ if ($Ip.Trim()) {
     Write-Host ("DASHBOARD_DOMAIN=panel." + $Dominio)
     Write-Host ("API_DOMAIN=api." + $Dominio)
 } else {
-    Write-Host "Registros A omitidos. Re-ejecuta este script cuando el VPS exista."
+    Write-Host "Registros del VPS omitidos. Re-ejecuta este script cuando exista."
 }
 
 Write-Host ""
@@ -168,5 +215,6 @@ if ($Zona.status -ne "active") {
     Write-Host " - Zona activa. Con el VPS creado, re-ejecutar este script con la IP."
 }
 Write-Host ""
-Write-Host "Los registros A quedan en DNS-only (nube gris) a proposito: Caddy emite" -ForegroundColor Yellow
-Write-Host "el TLS por ACME. No los pases a proxy naranja sin ajustar antes el TLS." -ForegroundColor Yellow
+Write-Host "TODOS los registros quedan en DNS-only (nube gris) a proposito: Caddy" -ForegroundColor Yellow
+Write-Host "emite el TLS por ACME en los subdominios, y Shopify no soporta el proxy" -ForegroundColor Yellow
+Write-Host "de Cloudflare en la raiz. No actives el naranjo en esta zona." -ForegroundColor Yellow

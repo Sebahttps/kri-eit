@@ -41,9 +41,19 @@ segundo trámite:
    nslookup -type=NS compai.cl
    ```
 
-4. **Registros A** — solo cuando el VPS exista: re-ejecutar el script e
+4. **Raíz y `www` a Shopify** — el script lo ofrece en una pregunta aparte y
+   **no depende del VPS**, así que puede hacerse de inmediato. Después, en
+   *Shopify → Configuración → Dominios*, cambiar el tipo de `compai.cl` a
+   **Dominio principal** (no *redirección*, que dejaría el `.myshopify.com`
+   a la vista; ni *alias*, que duplica contenido y perjudica el SEO).
+5. **Registros A del VPS** — solo cuando exista: re-ejecutar el script e
    ingresar su IP pública. Crea `hola`, `panel` y `api` (los tres subdominios
    del [`Caddyfile`](../infra/Caddyfile)).
+
+El registro **AAAA** de Shopify queda fuera por defecto. Shopify lo documenta
+como opcional, y un AAAA equivocado rompe solo a los usuarios con IPv6
+mientras el resto navega bien — una falla parcial difícil de notar. Si el
+panel de Shopify lo pide explícitamente, re-ejecutar con `-ConIPv6`.
 
 ## Reparto del dominio
 

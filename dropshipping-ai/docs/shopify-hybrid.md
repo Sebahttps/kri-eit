@@ -32,7 +32,8 @@ ambos canales convergen en el mismo flujo de pedidos.
    Desarrollar apps → "Crear apps en el Dev Dashboard"* (o directo en
    `dev.shopify.com`). Crear la app, solicitar los scopes de Admin API
    `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`,
-   e **instalarla en la tienda**: el **Admin API access token** (`shpat_...`)
+   `read_products`, `write_products` (estos dos últimos los usa el script de
+   configuración para crear el catálogo), e **instalarla en la tienda**: el **Admin API access token** (`shpat_...`)
    se muestra una única vez al instalar (si se pierde, desinstalar y
    reinstalar lo regenera). Anotar también el **Client Secret** de la app.
 2. **Webhook**: crearlo por API con `scripts/configure-shopify.ps1` (o a mano

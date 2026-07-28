@@ -20,8 +20,9 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
   (dominio incompleto, token mal pegado). El script en sí no tiene errores
   conocidos; falta una ejecución limpia como archivo.
 - **Tienda Shopify**: creada, plan Básico (promo US$1/mes x3 meses). La app
-  del Dev Dashboard (scopes read/write orders + fulfillments) puede estar
-  pendiente; el token `shpat_` se muestra una sola vez al instalar.
+  del Dev Dashboard puede estar pendiente; scopes necesarios: read/write de
+  orders, fulfillments **y products** (products lo usa el script que crea el
+  catálogo). El token `shpat_` se muestra una sola vez al instalar.
 - **Marca decidida**: **CompAI** (tienda B2C). Dominios `compai.cl` (principal)
   y `compay.cl` (redirect) — en proceso de inscripción en NIC Chile por el
   usuario. Tagline: "Te confirmamos el stock, pagas al recibir y la garantía

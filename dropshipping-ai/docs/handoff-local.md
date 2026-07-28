@@ -19,10 +19,12 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
   intentó ejecutarlo pegándolo por partes en la consola y falló por inputs
   (dominio incompleto, token mal pegado). El script en sí no tiene errores
   conocidos; falta una ejecución limpia como archivo.
-- **Tienda Shopify**: creada, plan Básico (promo US$1/mes x3 meses). La app
-  del Dev Dashboard puede estar pendiente; scopes necesarios: read/write de
-  orders, fulfillments **y products** (products lo usa el script que crea el
-  catálogo). El token `shpat_` se muestra una sola vez al instalar.
+- **Tienda Shopify**: creada, plan Básico (promo US$1/mes x3 meses). Falta la
+  app del Dev Dashboard; scopes necesarios: read/write de orders, fulfillments
+  **y products** (products lo usa el script que crea el catálogo).
+  **Corregido 2026-07-28**: no existe token `shpat_` para apps nuevas — la app
+  entrega Client ID + Client Secret y el gateway los canjea por un token de
+  24 h. El código, el script y `docs/shopify-hybrid.md` ya reflejan esto.
 - **Marca decidida**: **CompAI** (tienda B2C). Dominios `compai.cl` (principal)
   y `compay.cl` (redirect) — en proceso de inscripción en NIC Chile por el
   usuario. Tagline: "Te confirmamos el stock, pagas al recibir y la garantía
@@ -34,9 +36,11 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
 
 ## Misiones para la sesión local (en orden)
 
-1. **Configurar Shopify**: ejecutar `dropshipping-ai/scripts/configure-shopify.ps1`
-   (o hacer lo equivalente por API directamente). El usuario ingresa dominio
-   y token; verificar por API que los 4 productos quedaron creados
+1. **Configurar Shopify**: crear la app en `dev.shopify.com/dashboard` **desde
+   la organización dueña de la tienda** (requisito del client credentials
+   grant), instalarla, y ejecutar `dropshipping-ai/scripts/configure-shopify.ps1`
+   (o hacer lo equivalente por API directamente). El usuario ingresa dominio,
+   Client ID y Client Secret; verificar que los 4 productos quedaron creados
    (SKUs ME-001, ME-002, IS-101, IS-205 — deben coincidir con `db/seed.sql`).
    OMITIR el webhook hasta que el VPS exista.
 2. **Cloudflare**: leer https://developers.cloudflare.com/agent-setup/prompt.md

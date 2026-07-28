@@ -21,21 +21,31 @@ ambos canales convergen en el mismo flujo de pedidos.
 > **Atajo (Windows)**: el script
 > [`scripts/configure-shopify.ps1`](../scripts/configure-shopify.ps1) hace por
 > API los pasos 2 y 3 de abajo (webhook + productos con SKUs correctos) desde
-> tu PC, pidiendo el dominio y el token de forma interactiva — las credenciales
-> no salen de tu máquina. El paso 1 (crear la app) y el 4 (COD) siguen siendo
-> manuales. Es idempotente: puedes re-ejecutarlo sin duplicar nada.
+> tu PC, pidiendo el dominio y las credenciales de forma interactiva — no salen
+> de tu máquina. El paso 1 (crear la app) y el 4 (COD) siguen siendo manuales.
+> Es idempotente: puedes re-ejecutarlo sin duplicar nada.
+
+> ⚠️ **No existe un token `shpat_` permanente para apps nuevas.** Desde el
+> 1-ene-2026 no se pueden crear apps personalizadas en el admin, y las del Dev
+> Dashboard **no muestran ningún token en la UI**: entregan Client ID + Client
+> Secret, que se canjean por un token de **24 h** (*client credentials grant*).
+> El gateway hace ese canje y lo renueva solo. Ver
+> [Get API access tokens for Dev Dashboard apps](https://shopify.dev/docs/apps/build/dev-dashboard/get-api-access-tokens).
 
 ## Configuración en Shopify (una vez)
 
-1. **App personalizada** (desde enero de 2026 se crea en el **Dev Dashboard**,
-   ya no en el admin): *Admin → Configuración → Apps y canales de venta →
-   Desarrollar apps → "Crear apps en el Dev Dashboard"* (o directo en
-   `dev.shopify.com`). Crear la app, solicitar los scopes de Admin API
-   `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`,
-   `read_products`, `write_products` (estos dos últimos los usa el script de
-   configuración para crear el catálogo), e **instalarla en la tienda**: el **Admin API access token** (`shpat_...`)
-   se muestra una única vez al instalar (si se pierde, desinstalar y
-   reinstalar lo regenera). Anotar también el **Client Secret** de la app.
+1. **App en el Dev Dashboard** — `https://dev.shopify.com/dashboard/`, con la
+   **misma cuenta/organización dueña de la tienda** (el *client credentials
+   grant* falla si la app y la tienda están en organizaciones distintas):
+   - **Apps → Create app → Start from Dev Dashboard**, nombrarla y **Create**.
+   - Pestaña **Versions**: *App URL* `https://shopify.dev/apps/default-app-home`
+     (no es embebida), *Webhooks API Version* la más nueva, y **Scopes**:
+     `read_products`, `write_products` (los usa el script que crea el catálogo),
+     `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`
+     (los usa el conector en runtime). Luego **Release** — sin esto los scopes
+     no se aplican.
+   - Pestaña **Home → Install app** → seleccionar la tienda → **Install**.
+   - Pestaña **Settings**: copiar **Client ID** y **Client secret**.
 2. **Webhook**: crearlo por API con `scripts/configure-shopify.ps1` (o a mano
    en *Configuración → Notificaciones → Webhooks*):
    - Evento: **Order creation** · Formato: JSON
@@ -55,15 +65,28 @@ ambos canales convergen en el mismo flujo de pedidos.
 En `infra/.env.prod` (o el entorno del gateway):
 
 ```bash
-SHOPIFY_WEBHOOK_SECRET=...        # secreto de firma del webhook
 SHOPIFY_STORE_DOMAIN=mitienda.myshopify.com
-SHOPIFY_ADMIN_TOKEN=shpat_...
+SHOPIFY_CLIENT_ID=...             # Dev Dashboard → app → Settings
+SHOPIFY_CLIENT_SECRET=...         # ídem
+SHOPIFY_WEBHOOK_SECRET=...        # = Client Secret si el webhook se creó por API
+SHOPIFY_API_VERSION=2026-04       # opcional; vacío usa el default del código
 ```
 
-Con las tres vacías el conector queda desactivado (el endpoint rechaza todo).
-Sin `SHOPIFY_ADMIN_TOKEN` el conector procesa pedidos igualmente, pero la
+Sin `SHOPIFY_WEBHOOK_SECRET` el conector queda desactivado (el endpoint rechaza
+todo, porque no puede verificar la firma). Sin `SHOPIFY_CLIENT_ID`/
+`SHOPIFY_CLIENT_SECRET` el conector procesa pedidos igualmente, pero la
 cancelación por falta de stock y la sincronización de tracking pasan a ser
 manuales (queda aviso en el log).
+
+**Gestión del token** — el gateway (`ShopifyService`) canjea Client ID/Secret
+en `POST /admin/oauth/access_token` (`grant_type=client_credentials`), cachea
+el token en memoria y lo renueva 5 minutos antes de vencer. Renovaciones
+simultáneas se colapsan en una sola. Nada se persiste: al reiniciar, el primer
+pedido vuelve a acuñarlo.
+
+`SHOPIFY_ADMIN_TOKEN` sigue soportado y **tiene prioridad** si se define, pero
+solo sirve para apps personalizadas creadas en el admin antes del 1-ene-2026.
+Para una app nueva debe quedar vacío.
 
 ## Flujo resultante
 

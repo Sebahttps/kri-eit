@@ -42,15 +42,37 @@ segundo trámite:
    ```
 
 4. **Registros A** — solo cuando el VPS exista: re-ejecutar el script e
-   ingresar su IP pública. Crea `tienda`, `panel` y `api` (los tres subdominios
+   ingresar su IP pública. Crea `hola`, `panel` y `api` (los tres subdominios
    del [`Caddyfile`](../infra/Caddyfile)).
+
+## Reparto del dominio
+
+En modo híbrido la vitrina pública es Shopify, así que se queda con la raíz.
+El VPS vive en subdominios y no hay conflicto:
+
+| Nombre | Apunta a | Quién emite el TLS |
+|---|---|---|
+| `compai.cl` (raíz) | Shopify — A `23.227.38.65` | Shopify |
+| `www` | Shopify — CNAME `shops.myshopify.com` | Shopify |
+| `hola` | VPS — tienda propia (canal secundario) | Caddy |
+| `panel` | VPS — dashboard del Supervisor | Caddy |
+| `api` | VPS — gateway, recibe el webhook `orders/create` | Caddy |
+
+Se llama `hola` y no `tienda` a propósito: la tienda real está en la raíz, y
+usar `tienda.` para el canal secundario confunde a cualquiera que lea el DNS
+seis meses después.
 
 ## Por qué DNS-only (nube gris) y no proxy naranja
 
-Los registros A se crean con `proxied: false` **a propósito**. Caddy emite y
-renueva los certificados por ACME contra Let's Encrypt; con el proxy naranja
-activo Cloudflare termina el TLS por su cuenta e interfiere con el desafío
-HTTP-01, dejando a Caddy sin poder emitir.
+**Toda la zona va en nube gris, sin excepciones.** Dos motivos independientes
+que apuntan a lo mismo:
+
+- **Los subdominios del VPS**: Caddy emite y renueva los certificados por ACME
+  contra Let's Encrypt; con el proxy naranja activo Cloudflare termina el TLS
+  por su cuenta e interfiere con el desafío HTTP-01.
+- **La raíz y `www`**: Shopify **no soporta** el proxy de Cloudflare. Bloquea
+  sus desafíos de validación y el certificado queda colgado en *pending*
+  indefinidamente — es el error más reportado de esa integración.
 
 Pasar a proxy naranja más adelante es posible —y aporta caché y mitigación de
 DoS— pero exige cambiar antes la estrategia de TLS (modo *Full (strict)* con

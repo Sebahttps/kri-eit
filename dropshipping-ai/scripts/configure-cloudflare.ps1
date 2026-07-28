@@ -126,7 +126,9 @@ if ($Ip.Trim()) {
     }
 
     # Subdominios del Caddyfile: STORE_DOMAIN, DASHBOARD_DOMAIN, API_DOMAIN.
-    $Sub = @("tienda", "panel", "api")
+    # "hola" y no "tienda": la vitrina publica vive en la raiz del dominio
+    # (Shopify), y llamar "tienda" al canal secundario invita a confusion.
+    $Sub = @("hola", "panel", "api")
     $existentes = @(Invoke-CF ("/zones/" + $Zona.id + "/dns_records?per_page=100"))
 
     foreach ($s in $Sub) {
@@ -148,7 +150,7 @@ if ($Ip.Trim()) {
 
     Write-Host ""
     Write-Host "== Valores para infra/.env.prod del VPS ==" -ForegroundColor Cyan
-    Write-Host ("STORE_DOMAIN=tienda." + $Dominio)
+    Write-Host ("STORE_DOMAIN=hola." + $Dominio)
     Write-Host ("DASHBOARD_DOMAIN=panel." + $Dominio)
     Write-Host ("API_DOMAIN=api." + $Dominio)
 } else {

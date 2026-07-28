@@ -52,7 +52,7 @@ write_files:
 
       echo "== Configuración del sistema de dropshipping =="
       ask ANTHROPIC_API_KEY "Clave API de Anthropic (sk-ant-...)"
-      ask STORE_DOMAIN      "Dominio de la tienda (ej. tienda.midominio.cl)"
+      ask STORE_DOMAIN      "Dominio de la tienda propia (ej. hola.midominio.cl)"
       ask DASHBOARD_DOMAIN  "Dominio del panel (ej. panel.midominio.cl)"
       ask API_DOMAIN        "Dominio del gateway (ej. api.midominio.cl)"
       ask ACME_EMAIL        "Email para Let's Encrypt"

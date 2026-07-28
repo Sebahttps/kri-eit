@@ -21,7 +21,8 @@ automático (Caddy + Let's Encrypt). Todo lo que se usa aquí vive en `infra/`:
 - **Docker Engine + Docker Compose v2** instalados
   (`curl -fsSL https://get.docker.com | sh`).
 - Un dominio con **tres registros A** apuntando a la IP del servidor, p. ej.:
-  - `tienda.tudominio.cl` → tienda B2C
+  - `hola.tudominio.cl` → tienda propia (canal secundario; en modo híbrido la
+    vitrina pública vive en la raíz del dominio, servida por Shopify)
   - `panel.tudominio.cl` → dashboard del Supervisor
   - `api.tudominio.cl` → gateway de negocio (webhooks de carriers y WebSocket)
 - Una clave de la API de Anthropic (para los dos agentes IA).
@@ -80,7 +81,7 @@ certificados HTTPS. Verificar:
 
 ```bash
 docker compose -f docker-compose.prod.yml --env-file .env.prod ps    # todo "Up"
-curl -I https://tienda.tudominio.cl                                   # 200 con TLS
+curl -I https://hola.tudominio.cl                                     # 200 con TLS
 ```
 
 Diferencias con el compose de desarrollo: los secretos no tienen valores por

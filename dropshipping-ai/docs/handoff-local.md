@@ -60,11 +60,34 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    (Configuración → General) y aplicar `docs/shopify-tema-compai.md` en el
    editor del tema (Horizon 4.1.3): colores, logotipo y `brand/shopify-custom.css`.
    Los assets de marca están en `brand/` (ver su README).
-4. **Cuando el usuario contrate el VPS**: guiarlo con `infra/cloud-init.yml`
-   (pegar como user-data), `dropship-setup` por SSH, variables `SHOPIFY_*`
-   en `.env.prod` (webhook secret = Client Secret de la app del Dev
-   Dashboard), crear el webhook (re-ejecutar el script del punto 1) y correr
-   la prueba E2E de `docs/shopify-hybrid.md`.
+4. **VPS: CREADO 2026-07-30**, pero el despliegue está **bloqueado por acceso
+   SSH**.
+   - IP `64.176.23.118`, Vultr **Santiago**, Cloud Compute 2 vCPU / 4 GB.
+     Latencia medida desde Chile: **7 ms**. Puerto 22 abierto; 80/443 cerrados
+     porque el stack aún no se levanta.
+   - `main` quedó al día (`2380b6e`) — es lo que clona el cloud-init.
+   - **Bloqueo**: no hay llave SSH instalada en el servidor. Se generó uno en
+     el PC del usuario (`C:\Users\sebas\.ssh\id_ed25519`); falta poner la
+     pública en el servidor. La clave pública es:
+     `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPUumQf831HGZy/xUaqGjnFDxnItriivXXT+ihm9Gu0g claude-compai-prod`
+   - Dos caminos: (a) entrar por SSH con la contraseña de root del panel de
+     Vultr —escribiéndola a mano, no pegándola— y añadir la clave a
+     `~/.ssh/authorized_keys`; (b) *Account → SSH Keys* para guardarla, luego
+     asignarla al servidor y **reinstalar**. La reinstalación avisa de pérdida
+     de datos: irrelevante aquí, el servidor está vacío.
+   - Después, en orden: registros A con `scripts/configure-cloudflare.ps1`
+     (token nuevo con `Zone:DNS:Edit` + `Zone:Zone:Read`, IP arriba) →
+     **esperar propagación** → `dropship-setup` por SSH. Ese orden importa:
+     Caddy emite el TLS con el desafío HTTP-01 y necesita que el dominio ya
+     resuelva al servidor.
+   - Respuestas para `dropship-setup`: `hola.compai.cl`, `panel.compai.cl`,
+     `api.compai.cl`, ACME `stapiamena@gmail.com`, más la clave de Anthropic y
+     el correo/contraseña del Supervisor (mínimo 12 caracteres).
+   - Luego: variables `SHOPIFY_*` en `.env.prod` (`SHOPIFY_CLIENT_ID`,
+     `SHOPIFY_CLIENT_SECRET`, webhook secret = el mismo Client Secret), crear
+     el webhook re-ejecutando el script del punto 1, y la prueba E2E de
+     `docs/shopify-hybrid.md`.
+   - Mantención de Vultr: lunes 2026-08-03, 15:00 UTC (11:00 en Chile).
 5. Pendientes manuales del usuario que conviene recordarle: activar COD
    (Configuración → Pagos → Métodos de pago manuales), fotos/tema de la
    tienda, y solicitud de marca mixta CompAI en INAPI (la raíz "comp-" está

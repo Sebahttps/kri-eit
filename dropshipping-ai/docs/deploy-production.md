@@ -98,17 +98,29 @@ El seed crea el supervisor con una contraseña que no está en el repo (solo su
 hash bcrypt). Aun así conviene rotarla al desplegar. No hay endpoint de cambio
 de contraseña, así que se actualiza directo en la base de datos:
 
+> **El seed deja al Supervisor bloqueado a propósito.** Este repositorio es
+> público, y publicar un hash bcrypt real permite descifrarlo sin conexión: sin
+> límite de intentos, sin bloqueo y sin dejar rastro. `dropship-setup` pide el
+> correo y la contraseña y los aplica, así que **en el camino con cloud-init no
+> hay que hacer nada de lo de abajo**. Esto es solo para la instalación manual o
+> para rotar la clave más adelante.
+
 ```bash
 cd kri-eit/dropshipping-ai/infra
+DC="docker compose -f docker-compose.prod.yml --env-file .env.prod"
 
-# 1. Generar el hash bcrypt de la nueva contraseña
-docker compose -f docker-compose.prod.yml --env-file .env.prod exec business-api \
-  node -e "console.log(require('bcryptjs').hashSync(process.argv[1], 10))" 'TuNuevaClaveSegura'
+# 1. Generar el hash. La clave va por entorno y no por argumentos: argv es
+#    visible en la lista de procesos del host, el entorno del contenedor no.
+read -rsp "Nueva contraseña: " PW; echo
+HASH=$($DC exec -T -e PW="$PW" business-api \
+  node -e "console.log(require('bcryptjs').hashSync(process.env.PW,10))" | tr -d '\r')
+unset PW
 
-# 2. Guardarlo (pegar el hash del paso anterior)
-docker compose -f docker-compose.prod.yml --env-file .env.prod exec postgres \
-  psql -U dropship -d dropship \
-  -c "UPDATE supervisors SET password_hash = '<hash>' WHERE email = 'sebastianmenat@gmail.com';"
+# 2. Aplicarlo (el id del Supervisor es fijo; el correo puede cambiarse aquí)
+$DC exec -T postgres psql -U dropship -d dropship -v ON_ERROR_STOP=1 \
+  -c "UPDATE supervisors SET email='tu@correo', password_hash='$HASH'
+      WHERE id='00000000-0000-0000-0000-000000000001';"
+unset HASH
 ```
 
 ### Backups diarios de PostgreSQL

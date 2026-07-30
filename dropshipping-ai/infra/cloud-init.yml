@@ -57,8 +57,38 @@ write_files:
       ask API_DOMAIN        "Dominio del gateway (ej. api.midominio.cl)"
       ask ACME_EMAIL        "Email para Let's Encrypt"
 
+      # Credenciales del Supervisor. El seed lo deja BLOQUEADO porque el repo
+      # es público y un hash bcrypt publicado se descifra sin conexión. Se piden
+      # aquí para que fijarlas sea parte del despliegue y no un paso manual que
+      # se olvida: hasta que esto corra, nadie puede entrar al panel.
+      echo
+      read -rp  "Correo de acceso al panel: " SUP_EMAIL
+      read -rsp "Contraseña del Supervisor: " SUP_PASS; echo
+      read -rsp "Repetir la contraseña: " SUP_PASS2; echo
+      [ "$SUP_PASS" = "$SUP_PASS2" ] || { echo "Las contraseñas no coinciden."; exit 1; }
+      [ ${#SUP_PASS} -ge 12 ] || { echo "Usa al menos 12 caracteres."; exit 1; }
+
       cd /opt/kri-eit/dropshipping-ai/infra
       docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+
+      DC="docker compose -f docker-compose.prod.yml --env-file .env.prod"
+
+      echo "Esperando a PostgreSQL..."
+      for _ in $(seq 1 60); do
+        $DC exec -T postgres pg_isready -U dropship -d dropship >/dev/null 2>&1 && break
+        sleep 2
+      done
+
+      # La contraseña viaja por variable de entorno y no por argumentos: argv es
+      # visible en la lista de procesos del host, el entorno del contenedor no.
+      SUP_HASH=$($DC exec -T -e PW="$SUP_PASS" business-api \
+        node -e "console.log(require('bcryptjs').hashSync(process.env.PW,10))" | tr -d '\r')
+      unset SUP_PASS SUP_PASS2
+
+      $DC exec -T postgres psql -U dropship -d dropship -v ON_ERROR_STOP=1 \
+        -c "UPDATE supervisors SET email='$SUP_EMAIL', password_hash='$SUP_HASH'
+            WHERE id='00000000-0000-0000-0000-000000000001';" >/dev/null
+      echo "Supervisor configurado: $SUP_EMAIL"
 
       mkdir -p /var/backups
       cat > /etc/cron.d/dropship-backup <<'CRON'

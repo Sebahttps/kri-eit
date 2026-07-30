@@ -1,10 +1,24 @@
 -- Datos de ejemplo para desarrollo local
--- UUID fijo (identidad por defecto del dashboard). La contraseña no está en el
--- repo, solo su hash bcrypt; para usar la tuya, genera un hash y reemplázalo
--- (ver docs/deploy-production.md, sección "Cambiar la contraseña del Supervisor").
+-- UUID fijo (identidad por defecto del dashboard).
+--
+-- El Supervisor nace BLOQUEADO a propósito. Este repositorio es público, y
+-- publicar un hash bcrypt real —aunque la contraseña no esté— permite
+-- descifrarlo sin conexión: sin límite de intentos, sin bloqueo y sin dejar
+-- rastro. Con el correo también público y la URL del panel documentada, eso
+-- basta para entrar al back-office.
+--
+-- El marcador de abajo no tiene la longitud de un hash bcrypt, así que
+-- bcryptjs.compare() devuelve false para cualquier contraseña sin lanzar: el
+-- login responde 401 limpio. Verificado.
+--
+--   Producción: `dropship-setup` pide correo y contraseña y los aplica.
+--   Desarrollo local: generar un hash y hacer el UPDATE a mano —
+--     node -e "console.log(require('bcryptjs').hashSync('tu-clave',10))"
+--     UPDATE supervisors SET email='tu@correo', password_hash='<hash>'
+--       WHERE id='00000000-0000-0000-0000-000000000001';
 INSERT INTO supervisors (id, email, nombre, password_hash)
-VALUES ('00000000-0000-0000-0000-000000000001', 'sebastianmenat@gmail.com', 'Supervisor',
-        '$2a$10$f3aWjjLDOEgCcYxKXougg.zeoKkO4f/vjx.H4FhZmNrppJWqyjp.i');
+VALUES ('00000000-0000-0000-0000-000000000001', 'supervisor@example.invalid', 'Supervisor',
+        'BLOQUEADO-sin-contrasena-ver-docs-deploy-production');
 
 INSERT INTO suppliers (id, nombre, modo, base_url, latencia_media_ms, confiabilidad) VALUES
   ('11111111-1111-1111-1111-111111111111', 'MayoristaExpress', 'api',      'https://api.mayoristaexpress.example', 120, 0.98),

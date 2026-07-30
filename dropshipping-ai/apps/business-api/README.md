@@ -33,7 +33,16 @@ BUSINESS_DATABASE_URL=postgresql://... AGENTS_API_URL=http://localhost:8000 npm 
 Variables: `BUSINESS_DATABASE_URL`, `AGENTS_API_URL`, `BUSINESS_JWT_SECRET`
 (obligatoria en producción), `BUSINESS_CORS_ORIGIN`, `PORT`.
 
-El seed crea el supervisor `sebastianmenat@gmail.com`; la contraseña no está en
-el repo (solo su hash bcrypt en `db/seed.sql`). Para usar la tuya en desarrollo,
-genera un hash y reemplázalo (ver `docs/deploy-production.md`, sección
-"Cambiar la contraseña del Supervisor").
+El seed crea un supervisor **bloqueado**: este repositorio es público, y un hash
+bcrypt publicado se descifra sin conexión, sin límite de intentos ni rastro. El
+marcador de `db/seed.sql` no valida ninguna contraseña.
+
+Para entrar en desarrollo, fija la tuya:
+
+```bash
+node -e "console.log(require('bcryptjs').hashSync('tu-clave',10))"
+# UPDATE supervisors SET email='tu@correo', password_hash='<hash>'
+#   WHERE id='00000000-0000-0000-0000-000000000001';
+```
+
+En producción lo hace `dropship-setup` (ver `docs/deploy-production.md`).

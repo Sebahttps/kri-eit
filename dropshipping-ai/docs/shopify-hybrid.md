@@ -42,8 +42,10 @@ ambos canales convergen en el mismo flujo de pedidos.
      (no es embebida), *Webhooks API Version* la más nueva, y **Scopes**:
      `read_products`, `write_products` (los usa el script que crea el catálogo),
      `read_orders`, `write_orders`, `read_fulfillments`, `write_fulfillments`
-     (los usa el conector en runtime). Luego **Release** — sin esto los scopes
-     no se aplican.
+     (los usa el conector en runtime), y `read_themes`, `write_themes` (solo si
+     se quiere aplicar la identidad al tema por API en vez de a mano — ver
+     [`shopify-tema-compai.md`](shopify-tema-compai.md)). Luego **Release** —
+     sin esto los scopes no se aplican.
    - Pestaña **Home → Install app** → seleccionar la tienda → **Install**.
    - Pestaña **Settings**: copiar **Client ID** y **Client secret**.
 2. **Webhook**: crearlo por API con `scripts/configure-shopify.ps1` (o a mano

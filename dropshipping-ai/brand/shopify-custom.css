@@ -1,0 +1,124 @@
+/* ===========================================================================
+   CompAI — CSS propia para el tema Horizon
+   Pegar en: Tienda online > Temas > Personalizar > Ajustes del tema > CSS propia
+   ---------------------------------------------------------------------------
+   Los COLORES NO se definen aquí. Horizon los aplica con clases de esquema por
+   sección (.color-custom-*), de modo que sobreescribirlos desde CSS propia
+   obligaría a usar selectores tan amplios que romperían los esquemas de las
+   insignias de oferta y agotado. Los colores van en el editor
+   (Ajustes del tema > Colores), que es donde el tema espera encontrarlos y
+   donde sobreviven a las actualizaciones.
+
+   Esta hoja cubre solo lo que el editor no alcanza.
+   =========================================================================== */
+
+:root {
+  --compai-cobre: #a2551f;
+  --compai-verde: #15734a;
+  --compai-crema: #f7f2e6;
+  --compai-papel: #fdfbf4;
+  --compai-tinta: #1c1917;
+}
+
+/* --- Foco visible ----------------------------------------------------------
+   Horizon hereda el foco del color de texto. En cobre se distingue del borde
+   normal sin depender del color, que es lo que necesita quien navega con
+   teclado. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--compai-cobre);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Selección de texto ---------------------------------------------------- */
+::selection {
+  background: rgb(162 85 31 / 0.18);
+  color: var(--compai-tinta);
+}
+
+/* ===========================================================================
+   Las cinco promesas con doble check
+   ---------------------------------------------------------------------------
+   El doble check es el elemento firma de la marca: el mismo trazo que usan el
+   logotipo, el isotipo y la tienda propia.
+
+   CÓMO USARLO: en el editor, agrega una sección de texto enriquecido con una
+   lista de viñetas (una promesa por viñeta). Con la sección seleccionada, abre
+   "CSS propia" DE LA SECCIÓN y pega:
+
+       .promesas ul { }
+
+   ...no hace falta nada más: Shopify antepone el selector de la sección. Luego
+   añade la clase escribiendo la lista dentro de un bloque de código HTML si tu
+   sección lo permite; si no, usa el bloque de abajo, que apunta a cualquier
+   lista dentro de una sección marcada con la clase .compai-promesas.
+   =========================================================================== */
+
+.compai-promesas ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+@media (min-width: 750px) {
+  .compai-promesas ul {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+}
+
+.compai-promesas li {
+  /* Burbuja de chat: la esquina inferior izquierda sin redondear es lo que la
+     hace leer como burbuja, sin necesidad de un pseudo-elemento con pico. */
+  background: var(--compai-papel);
+  border: 1px solid rgb(28 25 23 / 0.12);
+  border-radius: 0.75rem 0.75rem 0.75rem 0.15rem;
+  padding: 0.85rem 0.9rem 0.85rem 2.9rem;
+  margin: 0;
+  position: relative;
+  line-height: 1.45;
+
+  /* El doble check va como imagen de fondo y no como texto: así no depende de
+     que la fuente del visitante tenga el glifo, y conserva el trazo exacto. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'%3E%3Cg fill='none' stroke='%2315734a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 8.5 L5 12.5 L12 4'/%3E%3Cpath d='M10 8.5 L14 12.5 L21 4'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0.85rem 1.05rem;
+  background-size: 1.15rem auto;
+}
+
+/* ===========================================================================
+   Detalles de marca
+   =========================================================================== */
+
+/* El logotipo del encabezado no debe encogerse por debajo de su tamaño mínimo
+   legible: bajo 120 px las versalitas de "AI" dejan de distinguirse. */
+.header__heading-logo,
+.header__logo img {
+  min-width: 120px;
+}
+
+/* Números tabulares en precios: alinea las columnas en el carrito y evita el
+   salto de ancho cuando cambia una cantidad. */
+.price,
+.cart-item__price,
+.totals__total-value {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

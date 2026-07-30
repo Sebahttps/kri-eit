@@ -57,7 +57,9 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    burbujas con doble check) y `apps/dashboard` con nombre y base crema,
    conservando la paleta de series de los gráficos. Contrastes verificados.
    **Pendiente del usuario**: nombre visible de la tienda Shopify
-   (Configuración → General).
+   (Configuración → General) y aplicar `docs/shopify-tema-compai.md` en el
+   editor del tema (Horizon 4.1.3): colores, logotipo y `brand/shopify-custom.css`.
+   Los assets de marca están en `brand/` (ver su README).
 4. **Cuando el usuario contrate el VPS**: guiarlo con `infra/cloud-init.yml`
    (pegar como user-data), `dropship-setup` por SSH, variables `SHOPIFY_*`
    en `.env.prod` (webhook secret = Client Secret de la app del Dev

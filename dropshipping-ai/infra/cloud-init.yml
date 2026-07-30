@@ -104,7 +104,10 @@ write_files:
 runcmd:
   - sysctl --system
   - curl -fsSL https://get.docker.com | sh
-  - git clone https://github.com/Sebahttps/kri-eit.git /opt/kri-eit
+  # Rama explícita: sin --branch se clona la rama por defecto del repositorio,
+  # que puede cambiar sin que nadie lo note y desplegaría código distinto del
+  # esperado. Producción sale de main; el trabajo en curso vive en ramas.
+  - git clone --branch main https://github.com/Sebahttps/kri-eit.git /opt/kri-eit
   - cp /opt/kri-eit/dropshipping-ai/infra/.env.prod.example /opt/kri-eit/dropshipping-ai/infra/.env.prod
   - sed -i "s|^POSTGRES_PASSWORD=.*|POSTGRES_PASSWORD=$(openssl rand -hex 24)|" /opt/kri-eit/dropshipping-ai/infra/.env.prod
   - sed -i "s|^BUSINESS_JWT_SECRET=.*|BUSINESS_JWT_SECRET=$(openssl rand -hex 32)|" /opt/kri-eit/dropshipping-ai/infra/.env.prod

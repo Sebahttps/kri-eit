@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CompAI">
+  <title>CompAI — isotipo</title>
+  <!-- Burbuja de confirmación: el elemento firma de la marca. Verde
+       confirmación de fondo para que el icono lea "entregado" incluso a 16 px,
+       donde cualquier detalle más fino desaparece. -->
+  <g fill="#15734a">
+    <rect x="6" y="9" width="52" height="37" rx="10"/>
+    <path d="M17 41 L11 56 L31 43 Z"/>
+  </g>
+  <!-- Doble check en crema. Mismo trazo que usa la tienda en las promesas. -->
+  <g transform="translate(17.32 16.49) scale(1.335)"
+     fill="none" stroke="#fdfbf4" stroke-width="2.4"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 8.5 L5 12.5 L12 4"/>
+    <path d="M10 8.5 L14 12.5 L21 4"/>
+  </g>
+</svg>

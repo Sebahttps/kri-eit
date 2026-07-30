@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 84" width="300" height="84" role="img" aria-label="CompAI">
+  <title>CompAI — logotipo horizontal</title>
+  <!-- "comp" en minúscula + "AI" en versalitas cobre.
+       Las versalitas se resuelven con MAYÚSCULA a menor tamaño y no con
+       font-variant-caps: el soporte de esa propiedad en renderizadores de SVG
+       (y en el editor de temas de Shopify) es irregular, y así el resultado es
+       idéntico en todas partes.
+       El <tspan> hereda el flujo del texto, de modo que "AI" se posiciona solo
+       sin depender de métricas de fuente que varían por sistema. -->
+  <text x="4" y="58"
+        font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
+        font-size="56" font-weight="600" letter-spacing="-1.2" fill="#1c1917">comp<tspan
+        font-size="41" letter-spacing="1.6" fill="#a2551f">AI</tspan></text>
+
+  <!-- Doble check verde como sello de verificación, alineado con la altura de
+       las versalitas. Es el mismo trazo del isotipo y de las promesas: repetir
+       la forma en los tres sitios es lo que la vuelve reconocible. -->
+  <g transform="translate(232 20) scale(1.5)"
+     fill="none" stroke="#15734a" stroke-width="2.2"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 8.5 L5 12.5 L12 4"/>
+    <path d="M10 8.5 L14 12.5 L21 4"/>
+  </g>
+</svg>

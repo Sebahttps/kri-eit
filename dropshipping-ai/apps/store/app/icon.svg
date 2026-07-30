@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CompAI">
+  <title>CompAI</title>
+  <!-- Versión de favicon: la burbuja ocupa casi todo el lienzo y el trazo del
+       check es más grueso que en el isotipo. A 16 px el margen generoso y el
+       trazo fino del isotipo se pierden; aquí se sacrifica elegancia por
+       legibilidad, que es lo único que importa a ese tamaño. -->
+  <rect width="64" height="64" rx="14" fill="#15734a"/>
+  <g transform="translate(9.45 15.09) scale(2.05)"
+     fill="none" stroke="#fdfbf4" stroke-width="2.6"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 8.5 L5 12.5 L12 4"/>
+    <path d="M10 8.5 L14 12.5 L21 4"/>
+  </g>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 84" width="300" height="84" role="img" aria-label="CompAI">
+  <title>CompAI — logotipo nocturno</title>
+  <defs>
+    <!-- Muro: no un negro plano, sino un degradado radial que insinúa la luz
+         del propio letrero cayendo sobre la superficie. Es lo que hace que se
+         lea como "muro iluminado" y no como "fondo negro". -->
+    <radialGradient id="muro" cx="45%" cy="50%" r="75%">
+      <stop offset="0%" stop-color="#2a241c"/>
+      <stop offset="100%" stop-color="#14120e"/>
+    </radialGradient>
+
+    <!-- Resplandor CÁLIDO, no neón frío: el cobre incandescente lee como metal
+         y brasa. Un cian o magenta traería la estética de las tiendas de
+         dropshipping truchas, que es justo de la que esta marca se diferencia. -->
+    <filter id="brasa" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b2"/>
+      <feMerge>
+        <feMergeNode in="b2"/>
+        <feMergeNode in="b1"/>
+      </feMerge>
+    </filter>
+
+    <g id="marca">
+      <text x="4" y="58"
+            font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
+            font-size="56" font-weight="600" letter-spacing="-1.2" fill="#f5f0e4">comp<tspan
+            font-size="41" letter-spacing="1.6" fill="#e0954f">AI</tspan></text>
+      <g transform="translate(232 20) scale(1.5)"
+         fill="none" stroke="#4cc48b" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 8.5 L5 12.5 L12 4"/>
+        <path d="M10 8.5 L14 12.5 L21 4"/>
+      </g>
+    </g>
+  </defs>
+
+  <rect width="300" height="84" rx="10" fill="url(#muro)"/>
+  <!-- Se dibuja dos veces: la copia difusa abajo es el halo sobre el muro, la
+       nítida encima mantiene el texto legible. Es la técnica clásica de rótulo
+       luminoso, y evita depender de filtros aplicados a <tspan>, que muchos
+       renderizadores ignoran. -->
+  <use href="#marca" filter="url(#brasa)" opacity="0.85"/>
+  <use href="#marca"/>
+</svg>

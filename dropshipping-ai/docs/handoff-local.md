@@ -13,9 +13,6 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
   Shopify** (webhook orders/create con HMAC, cancelación sin stock, sync de
   tracking) probado E2E 7/7. Ver `docs/shopify-hybrid.md` y
   `docs/deploy-production.md`.
-  **Ojo**: el arreglo de la llave SSH en el cloud-init (`8ad86ac`) está en la
-  rama de trabajo y **no en `main`** — va en el **PR #15**, abierto. Hasta que
-  se mergee, un servidor nuevo creado desde `main` volvería a nacer sin llave.
 - **Modo elegido**: híbrido — Shopify como vitrina/checkout, agentes como
   back-office.
 - **PR #14 mergeado** el 2026-07-30: `scripts/configure-shopify.ps1` ya está en

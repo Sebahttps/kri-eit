@@ -145,6 +145,129 @@ write_files:
       echo "y en unos minutos (emisión de certificados):"
       echo "  curl -I https://$(grep ^STORE_DOMAIN= "$ENVF" | cut -d= -f2)"
 
+  - path: /usr/local/bin/dropship-health
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      # Autodiagnostico de CompAI. Corre por cron cada 10 minutos.
+      #
+      # Deja una linea de resumen en /var/log/dropship-health.log y el detalle del
+      # ultimo chequeo en /var/log/dropship-health.last
+      #
+      # LIMITE CONOCIDO: esto corre DENTRO del servidor, asi que su punto ciego es
+      # justamente el servidor caido, que por definicion no puede reportarse solo.
+      # Es el complemento interno de un monitor externo, no su reemplazo.
+      #
+      # Sin `set -e` a proposito: un chequeo que falla no debe abortar los demas.
+      # La gracia de un diagnostico es ver TODOS los sintomas, no solo el primero.
+      set -uo pipefail
+
+      INFRA=/opt/kri-eit/dropshipping-ai/infra
+      LOG=/var/log/dropship-health.log
+      LAST=/var/log/dropship-health.last
+      DOMINIOS="hola.compai.cl panel.compai.cl api.compai.cl"
+      SERVICIOS="postgres redis agents-service business-api dashboard store caddy"
+
+      cd "$INFRA" 2>/dev/null || { echo "$(date -u '+%F %T') FALLA: no existe $INFRA" >> "$LOG"; exit 1; }
+      DC="docker compose -f docker-compose.prod.yml --env-file .env.prod"
+
+      # Entre el aprovisionamiento y el primer `dropship-setup` el stack no
+      # existe todavia. Sin esta guarda el cron reportaria 7 contenedores
+      # caidos cada 10 minutos por algo perfectamente esperado, y un monitor
+      # que grita por lo esperado ensena a ignorarlo justo antes de que grite
+      # por lo que importa. Se registra el estado y se sale en silencio.
+      if ! grep -q '^ANTHROPIC_API_KEY=.' .env.prod 2>/dev/null; then
+        echo "$(date -u '+%F %T') SIN DESPLEGAR (falta correr dropship-setup)" >> "$LOG"
+        exit 0
+      fi
+
+      PROBLEMAS=()
+      detalle()  { printf '%s\n' "$*" >> "$LAST.tmp"; }
+      problema() { PROBLEMAS+=("$1"); detalle "  FALLA   $1"; }
+      ok()       { detalle "  ok      $1"; }
+      aviso()    { detalle "  aviso   $1"; }
+
+      : > "$LAST.tmp"
+      detalle "Chequeo $(date -u '+%F %T UTC')  ·  uptime$(uptime -p | sed 's/^up//')"
+      detalle ""
+
+      # --- contenedores ---
+      ESTADOS=$($DC ps --format '{{.Service}} {{.State}}' 2>/dev/null)
+      for s in $SERVICIOS; do
+        if grep -qE "^$s running" <<< "$ESTADOS"; then ok "contenedor $s"
+        else problema "contenedor $s no esta corriendo"; fi
+      done
+
+      # --- postgres acepta conexiones ---
+      if $DC exec -T postgres pg_isready -U dropship -d dropship >/dev/null 2>&1; then
+        ok "postgres acepta conexiones"
+      else
+        problema "postgres no acepta conexiones"
+      fi
+
+      # --- los dominios responden desde fuera ---
+      for d in $DOMINIOS; do
+        RUTA="/"; [ "$d" = "api.compai.cl" ] && RUTA="/health"
+        CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "https://$d$RUTA" 2>/dev/null)
+        if [ "$CODE" = "200" ]; then ok "HTTP $d$RUTA -> 200"
+        else problema "HTTP $d$RUTA -> $CODE"; fi
+      done
+
+      # --- vencimiento de los certificados ---
+      # Caddy renueva a los 30 dias restantes; avisar bajo 15 significa que la
+      # renovacion automatica ya fallo dos semanas seguidas y hay que mirar.
+      for d in $DOMINIOS; do
+        FIN=$(echo | timeout 10 openssl s_client -connect "$d:443" -servername "$d" 2>/dev/null \
+              | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
+        if [ -z "$FIN" ]; then problema "TLS $d: no se pudo leer el certificado"; continue; fi
+        DIAS=$(( ($(date -d "$FIN" +%s) - $(date +%s)) / 86400 ))
+        if [ "$DIAS" -lt 15 ]; then problema "TLS $d vence en $DIAS dias"
+        else ok "TLS $d vence en $DIAS dias"; fi
+      done
+
+      # --- disco y memoria ---
+      USO=$(df --output=pcent / 2>/dev/null | tail -1 | tr -dc '0-9')
+      if [ -n "$USO" ] && [ "$USO" -ge 85 ]; then problema "disco al ${USO}%"
+      else ok "disco al ${USO:-?}%"; fi
+
+      MEM=$(free 2>/dev/null | awk '/^Mem:/ {printf "%d", $3*100/$2}')
+      if [ -n "$MEM" ] && [ "$MEM" -ge 90 ]; then problema "RAM al ${MEM}%"
+      else ok "RAM al ${MEM:-?}%"; fi
+
+      # --- el backup del dia se creo ---
+      # El umbral es 26 h y no 24: da margen para que el cron de las 03:30 corra sin
+      # que el chequeo de las 03:2x del dia siguiente lo declare atrasado.
+      ULTIMO=$(ls -t /var/backups/dropship-*.sql.gz 2>/dev/null | head -1)
+      if [ -z "$ULTIMO" ]; then
+        aviso "aun no hay backups (el primero corre a las 03:30 UTC)"
+      else
+        HORAS=$(( ($(date +%s) - $(stat -c %Y "$ULTIMO")) / 3600 ))
+        TAM=$(du -h "$ULTIMO" | cut -f1)
+        if [ "$HORAS" -gt 26 ]; then problema "el ultimo backup tiene ${HORAS} h"
+        else ok "backup de hace ${HORAS} h ($(basename "$ULTIMO"), $TAM)"; fi
+      fi
+
+      mv "$LAST.tmp" "$LAST"
+
+      N=${#PROBLEMAS[@]}
+      if [ "$N" -eq 0 ]; then
+        echo "$(date -u '+%F %T') OK" >> "$LOG"
+      else
+        echo "$(date -u '+%F %T') FALLA($N): $(IFS='; '; echo "${PROBLEMAS[*]}")" >> "$LOG"
+      fi
+
+      # El log no puede crecer sin control: cada 10 min son ~4300 lineas al mes.
+      tail -n 3000 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
+
+      [ "$N" -eq 0 ]
+
+  - path: /etc/cron.d/dropship-health
+    permissions: "0644"
+    content: |
+      # Autodiagnostico cada 10 minutos. El detalle del ultimo chequeo queda en
+      # /var/log/dropship-health.last y el historico en dropship-health.log
+      */10 * * * * root /usr/local/bin/dropship-health >/dev/null 2>&1
+
 runcmd:
   # La llave va PRIMERO, antes de Docker y del clone. Si un paso posterior
   # falla —get.docker.com caído, el repo inaccesible— el servidor queda a

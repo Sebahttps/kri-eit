@@ -117,9 +117,10 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
 
    El `-t` es necesario: el script usa `read -rsp` y sin TTY no funciona.
    Respuestas: clave de Anthropic, `hola.compai.cl`, `panel.compai.cl`,
-   `api.compai.cl`, ACME `stapiamena@gmail.com`, más el correo y la contraseña
-   del Supervisor (mínimo 12 caracteres). **No reutilizar la contraseña del
-   seed**: su hash está publicado en el repo (ver `docs/deploy-production.md`).
+   `api.compai.cl`, la cuenta de infraestructura como email de ACME, y el correo
+   y la contraseña del Supervisor (mínimo 12 caracteres). El seed deja esa
+   cuenta bloqueada con un literal que no es un bcrypt, así que no hay ningún
+   hash publicado que descifrar (ver `docs/deploy-production.md`).
    Tarda varios minutos —construye cuatro imágenes— y para eso está el swap.
 
    - Luego: variables `SHOPIFY_*` en `.env.prod` (`SHOPIFY_CLIENT_ID`,

@@ -77,7 +77,22 @@ write_files:
       ENVF=/opt/kri-eit/dropshipping-ai/infra/.env.prod
       [ -f "$ENVF" ] || { echo "No existe $ENVF (¿terminó cloud-init? revisa /var/log/cloud-init-output.log)"; exit 1; }
 
-      ask() { local var=$1 prompt=$2 val; read -rp "$prompt: " val; sed -i "s|^${var}=.*|${var}=${val}|" "$ENVF"; }
+      # ENTER conserva el valor actual y lo muestra entre corchetes. Asi lo que
+      # no es secreto —los tres dominios y el email ACME— puede quedar escrito
+      # en .env.prod de antemano, y el despliegue se reduce a teclear la clave
+      # de Anthropic y la contraseña del Supervisor. Antes, contestar en blanco
+      # borraba el valor en vez de conservarlo.
+      ask() {
+        local var=$1 prompt=$2 val cur
+        cur=$(grep "^${var}=" "$ENVF" | cut -d= -f2-)
+        if [ -n "$cur" ]; then
+          read -rp "$prompt [$cur]: " val
+          val=${val:-$cur}
+        else
+          read -rp "$prompt: " val
+        fi
+        sed -i "s|^${var}=.*|${var}=${val}|" "$ENVF"
+      }
 
       echo "== Configuración del sistema de dropshipping =="
       ask ANTHROPIC_API_KEY "Clave API de Anthropic (sk-ant-...)"

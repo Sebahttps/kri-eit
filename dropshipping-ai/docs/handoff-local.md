@@ -14,14 +14,15 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
   tracking) probado E2E 7/7. Ver `docs/shopify-hybrid.md` y
   `docs/deploy-production.md`.
   **Ojo**: el arreglo de la llave SSH en el cloud-init (`8ad86ac`) está en la
-  rama de trabajo, **no en `main`**. Hasta que se mergee, un servidor nuevo
-  creado desde `main` volvería a nacer sin llave.
+  rama de trabajo y **no en `main`** — va en el **PR #15**, abierto. Hasta que
+  se mergee, un servidor nuevo creado desde `main` volvería a nacer sin llave.
 - **Modo elegido**: híbrido — Shopify como vitrina/checkout, agentes como
   back-office.
-- **PR #14 abierto** (borrador): `scripts/configure-shopify.ps1` — el usuario
-  intentó ejecutarlo pegándolo por partes en la consola y falló por inputs
-  (dominio incompleto, token mal pegado). El script en sí no tiene errores
-  conocidos; falta una ejecución limpia como archivo.
+- **PR #14 mergeado** el 2026-07-30: `scripts/configure-shopify.ps1` ya está en
+  `main`. Lo que sigue pendiente no es el código sino **ejecutarlo**: el intento
+  anterior falló porque se pegó por partes en la consola y los inputs llegaron
+  mal (dominio incompleto, token mal pegado). El script no tiene errores
+  conocidos; falta una ejecución limpia, como archivo.
 - **Tienda Shopify**: creada, plan Básico (promo US$1/mes x3 meses). Falta la
   app del Dev Dashboard; scopes necesarios: read/write de orders, fulfillments
   **y products** (products lo usa el script que crea el catálogo).

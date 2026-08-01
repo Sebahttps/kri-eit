@@ -11,6 +11,21 @@
 #   dropship-setup
 # que pide la clave de Anthropic, los 3 dominios y el email ACME, levanta el
 # stack completo y deja el cron de backups diarios.
+#
+# ANTES DE PEGARLO: reemplaza el marcador PEGA_AQUI_TU_LLAVE_PUBLICA en el
+# bloque `runcmd` por tu llave pública real (el contenido de `~/.ssh/id_*.pub`).
+# Sin eso el servidor arranca SIN NINGUNA FORMA DE ENTRAR: Vultr solo inyecta
+# llaves elegidas en el momento de desplegar, y el panel no permite añadirlas
+# después sin borrar el disco. Es exactamente lo que pasó el 2026-07-30.
+
+hostname: compai-prod
+
+# Por defecto cloud-init antepone un `command="..."` a la llave de root que
+# rechaza la conexión con "Please login as...". Aquí root es la única cuenta
+# que usa el despliegue, así que se desactiva esa protección; el acceso sigue
+# siendo solo-por-llave porque la imagen trae PermitRootLogin prohibit-password.
+disable_root: false
+ssh_pwauth: false
 
 package_update: true
 packages:
@@ -45,10 +60,39 @@ write_files:
       # levanta el stack de producción y programa los backups diarios.
       set -euo pipefail
 
+      # Sin TTY, el primer `read` recibe EOF y devuelve != 0; con `set -e` eso
+      # mata el script antes de la primera pregunta y casi sin mensaje, dejando
+      # un servidor que parece configurado y no lo está. Pasa al invocarlo como
+      # `ssh host dropship-setup`, sin `-t`. Se comprueba antes de tocar nada.
+      if [ ! -t 0 ]; then
+        echo "Esto necesita una terminal interactiva: pide la clave de Anthropic" >&2
+        echo "y la contraseña del Supervisor." >&2
+        echo >&2
+        echo "  ssh -t root@<ip> dropship-setup" >&2
+        echo >&2
+        echo "El -t es lo que falta si llegaste aquí." >&2
+        exit 1
+      fi
+
       ENVF=/opt/kri-eit/dropshipping-ai/infra/.env.prod
       [ -f "$ENVF" ] || { echo "No existe $ENVF (¿terminó cloud-init? revisa /var/log/cloud-init-output.log)"; exit 1; }
 
-      ask() { local var=$1 prompt=$2 val; read -rp "$prompt: " val; sed -i "s|^${var}=.*|${var}=${val}|" "$ENVF"; }
+      # ENTER conserva el valor actual y lo muestra entre corchetes. Asi lo que
+      # no es secreto —los tres dominios y el email ACME— puede quedar escrito
+      # en .env.prod de antemano, y el despliegue se reduce a teclear la clave
+      # de Anthropic y la contraseña del Supervisor. Antes, contestar en blanco
+      # borraba el valor en vez de conservarlo.
+      ask() {
+        local var=$1 prompt=$2 val cur
+        cur=$(grep "^${var}=" "$ENVF" | cut -d= -f2-)
+        if [ -n "$cur" ]; then
+          read -rp "$prompt [$cur]: " val
+          val=${val:-$cur}
+        else
+          read -rp "$prompt: " val
+        fi
+        sed -i "s|^${var}=.*|${var}=${val}|" "$ENVF"
+      }
 
       echo "== Configuración del sistema de dropshipping =="
       ask ANTHROPIC_API_KEY "Clave API de Anthropic (sk-ant-...)"
@@ -102,6 +146,15 @@ write_files:
       echo "  curl -I https://$(grep ^STORE_DOMAIN= "$ENVF" | cut -d= -f2)"
 
 runcmd:
+  # La llave va PRIMERO, antes de Docker y del clone. Si un paso posterior
+  # falla —get.docker.com caído, el repo inaccesible— el servidor queda a
+  # medio aprovisionar pero se puede entrar a diagnosticarlo. Al revés, un
+  # fallo temprano deja el servidor inalcanzable y la única salida es borrarlo.
+  # Va en runcmd y no en `users:` porque runcmd corre en la fase final, después
+  # del módulo `ssh`, así que nada de cloud-init puede sobrescribir el archivo.
+  - sh -c "mkdir -p /root/.ssh && chmod 700 /root/.ssh"
+  - sh -c "echo 'PEGA_AQUI_TU_LLAVE_PUBLICA' >> /root/.ssh/authorized_keys"
+  - sh -c "chmod 600 /root/.ssh/authorized_keys"
   - sysctl --system
   - curl -fsSL https://get.docker.com | sh
   # Rama explícita: sin --branch se clona la rama por defecto del repositorio,

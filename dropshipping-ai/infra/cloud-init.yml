@@ -60,6 +60,20 @@ write_files:
       # levanta el stack de producción y programa los backups diarios.
       set -euo pipefail
 
+      # Sin TTY, el primer `read` recibe EOF y devuelve != 0; con `set -e` eso
+      # mata el script antes de la primera pregunta y casi sin mensaje, dejando
+      # un servidor que parece configurado y no lo está. Pasa al invocarlo como
+      # `ssh host dropship-setup`, sin `-t`. Se comprueba antes de tocar nada.
+      if [ ! -t 0 ]; then
+        echo "Esto necesita una terminal interactiva: pide la clave de Anthropic" >&2
+        echo "y la contraseña del Supervisor." >&2
+        echo >&2
+        echo "  ssh -t root@<ip> dropship-setup" >&2
+        echo >&2
+        echo "El -t es lo que falta si llegaste aquí." >&2
+        exit 1
+      fi
+
       ENVF=/opt/kri-eit/dropshipping-ai/infra/.env.prod
       [ -f "$ENVF" ] || { echo "No existe $ENVF (¿terminó cloud-init? revisa /var/log/cloud-init-output.log)"; exit 1; }
 

@@ -209,10 +209,35 @@ adquisición— y conviene venderlos en pack, no sueltos.
 La excepción son los baños ecológicos: a $12.000 de costo son durables de
 ticket alto, no consumibles, y entran al catálogo principal.
 
-**Pendiente:** precio de mercado de camas (Mercado Libre no cargó) y las
-categorías de snacks y antipulgas, que se cortaron por inestabilidad de la
-app. Sin el precio de mercado, la columna de margen de las camas no se puede
-cerrar.
+#### Camas: el margen baja cuando sube el tamaño
+
+Precios de mercado leídos en Mercado Libre el 2026-08-05: 60 cm
+$16.990–$29.980 · 80 cm $12.984 · 90 cm $15.972 · 100 cm $16.983 · 110 cm
+$18.700–$29.680.
+
+**El precio de mercado casi no escala con el tamaño, pero el costo sí.**
+Cruzado con los costos de Mondo, el resultado es contraintuitivo:
+
+| Cama de felpa | Costo | Mercado | Margen | Veredicto |
+|---|---|---|---|---|
+| 60 cm | $5.900 | $16.990 | $11.090 | **PASA** |
+| 70 cm | $7.500 | ~$17.000 | $9.500 | **PASA** |
+| 80 cm | $9.000 | $12.984 | $3.984 | FUERA |
+| 100 cm | $13.900 | $16.983 | $3.083 | FUERA |
+
+Las camas grandes son lo peor del catálogo: cuestan casi el triple y se venden
+casi al mismo precio. Y las que sí sirven —60 y 70 cm— son además las que no
+dan problema de flete. Los dos criterios apuntan al mismo lado.
+
+**Hallazgo de posicionamiento:** lo que sostiene el precio no es el tamaño,
+es la palabra **"antiestrés"**. Una cama de 60 cm publicada así se vende entre
+$16.990 y $29.980; la misma superficie publicada como "cama de felpa" cae a
+$10.300. Es el mismo producto de Mondo: cambia el título de la publicación,
+no el costo. Esto vale para todo el catálogo — el título es una variable de
+margen, no de estética.
+
+**Pendiente:** las categorías de snacks y antipulgas de Mondo, que se
+cortaron por inestabilidad de la app.
 
 ### Medio de pago para el contra entrega: Klap
 

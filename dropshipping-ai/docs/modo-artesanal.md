@@ -64,7 +64,7 @@ Un SKU entra al catálogo solo si cumple **los seis** criterios:
 | # | Criterio | Por qué |
 |---|---|---|
 | 1 | Margen neto ≥ $8.000 absolutos | Bajo eso el tiempo por venta no se paga |
-| 2 | Precio de venta $25.000–$70.000 | Bajo $25.000 no cabe el margen; sobre $70.000 la fricción de compra sube fuerte |
+| 2 | ~~Precio de venta $25.000–$70.000~~ **Sin piso de precio. Techo $70.000** | **Corregido 2026-08-05 con datos reales.** El piso salía de asumir costo ≈ 50-60% del precio. En los mayoristas del directorio el costo real es **25-30%** del precio de calle, así que un ticket de $17.000 deja $12.000 de margen. Manda el criterio 1, no el precio |
 | 3 | Rota: producto con demanda visible en Marketplace hoy | La rotación es lo que protege el capital inmovilizado (§1) |
 | 4 | Sin electrónica ni productos eléctricos | La garantía legal de 6 meses (Ley 19.496, art. 20–21) la respondes tú; y los eléctricos requieren **certificación SEC**, según la opinión legal de LAI-er |
 | 5 | Mayorista con despacho directo al cliente final, **o** retiro presencial en Meiggs | El despacho directo elimina manipuleo; el retiro presencial te deja revisar calidad antes de despachar. Ambos sirven, por razones distintas |
@@ -98,6 +98,37 @@ Mascotas merece atención especial: es el único con recompra natural, y la
 recompra es lo que hace que el costo de conseguir al cliente se pague dos
 veces. GAIn ya lo había marcado como candidato futuro; con ticket más alto
 pasa a ser candidato inmediato.
+
+### Primer dato real: PETBABY, bolsos de transporte (2026-08-05)
+
+Costos leídos en Yollgo (tienda 5151, categoría `042_00E`) contra precios
+observados en Mercado Libre el mismo día:
+
+| Producto | SKU | Medida | Costo | Precio de mercado | Margen |
+|---|---|---|---|---|---|
+| Bolso de viaje S | PBB-54420 | 24×34 cm | $4.990 | $14.990–$16.990 | $10.000–$12.000 |
+| Bolso de viaje M | PBB-54419 | 26×42 cm | $5.500 | $17.989–$19.890 | $12.500–$14.400 |
+| Bolso de viaje L | PBB-54418 | 28×49 cm | $5.990 | $19.890–$21.548 | $13.900–$15.600 |
+| Bolso reforzado | PBB-54416+ | — | $8.990 | $24.990 | ~$16.000 |
+
+Los cuatro pasan el criterio 1 con holgura, y **ninguno alcanzaba el piso de
+precio del criterio 2 original** — de ahí la corrección.
+
+Dos hallazgos que cambian la operación:
+
+1. **Se vende por caja, no por unidad.** El listado marca `10u/c` y la
+   etiqueta `20/CAJA`. No se puede comprar 1, así que la escalera del §1 no se
+   puede recorrer: se entra directo al paso 3. Lo que la hace tolerable es el
+   monto — una caja de 10 del M son $55.000, una fracción del capital.
+   **Confirmar la mínima real con el proveedor antes de comprometer.**
+2. **El volumen no es problema en esta categoría.** Son bolsos blandos y
+   plegables de 24 a 49 cm. El riesgo de flete que motivaba pedir medidas
+   aplica a cuchas y rascadores, no a esto.
+
+Advertencia sobre el canal: sobre estos precios, la comisión de Mercado Libre
+(~14%) más el envío gratis obligatorio dejan el margen cerca de **$7.000**,
+bajo el objetivo. En Facebook Marketplace con envío por pagar el margen queda
+íntegro. **Marketplace primero; ML solo con el precio ajustado al alza.**
 
 ### Entregable de esta sección
 

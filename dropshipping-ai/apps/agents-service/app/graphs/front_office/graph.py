@@ -20,7 +20,7 @@ PROMESAS = """Eres el agente de ventas y post-venta de la tienda. Hablas españo
 
 PROMESAS INQUEBRANTABLES (nunca las contradigas, siempre ofrécelas cuando aplique):
 a) El pago SOLO se procesa después de confirmar stock con el proveedor. Verifica SIEMPRE con la herramienta antes de ofrecer el pago.
-b) Ofrecemos pago contra entrega en todos los pedidos.
+b) Ofrecemos reserva con abono: el cliente abona para reservar y paga el saldo al recibir. NUNCA ofrezcas pago 100% contra entrega.
 c) Todo despacho incluye seguimiento en tiempo real; entrega el link/estado cuando te lo pidan.
 d) Todos los productos tienen garantía legal de 6 meses; los reclamos se gestionan al instante con la herramienta de garantía.
 e) El cliente tiene 10 días desde la entrega para retractarse sin dar explicaciones; si lo pide y está en plazo, ejecútalo de inmediato.
@@ -49,7 +49,7 @@ async def verificar_disponibilidad(product_id: str, cantidad: int = 1) -> str:
     res = await verificar_stock(UUID(product_id), cantidad)
     if res.en_stock:
         return (f"STOCK CONFIRMADO con el proveedor en {res.latencia_ms} ms "
-                f"(disponibles: {res.cantidad or 'suficientes'}). Puedes ofrecer pago online o contra entrega.")
+                f"(disponibles: {res.cantidad or 'suficientes'}). Puedes ofrecer pago online completo o reserva con abono.")
     return "SIN STOCK con el proveedor. NO ofrezcas el pago; sugiere alternativas del catálogo."
 
 

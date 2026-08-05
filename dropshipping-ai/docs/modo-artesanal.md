@@ -165,6 +165,55 @@ Mai toman pedidos por WeChat, no por la app. Huanyu avisa que el descuento
 por efectivo vale solo dentro del mes. La app muestra los precios de Huanyu
 con símbolo `€`; son pesos.
 
+### Mondo Mascota: camas y consumibles (2026-08-05)
+
+Todo `1u/c`. Costos leídos en Yollgo, tienda 3183.
+
+**Camas** (categoría `007`) — $3.000 a $23.000. La línea de felpa escala
+limpio por tamaño y es la más fácil de publicar como familia:
+
+| Producto | Costo |
+|---|---|
+| Cama de felpa 40 cm | $3.000 |
+| Cama de felpa 50 cm | $4.400 |
+| Cama de felpa 60 cm (F6711) | $5.900 |
+| Cama de felpa 70 cm (F6711) | $7.500 |
+| Cama de felpa 80 cm (F6711) | $9.000 |
+| Cama de felpa 100 cm (F6711) | $13.900 |
+| Cama redonda grande 70 cm | $10.000 |
+| Cama sofá con respaldo L 60×40 | $11.500 |
+| Cama iglú | $17.000 |
+| Cama cuadrada peluda M/L | $18.900 |
+| Set de 3 camas cuadradas | $23.000 |
+
+**Consumibles** (categoría `024`, bolsas y palas) — el ticket es bajo, como
+estaba previsto:
+
+| Producto | Costo | Empaque |
+|---|---|---|
+| Bolsas para fecas 4 un. | $420 | 12u/c |
+| Bolsas para fecas 6 un. | $610 | 12u/c |
+| Bolsas para fecas 10 un. | $1.150 | 12u/c |
+| Dispensador + rollo | $380 | 12u/c |
+| Porta bolsas | $950 – $1.650 | 6–12u/c |
+| Bolsas biodegradables, 5 rollos | $2.990 | 3u/c |
+| Pala recoge fecas plegable 45–80 cm | $2.150 – $5.600 | 1–3u/c |
+| Baño ecológico perro chico | $5.500 | 1u/c |
+| Baño ecológico perro mediano/grande | $12.000 | 1u/c |
+
+**Confirmado el diagnóstico del nicho:** ningún consumible pasa el filtro de
+$8.000 por sí solo. Una bolsa de $420 vendida a $1.500 deja $1.080. Sirven
+únicamente como **segunda compra del mismo cliente** —sin costo de
+adquisición— y conviene venderlos en pack, no sueltos.
+
+La excepción son los baños ecológicos: a $12.000 de costo son durables de
+ticket alto, no consumibles, y entran al catálogo principal.
+
+**Pendiente:** precio de mercado de camas (Mercado Libre no cargó) y las
+categorías de snacks y antipulgas, que se cortaron por inestabilidad de la
+app. Sin el precio de mercado, la columna de margen de las camas no se puede
+cerrar.
+
 ### Medio de pago para el contra entrega: Klap
 
 Evaluado el 2026-08-05. Tarifas publicadas, vigentes desde el 12-01-2026:

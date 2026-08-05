@@ -258,12 +258,35 @@ Además elimina el manejo de efectivo y desarma la objeción de estafa mejor
 que cualquier argumento, porque el cliente paga cuando tiene el producto en la
 mano y con su propia tarjeta.
 
-**Bloqueante sin verificar:** si Klap exige inicio de actividades en el SII.
-No se pudo confirmar (la página de preguntas frecuentes devuelve 404), y
-choca con la decisión pendiente de verificar con la AFC que iniciar
-actividades no afecte el seguro de cesantía. **Preguntárselo a Klap antes de
-avanzar con esto.** Si la respuesta es que sí lo exige, queda supeditado a la
-consulta a la AFC.
+#### Resuelto el 2026-08-05: el bloqueante no es Klap, es el SII
+
+No se pudo preguntar a Klap directamente —su sitio devuelve errores de
+plantilla, la FAQ da 404 y la página de comercios responde 403— pero la
+respuesta está documentada públicamente:
+
+1. **Klap por sí solo no exige inicio de actividades.** Afilia a persona
+   natural mayor de 18 años con cédula vigente, además de personas jurídicas.
+2. **La normativa sí lo exige.** Desde el **2 de enero de 2026**, los
+   comercios que venden a través de plataformas de pago electrónico deben
+   tener inicio de actividades formalizado.
+3. **Toda venta con tarjeta se informa al SII.** Klap y el resto de las
+   empresas de medios de pago están obligadas a reportar las ventas con
+   débito, crédito y prepago.
+
+Consecuencia: **el bloqueante deja de ser Klap y pasa a ser la consulta a la
+AFC** sobre si iniciar actividades afecta el seguro de cesantía. Y no aplica
+solo a Klap: alcanza a cualquier plataforma de pago electrónico, Mercado Pago
+incluido.
+
+Fuera de ese perímetro quedan el **efectivo** y la **transferencia bancaria
+directa**, que son justamente los dos medios con los que opera el v0. El
+catálogo y las publicaciones no dependen de esta consulta; solo depende de
+ella la mejora de cobrar con tarjeta.
+
+Confianza: media-alta. Son fuentes secundarias, no la página oficial de Klap,
+que no fue accesible. Confirmar en el contact center **600 363 2020** con una
+pregunta concreta: *"¿pueden afiliar a una persona natural sin inicio de
+actividades, y qué informan al SII?"*
 
 ### Entregable de esta sección
 

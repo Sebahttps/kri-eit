@@ -130,6 +130,67 @@ Advertencia sobre el canal: sobre estos precios, la comisión de Mercado Libre
 bajo el objetivo. En Facebook Marketplace con envío por pagar el margen queda
 íntegro. **Marketplace primero; ML solo con el precio ajustado al alza.**
 
+### Comparación de los cuatro proveedores, mismo producto (2026-08-05)
+
+Transportador blando de mascota, leído en Yollgo:
+
+| Proveedor | Rango de precio | Empaque | Mínimo real en $ |
+|---|---|---|---|
+| **Mondo Mascota** (3183) | $3.900 – $57.000 (30 modelos) | **1u/c — por unidad** | **$3.900** |
+| PETBABY (5151) | $4.990 – $8.990 | 10u/c | $49.900 |
+| HUANYU / PETSHOW (2625) | $4.000 – $20.000; coches $39.000–$49.990 | 6, 10 o 12u/c según modelo | $24.000 – $66.000 |
+| DUO MAI (2577) | no cargó | — | pedidos por WeChat |
+
+El mismo transportador talla M cuesta **$5.500 en los tres**. Lo que cambia no
+es el precio, es el mínimo: en Mondo compras 1 por $5.500; en PETBABY compras
+10 por $55.000; en Huanyu 12 por $66.000.
+
+**Mondo Mascota es el proveedor de arranque**, por dos razones independientes:
+
+1. **Vende por unidad.** Es el único que permite recorrer la escalera del §1
+   —muestra, por encargo, profundidad— en vez de saltar directo al paso 3.
+2. **Tiene los consumibles.** Su catálogo (60+ categorías, con traducción al
+   español) incluye bolsas para fecas, arena, antipulgas, higiene y snacks.
+   Es el único que sostiene la tesis de recompra por sí solo.
+
+PETBABY y Huanyu quedan para **profundidad**: cuando un SKU ya vendió y se
+justifica comprar la caja, ahí su precio por unidad es competitivo y el
+mínimo deja de ser un problema. Huanyu además tiene coches de paseo a
+$39.000–$49.990 por unidad, una categoría de ticket alto que los otros no
+tienen.
+
+Notas de terreno: PETBABY está en Bascuñán Guerrero 260 local 1 y Huanyu en
+Conferencia 265 — ambos con retiro presencial en el eje Meiggs. Mondo y Duo
+Mai toman pedidos por WeChat, no por la app. Huanyu avisa que el descuento
+por efectivo vale solo dentro del mes. La app muestra los precios de Huanyu
+con símbolo `€`; son pesos.
+
+### Medio de pago para el contra entrega: Klap
+
+Evaluado el 2026-08-05. Tarifas publicadas, vigentes desde el 12-01-2026:
+
+| Medio | Comisión | Sobre una venta de $19.900 |
+|---|---|---|
+| Débito | $78 + 0,62% + IVA | **~$239** |
+| Prepago | $78 + 1,06% + IVA | ~$322 |
+| Crédito | $78 + 1,39% + IVA | ~$422 |
+
+Abono en 1 día hábil. Tarjetas internacionales 2,88% + 0,0083 UF + IVA.
+
+Encaja exactamente con el contra entrega en RM del §4: cobras con tarjeta al
+entregar, el dinero llega al día siguiente, y el costo es **~2% del margen**
+—contra el ~14% de Mercado Libre, que son $2.786 sobre la misma venta—.
+Además elimina el manejo de efectivo y desarma la objeción de estafa mejor
+que cualquier argumento, porque el cliente paga cuando tiene el producto en la
+mano y con su propia tarjeta.
+
+**Bloqueante sin verificar:** si Klap exige inicio de actividades en el SII.
+No se pudo confirmar (la página de preguntas frecuentes devuelve 404), y
+choca con la decisión pendiente de verificar con la AFC que iniciar
+actividades no afecte el seguro de cesantía. **Preguntárselo a Klap antes de
+avanzar con esto.** Si la respuesta es que sí lo exige, queda supeditado a la
+consulta a la AFC.
+
 ### Entregable de esta sección
 
 Planilla con **5 a 8 SKU** cotizados de verdad:

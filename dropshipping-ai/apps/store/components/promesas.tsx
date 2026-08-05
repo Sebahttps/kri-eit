@@ -6,10 +6,10 @@
 // entregado", no "esto te prometemos".
 const PROMESAS = [
   "Stock confirmado con el proveedor antes de cobrarte",
-  // v0: abono + saldo, no contra entrega puro. El contra entrega exige comprar
-  // al mayorista antes de cobrar, o sea capital de trabajo que no existe.
-  // Ver docs/modo-artesanal.md §1.
-  "Reservas con un abono y pagas el saldo al recibir",
+  // Acotada a RM a propósito: el contra entrega se sostiene con capital de
+  // trabajo, y un rechazo en entrega a región cuesta flete doble. Fuera de RM
+  // se ofrece abono + saldo. Ver docs/modo-artesanal.md §4.
+  "Paga al recibir en la Región Metropolitana",
   "Seguimiento en tiempo real de tu despacho",
   "Garantía legal de 6 meses, gestión inmediata",
   "10 días para retractarte, sin preguntas",

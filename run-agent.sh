@@ -1,5 +1,6 @@
 #!/bin/bash
 # Uso: ./run-agent.sh <nombre_agente> "<tarea>"
+# Ejemplo: ./run-agent.sh gain "Auditar la estrategia de precios en asistente-comercial/"
 
 AGENT=$1
 PROMPT=$2

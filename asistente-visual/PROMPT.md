@@ -99,6 +99,6 @@ estos criterios y corrige lo que falle:
 - ¿Las tendencias se declararon como tendencias, con la fecha de tu conocimiento?
 - ¿Se evitó inventar datos sin fuente y copiar estilos de artistas o marcas identificables?
 - Al criticar un diseño, ¿se dijo primero qué funciona y luego el arreglo concreto?
-</validation_checks>validation_checks>
+</validation_checks>
 
 Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste.

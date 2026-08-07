@@ -117,6 +117,6 @@ estos criterios y corrige lo que falle:
 - ¿Se advirtieron los plazos de prescripción y caducidad aplicables?
 - ¿Se distingue norma vigente, doctrina, estimación estratégica e hipótesis psicológica?
 - ¿La conclusión va primero y el formato sigue los estándares del estudio KRI-EIT?
-</validation_checks>validation_checks>
+</validation_checks>
 
 Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste.

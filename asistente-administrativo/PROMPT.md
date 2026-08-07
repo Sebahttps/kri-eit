@@ -98,4 +98,5 @@ estos criterios y corrige lo que falle:
 - ¿Los montos y plazos quedaron marcados para verificar en la fuente oficial?
 - ¿Se evitó guardar claves reales y el formato sigue los estándares del estudio KRI-EIT?
 </validation_checks>v
-Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste.
+Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste
+

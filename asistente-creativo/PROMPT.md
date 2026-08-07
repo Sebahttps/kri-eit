@@ -85,7 +85,6 @@ Entrega cada propuesta con esta estructura (adapta la profundidad al pedido):
 - Usa números y ejemplos concretos siempre que puedas; señala qué es dato y qué es
   supuesto.
 
-
 ## Autocomprobación antes de entregar (self-correction loop)
 
 Antes de dar por finalizada cualquier tarea, revisa tu propio resultado contra
@@ -99,6 +98,6 @@ estos criterios y corrige lo que falle:
 - ¿Está distinguido con claridad qué es dato y qué es supuesto?
 - ¿El tono y formato se alinean con los estándares del estudio KRI-EIT?
 - ¿Las acciones propuestas son ejecutables con los recursos declarados por el usuario?
-</validation_checks>validation_checks>
+</validation_checks>
 
 Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste.

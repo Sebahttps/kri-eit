@@ -120,6 +120,6 @@ estos criterios y corrige lo que falle:
 - ¿El veredicto GO / NO-GO / GO condicionado trae condiciones medibles y plazo?
 - ¿Se entregaron los escenarios pesimista, base y optimista sin prometer retornos?
 - ¿El tono y formato se alinean con los estándares del estudio KRI-EIT?
-</validation_checks>validation_checks>
+</validation_checks>
 
 Si alguna respuesta es "no", corrige antes de entregar y señala qué ajustaste.

@@ -1,40 +1,60 @@
 # Kri-AI — Kit de venta palabra por palabra (Al Tiro Store)
 
-**Fecha:** 2026-07-19. Todo listo para copiar, pegar y enviar. Nada que redactar.
+**Fecha:** 2026-07-19 · **Actualizado 2026-08-08** al modo artesanal y al nicho
+mascotas. Todo listo para copiar, pegar y enviar. Nada que redactar.
 
-## 1. Mensajes a proveedores (enviar HOY, los 5)
+> **Qué cambió el 08-08.** El catálogo de hogar y la regla de $3.000 quedaron
+> obsoletos: ver `dropshipping-ai/docs/modo-artesanal.md` §2. El nicho es
+> **mascotas**, el margen objetivo es **$8.000–$12.000 absolutos**, y la forma
+> de pago depende de la comuna (§4 de ese documento). Los §2 a §6 de este kit
+> siguen vigentes con los ajustes ya incorporados abajo.
 
-**A mayoristas (Chile Mayoristas, Meibo, Doral, Zaga) — por WhatsApp o formulario:**
+## 1. Mensaje a proveedores
 
-> Hola, soy Sebastián, revendedor en Viña del Mar. Estoy armando mi catálogo de
-> productos de hogar y organización. Tres preguntas:
-> 1) ¿Me comparten lista de precios mayorista de: mopa giratoria con balde,
-> organizador de zapatos, colgador de puerta, organizadores de ropa, frascos
-> herméticos, dispensador de cereal, organizador giratorio, repisa bajo lavaplatos,
-> cajas plegables y estante de ducha adhesivo?
-> 2) ¿Despachan directo a mi cliente final o por pagar (Starken/Chilexpress)?
-> 3) ¿Puedo usar sus fotos de producto para publicar?
-> Quedo atento, gracias.
+El mensaje vive en **`cotizacion-mascotas.md` §3**, con las cinco preguntas y
+los cuatro proveedores del nicho con su WhatsApp. No se duplica aquí: una sola
+copia evita que se desincronicen.
 
-**En Dropi (dropi.cl):** registrarse gratis → buscar en el catálogo los 10 productos
-(o equivalentes) → anotar precio proveedor + flete + comisión en la tabla de GAIn →
-activar los que pasen la regla de $3.000. *(Verificar condiciones vigentes al
-registrarse.)*
+Lo que importa de ese mensaje, en una línea: **¿hay compra mínima?**,
+**¿despachan directo al cliente final?** y **¿puedo usar sus fotos?**
+
+Operación desde **Santiago**, con retiro presencial en el eje Meiggs. Dropi y
+los mayoristas de hogar (Chile Mayoristas, Meibo, Doral, Zaga) quedan fuera del
+v0: eran para el catálogo anterior.
 
 ## 2. Respuesta a consulta de Marketplace (primer mensaje del cliente)
 
-> ¡Hola! Sí, disponible 😊 Es $[precio] final. Te lo despacho con seguimiento y llega
-> en 1-3 días hábiles a tu puerta. ¿Puede ser **contra entrega** (pagas al recibirlo)
-> o prefieres transferencia? Confirmo stock con bodega antes de cerrar, así que vas
-> a la segura. ¿Para qué comuna sería?
+Regla nueva: **preguntar la comuna ANTES de ofrecer la forma de pago.** El
+contra entrega solo se ofrece en la Región Metropolitana, así que prometerlo
+antes de saber dónde está el cliente es prometer lo que no se puede cumplir.
+
+> ¡Hola! Sí, disponible 😊 Es $[precio] final. Te lo despacho con seguimiento y
+> llega en 1-3 días hábiles a tu puerta. Confirmo stock con bodega antes de
+> cerrar, así que vas a la segura. **¿Para qué comuna sería?**
+
+Con la comuna en mano, el segundo mensaje:
+
+**Si es RM:**
+
+> Perfecto, [comuna] la cubro sin problema. Ahí te lo dejo **contra entrega**:
+> pagas cuando lo tienes en la mano. ¿Te acomoda?
+
+**Si es región:**
+
+> A [ciudad] despacho con [courier], llega en [X] días. Ahí trabajo con
+> **reserva**: un abono de $[monto] y el saldo cuando lo recibes. El abono es
+> lo que le pago al proveedor hoy mismo para que te lo despachen — por eso lo
+> pido, no es una seña de compromiso.
 
 ## 3. Confirmación de stock (antes de cualquier pago — SIEMPRE)
 
 > ✅ Stock confirmado — te adjunto la captura de bodega. Tu pedido:
 > [producto] — $[precio] + envío $[X] ([comuna], llega el [día concreto]).
-> Si va contra entrega, solo confírmame nombre, dirección y teléfono y queda
-> despachado. Si prefieres transferencia: [datos]. Apenas pagues, compro y despacho
-> el mismo día y te mando el código de seguimiento.
+> **[Si RM]** Queda contra entrega: confírmame nombre, dirección y teléfono y lo
+> despacho.
+> **[Si región]** El abono es $[monto] a [datos]. Apenas llegue, compro y
+> despacho el mismo día y te mando el código de seguimiento; el saldo lo pagas
+> al recibir.
 
 ## 4. Despacho hecho
 
@@ -45,23 +65,41 @@ registrarse.)*
 
 ## 5. Post-venta (día siguiente a la entrega)
 
-> ¡Hola! ¿Llegó todo bien con tu [producto]? Si quedaste conforme, me ayudaría un
-> montón una valoración en Marketplace 🙌 Y por ser cliente: 10% de descuento en tu
-> segunda compra. Catálogo completo: https://sebahttps.github.io/kri-eit/tienda/
+**Aquí se juega la tesis del nicho.** La recompra en mascotas es del cliente, no
+del producto: vendiste el durable, ahora el consumible vuelve sin costo de
+adquisición. Preguntar por la mascota **por su nombre** es lo que abre esa
+segunda venta.
+
+> ¡Hola! ¿Cómo le quedó a [nombre de la mascota] su [producto]? 🐾 Si quedaron
+> conformes, me ayudaría un montón una valoración en Marketplace 🙌
+> Y cuando necesites bolsitas, arena o algo para [nombre], me escribes directo:
+> te las dejo a precio de cliente, sin el recargo de publicación.
+
+Anotar el nombre de la mascota en la planilla junto al teléfono. Es el dato que
+hace posible el segundo mensaje.
 
 ## 6. Objeciones típicas (respuestas listas)
 
-- **"¿Cómo sé que no es estafa?"** → "Total razón en preguntar. Por eso trabajo
-  contra entrega: pagas cuando el producto está en tu mano. Y aquí está mi tienda
-  con mis condiciones y garantía: [link tienda]."
+- **"¿Cómo sé que no es estafa?"**
+  → *En RM:* "Total razón en preguntar. Por eso trabajo contra entrega: pagas
+  cuando el producto está en tu mano."
+  → *En región:* "Total razón. Te mando el comprobante de la compra al mayorista
+  apenas la haga, y si quieres hacemos una videollamada. La garantía de 6 meses
+  la respondo yo, con nombre y teléfono."
 - **"¿Por qué no lo tienes en la mano?"** → "Trabajo directo con bodega de
-  importadora — por eso el precio. Confirmo stock antes de que pagues y te mando la
-  captura."
+  importadora — por eso el precio. Confirmo stock antes de que pagues y te mando
+  la captura." *(Con las muestras compradas, para los 5 SKU del v0 la respuesta
+  es mejor: sí lo tengo, y las fotos son mías.)*
 - **"Está más barato en otro lado"** → "Puede ser 👍 Mi diferencia: respuesta
-  inmediata, stock confirmado real, contra entrega y garantía respondida por una
-  persona con nombre. Si te sirve, aquí estoy."
-- **"¿Hacen envío a [región lejana]?"** → "Sí, por pagar con [courier]; a [ciudad]
-  demora [X] días. Te confirmo el valor exacto del flete antes de que decidas."
+  inmediata, stock confirmado real, y garantía respondida por una persona con
+  nombre. Si te sirve, aquí estoy."
+- **"¿Hacen envío a [región lejana]?"** → "Sí, por pagar con [courier]; a
+  [ciudad] demora [X] días. Te confirmo el valor exacto del flete antes de que
+  decidas. A regiones trabajo con reserva: abono y saldo al recibir."
+- **"¿Me das boleta?"** → "No emito boleta todavía, te lo digo derecho. Si la
+  necesitas, te devuelvo el dinero sin problema." **Nunca prometer una boleta
+  que no existe** — no hay inicio de actividades en el SII, y esa es la única
+  mentira de esta lista que destruye el negocio.
 
 ## Regla de oro
 

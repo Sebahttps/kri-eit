@@ -1,47 +1,99 @@
 # AdmAIn — Runbook del Día 1 (ejecutar y marcar)
 
-**Fecha de ejecución:** ___ · Todo el material ya existe; este es el orden.
+**Fecha de ejecución:** ___ · **Reescrito 2026-08-08** para el modo artesanal y
+el nicho mascotas. Todo el material ya existe; este es el orden.
 
-## Mañana (2-3 horas)
+> **Qué cambió.** La versión del 19-07 mandaba a registrarse en Dropi y publicar
+> los 10 productos de hogar. Ese catálogo cae completo contra los criterios
+> nuevos (`dropshipping-ai/docs/modo-artesanal.md` §2). El plan vigente es: un
+> proveedor (**Mondo Mascota**), cinco SKU de mascotas, publicación de a uno.
 
-| ✔ | Paso | Material |
-|---|---|---|
-| ☐ | Registrarse gratis en Dropi (dropi.cl) y buscar los 10 productos del catálogo | tabla de GAIn |
-| ☐ | Enviar el mensaje de cotización a la PRIMERA OLA del directorio (20 proveedores de hogar con WhatsApp) + Chile Mayoristas, Meibo, Doral y Zaga | directorio-proveedores.md + kit de venta §1 |
-| ☐ | Crear WhatsApp Business (gratis) con nombre "Al Tiro Store", foto y catálogo | — |
-| ☐ | Crear planilla de caja (Google Sheets): fecha · producto · canal · ingreso · costo · envío · margen | — |
+## Antes de empezar: lo que este Día 1 NO es
 
-## Mediodía (1 hora — con las primeras respuestas de proveedores)
+No es un día de publicar. Es el día de **conseguir el producto en la mano**. Las
+publicaciones necesitan fotos reales, y las fotos necesitan las muestras. El
+orden importa: invertirlo produce anuncios con foto de catálogo, que es
+exactamente lo que Marketplace penaliza y lo que hace que parezcas reventa.
 
-| ✔ | Paso | Material |
-|---|---|---|
-| ☐ | Llenar "costo REAL" en la tabla de márgenes y marcar ✓ / ✗ por producto | tabla de GAIn |
-| ☐ | Bajar de la tienda lo que no pase la regla de $3.000 (avisarme y lo edito, o editar `docs/tienda/index.html` en GitHub) | — |
-| ☐ | Guardar captura de cada cotización en carpeta `proveedores/` de Drive | regla de AdmAIn |
-
-## Tarde (2 horas)
+## Mañana (1 hora — costo $0)
 
 | ✔ | Paso | Material |
 |---|---|---|
-| ☐ | Publicar los 10 anuncios en Marketplace + 5 repetidos en 3 grupos (≥15 total) | anuncios de VisuAI |
-| ☐ | Estado de WhatsApp con 1 producto + link de la tienda | — |
-| ☐ | Dejar los guiones de respuesta a mano (atajos de WhatsApp Business) | kit de venta §2-6 |
+| ☐ | Enviar el mensaje de cotización a los **4 proveedores del nicho** (Mondo Mascota, PETBABY, Huanyu, Duo Mai) | `cotizacion-mascotas.md` §3 |
+| ☐ | A **Mondo Mascota por WeChat** (+56 9 2092 9197), además: confirmar la **compra mínima real** y si despachan directo al cliente final | idem |
+| ☐ | Crear WhatsApp Business "Al Tiro Store" con foto y respuestas rápidas | `kit-de-venta.md` §2-6 |
+| ☐ | Crear las dos planillas en Google Sheets (ver abajo) | — |
 
-## Todo el día
+**Las dos planillas, y por qué son dos:**
 
-- Responder consultas en <10 min con los guiones. Confirmar stock ANTES de aceptar
-  cualquier pago. Comprar al proveedor el MISMO día de cada pago.
+1. **Caja** — `fecha · SKU · canal · ingreso · costo · envío · margen`.
+   Es la que dice si ganas plata.
+2. **Conversaciones** — `fecha · canal · SKU · ¿cotizó? · ¿pagó? · forma de pago ·
+   minutos de atención · margen · ¿rechazo en entrega? · ¿devolución? · motivo de
+   caída`. Es la que decide el futuro del proyecto: sin ella no hay con qué
+   comparar el costo por token cuando se encienda el stack
+   (`modo-artesanal.md` §7).
+
+## Mediodía (2-3 horas — costo $29.900)
+
+Ir a Meiggs con la lista. **Retiro presencial: revisar calidad antes de pagar** —
+es lo que hace sostenible la garantía de 6 meses que respondes tú.
+
+| ✔ | SKU | Producto | Costo |
+|---|---|---|---|
+| ☐ | X-BOLSO-S | Transportador talla S | $4.500 |
+| ☐ | X-BOLSO-M | Transportador talla M | $5.500 |
+| ☐ | X-BOLSO-L | Transportador talla L | $6.500 |
+| ☐ | F6711-60 | Cama de felpa 60 cm | $5.900 |
+| ☐ | F6711-70 | Cama de felpa 70 cm | $7.500 |
+| | | **Total** | **$29.900** |
+
+| ✔ | Paso |
+|---|---|
+| ☐ | Guardar captura/boleta de cada compra en la carpeta `proveedores/` |
+| ☐ | Anotar el costo REAL pagado (puede diferir del leído en Yollgo) |
+| ☐ | Si Mondo exige mínimo por unidad distinto al `1u/c` publicado, **parar y recalcular** antes de comprar |
+
+## Tarde (2 horas — costo $0)
+
+| ✔ | Paso | Material |
+|---|---|---|
+| ☐ | Tomar las **5 fotos por producto**: producto solo, con escala, detalle de material, en uso, plegado | `publicaciones-mascotas-v0.md` §3 |
+| ☐ | Publicar **UN** anuncio: el **transportador M** ($18.990, margen $13.490) | idem §2.4 |
+| ☐ | Dejar los guiones a mano en atajos de WhatsApp Business | `kit-de-venta.md` §2-6 |
+
+**Uno, no cinco.** Marketplace ordena por recencia: publicar de a uno durante
+cinco días mantiene el perfil activo y te dice cuál genera consultas antes de
+invertir tiempo en el resto.
+
+## Días 2 a 5
+
+Un SKU por día, en este orden: transportador **M** (día 1) → **L** → cama
+**60 cm** → transportador **S** → cama **70 cm**.
+
+Ojo con la cama de 70 cm: su precio de $19.990 es **interpolado, no observado**.
+Si en una semana no genera consultas, bajar a $17.990 (margen $10.490, sigue
+pasando el criterio).
+
+## Todo el día, todos los días
+
+- Responder en **<10 min** con los guiones.
+- **Preguntar la comuna antes de ofrecer forma de pago.** Contra entrega solo RM.
+- Confirmar stock ANTES de aceptar cualquier pago.
+- Comprar al proveedor el MISMO día de cada pago.
+- **No prometer boleta.** No hay inicio de actividades en el SII.
 
 ## Noche (10 minutos — sagrado)
 
 | ✔ | Paso |
 |---|---|
-| ☐ | Anotar en la planilla: vistas totales, consultas, ventas, margen del día |
-| ☐ | Reportar los 3 números al estudio → GAIn decide el día 2 |
+| ☐ | Anotar en la planilla: vistas, consultas, ventas, margen del día |
+| ☐ | Anotar **minutos de atención** por conversación — es el número que más importa |
+| ☐ | Reportar al estudio → GAIn decide el día siguiente |
 
-## Recordatorios ya agendados en el calendario del estudio
+## Meta y criterio de corte
 
-- **21-07** día 3: ≥5 consultas o pivotar productos
-- **25-07** día 7: 0 ventas → pivote de nicho
-- **01-08** revisión del veredicto GO condicionado
-- **Al 3er pedido**: inicio de actividades SII + boleta electrónica
+La meta del mes 1 **no es un monto: son 10 ventas cerradas**. Ese es el dato que
+permite decidir si el modelo da. Ver `modo-artesanal.md` §3 y §8.
+
+Fechas y revisiones: `checklist-y-fechas.md`.

@@ -59,9 +59,20 @@ Tipo de proveedor a contactar (sin inventar nombres — se validan hoy por Whats
    hogar Chile despacho" + revisar reputación).
 3. **Distribuidores locales de Valparaíso** para entrega el mismo día en la zona.
 
-Guion de contacto: "Hola, soy revendedor en Viña del Mar. ¿Me compartes lista de
-precios? ¿Despachan directo a mi cliente (o por pagar)? ¿Puedo usar sus fotos para
-publicar?" — **Criterio del día: 2 proveedores confirmados con esas 3 respuestas.**
+> ⚠️ **Guion desactualizado (corregido 2026-08-08).** El original decía
+> *"revendedor en Viña del Mar"* y pedía lista de precios de hogar. La operación
+> es desde **Santiago**, con retiro presencial en el eje Meiggs, y el nicho es
+> **mascotas**.
+>
+> **El guion vigente está en `cotizacion-mascotas.md` §3**, con las cinco
+> preguntas y los cuatro proveedores del nicho con su WhatsApp. Se usa ese, no
+> este documento.
+
+De las tres preguntas originales, las dos que siguen decidiendo son **¿despachan
+directo a mi cliente final?** y **¿puedo usar sus fotos?**. El guion vigente
+agrega la que resultó ser la más importante: **¿hay compra mínima?** — una
+mínima alta rompe la escalera muestra → por encargo → profundidad y obliga a
+inmovilizar capital antes de vender.
 
 ## Plan de las primeras 24 horas
 

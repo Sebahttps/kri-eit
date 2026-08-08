@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Al Tiro Store — pedidos por WhatsApp con stock confirmado, pago contra entrega y despacho en 1-3 días hábiles. Viña del Mar y alrededores.">
-<title>Al Tiro Store — despacho a domicilio en Viña del Mar y alrededores</title>
+<meta name="description" content="Al Tiro Store — accesorios para perros y gatos. Pedidos por WhatsApp con stock confirmado. En Santiago pagas al recibir; despacho a todo Chile con seguimiento.">
+<title>Al Tiro Store — accesorios para mascotas, despacho a domicilio en Santiago</title>
 <style>
   :root {
     --paper: #F4F5F6; --card: #FFFFFF; --ink: #1C2530; --soft: #4C5560;
@@ -103,14 +103,14 @@
 <header class="top">
   <h1 class="marca">Al Tiro <span>Store</span></h1>
   <hr class="regla">
-  <p class="promesa">Pedidos por WhatsApp con stock confirmado. Despacho a domicilio en 1-3 días hábiles, al precio justo.</p>
-  <p class="zona">Viña del Mar · Valparaíso · alrededores</p>
+  <p class="promesa">Todo para tu perro y tu gato, por WhatsApp y con stock confirmado. En Santiago pagas cuando lo tienes en la mano.</p>
+  <p class="zona">Santiago · Región Metropolitana · despacho a todo Chile</p>
 </header>
 
 <main>
   <div class="confianza">
     <span>Stock confirmado antes de pagar</span>
-    <span>Pago contra entrega disponible</span>
+    <span>Pagas al recibir en la Región Metropolitana</span>
     <span>Despacho con seguimiento</span>
     <span>Garantía legal de 6 meses</span>
     <span>10 días para retractarse</span>
@@ -121,10 +121,10 @@
   <section class="como">
     <h3>Cómo funciona</h3>
     <ol>
-      <li><b>Escríbenos por WhatsApp</b>con el producto que necesitas.</li>
-      <li><b>Confirmamos stock en bodega</b>y te enviamos el respaldo — recién ahí decides el pago: contra entrega o transferencia.</li>
+      <li><b>Escríbenos por WhatsApp</b>con el producto que necesitas y tu comuna.</li>
+      <li><b>Confirmamos stock en bodega</b>y te enviamos el respaldo — recién ahí se habla de pago. En la RM pagas al recibir; a regiones, reserva con abono y el saldo cuando llega.</li>
       <li><b>Despachamos el mismo día</b>de tu confirmación, con código de seguimiento.</li>
-      <li><b>Recibes en 1-3 días hábiles.</b>Cualquier gestión posterior la respondemos nosotros directamente.</li>
+      <li><b>Te damos el plazo al confirmar</b>, no antes: depende de tu comuna y del courier. Cualquier gestión posterior la respondemos nosotros directamente.</li>
     </ol>
   </section>
 
@@ -134,7 +134,12 @@
     hasta 10 días después de recibir tu pedido (art. 3 bis, Ley 19.496) y todo
     producto cuenta con garantía legal de 6 meses: cambio, reparación o devolución,
     a tu elección.
-    <div class="firma">Al Tiro Store · Sebastián T. · Viña del Mar, Chile</div>
+    <br><br>
+    <b>Por ahora no emitimos boleta.</b> Preferimos decírtelo antes: si la
+    necesitas, no es el momento de comprarnos y te devolvemos tu dinero sin
+    preguntas. La garantía de 6 meses la responde una persona con nombre y
+    teléfono, y eso sí lo cumplimos.
+    <div class="firma">Al Tiro Store · Sebastián T. · Santiago, Chile</div>
   </footer>
 </main>
 
@@ -152,65 +157,43 @@
 
 const WHATSAPP = "56962469977";
 
+/* Catálogo v0 del nicho mascotas. Precios y márgenes verificados en
+   asistente-comercial/veredictos/dropshipping-por-encargo/01-tabla-margenes.md
+   Los textos completos de cada publicación están en
+   asistente-creativo/ideas/dropshipping-por-encargo/publicaciones-mascotas-v0.md
+
+   Ojo con los títulos: "antiestrés" es lo que sostiene el precio de las camas.
+   Publicadas como "cama de felpa" el mismo producto cae de $16.990 a $10.300.
+   El título es una variable de margen, no de estética — no lo simplifiques. */
 const PRODUCTOS = [
   {
-    nombre: "Mopa giratoria 360° con balde exprimidor",
-    precio: 19990,
-    desc: "Piso brillante sin agacharse ni mojarse las manos. Incluye repuesto de microfibra.",
+    nombre: "Bolso transportador para gato y perro chico · Talla S",
+    precio: 15990,
+    desc: "Al veterinario, de viaje o de paseo, sin pelear con la jaula. Malla ventilada en tres caras y se pliega cuando no lo usas. Hasta 5 kg.",
     foto: ""
   },
   {
-    nombre: "Organizador de zapatos apilable · 6 niveles",
-    precio: 14990,
-    desc: "Hasta 18 pares ordenados en el espacio de uno. Armado sin herramientas.",
+    nombre: "Bolso transportador para perro y gato · Talla M",
+    precio: 18990,
+    desc: "La talla que más se pide: gatos adultos y perros chicos que ya no caben en la S. Base firme para que no se hunda. Hasta 8 kg aprox.",
     foto: ""
   },
   {
-    nombre: "Colgador de puerta · 24 bolsillos",
-    precio: 10990,
-    desc: "Zapatos, juguetes o útiles detrás de la puerta. Se instala en 1 minuto.",
+    nombre: "Bolso transportador grande para perro · Talla L",
+    precio: 19890,
+    desc: "Para viajes largos, donde necesita darse vuelta y acomodarse. Correa de hombro y manillas reforzadas. Hasta 12 kg aprox.",
     foto: ""
   },
   {
-    nombre: "Set 6 organizadores de ropa para cajón y maleta",
-    precio: 9990,
-    desc: "Cajones y maletas en orden de una vez por todas. Tela lavable con cierre.",
-    foto: ""
-  },
-  {
-    nombre: "Set 3 frascos herméticos de cocina",
-    precio: 12990,
-    desc: "Despensa fresca y a la vista. Sello real anti-humedad, aptos para lavavajillas.",
-    foto: ""
-  },
-  {
-    nombre: "Dispensador doble de cereales",
+    nombre: "Cama antiestrés para perro y gato · 60 cm",
     precio: 16990,
-    desc: "Porción justa sin derramar, ideal con niños. Mantiene todo crujiente.",
+    desc: "El borde elevado le da la sensación de refugio que baja la ansiedad: duerme más profundo en vez de dar vueltas. Felpa lavable, base antideslizante.",
     foto: ""
   },
   {
-    nombre: "Organizador giratorio de especias (lazy susan)",
-    precio: 11990,
-    desc: "Todo a un giro de distancia: especias, salsas, remedios. Base antideslizante.",
-    foto: ""
-  },
-  {
-    nombre: "Repisa extensible bajo lavaplatos",
-    precio: 13990,
-    desc: "Duplica el espacio del mueble del lavaplatos. Se ajusta al ancho, esquiva la cañería.",
-    foto: ""
-  },
-  {
-    nombre: "Set 2 cajas organizadoras plegables con tapa",
-    precio: 13990,
-    desc: "Guardado de temporada sin polvo. Se pliegan cuando no las usas.",
-    foto: ""
-  },
-  {
-    nombre: "Estante esquinero de ducha adhesivo",
-    precio: 9990,
-    desc: "Sin taladro y aguanta el peso. Acero inoxidable, no se oxida.",
+    nombre: "Cama antiestrés para perro mediano · 70 cm",
+    precio: 19990,
+    desc: "La versión grande, para los que se estiran o venían durmiendo apretados en una cama chica. Misma felpa lavable y base antideslizante.",
     foto: ""
   }
 ];

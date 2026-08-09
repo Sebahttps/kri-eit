@@ -8,6 +8,9 @@ El objetivo de este documento no es "vender online". Es responder una sola
 pregunta con datos reales en vez de supuestos: **¿alguien paga por esto y a
 qué costo de esfuerzo?** Todo lo demás se decide después de esa respuesta.
 
+Este documento define **qué** es el negocio. El orden de ejecución y las puertas
+de decisión del mes 1 están en `hoja-de-ruta-mes-1.md`.
+
 Base de proveedores: `asistente-administrativo/gestion/dropshipping-por-encargo/directorio-proveedores.md`
 (~95 mayoristas reales, eje Meiggs / Estación Central, muchos en Yollgo).
 Operación desde **Santiago**, con retiro presencial disponible.

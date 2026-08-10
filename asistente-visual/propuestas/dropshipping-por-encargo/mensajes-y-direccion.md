@@ -14,7 +14,20 @@ Presupuesto: $0 — el diseño es orden, luz y palabras.
 
 **Emoción objetivo:** alivio — "esto fue fácil y no me van a embarrar".
 
-## Nombre de la vitrina (3 opciones)
+## ~~Nombre de la vitrina (3 opciones)~~ — SUPERADA
+
+> **Corregido el 2026-08-10 por `arquitectura-de-marca.md`.** Elegí "Al Tiro
+> Store" para un brief distinto: multicategoría hogar/tech, Viña/Valparaíso,
+> tickets de $9.990 y la velocidad como diferenciador. El brief cambió debajo
+> —nicho mascotas, Santiago, y el diferenciador pasó a ser contra entrega +
+> stock confirmado— y el nombre quedó tibio para este.
+>
+> **Nombre vigente: `Sebastián · Regalón por CompAI`.** "Al tiro" sobrevive
+> como frase de servicio en el recado y las publicaciones, no como nombre.
+>
+> La tabla de abajo se conserva como registro de la decisión original.
+
+## Nombre de la vitrina (3 opciones) — registro histórico
 
 | Opción | Carácter | Riesgo |
 |---|---|---|

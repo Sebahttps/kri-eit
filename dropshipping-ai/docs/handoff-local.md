@@ -5,7 +5,36 @@ Este documento resume el estado del proyecto y las misiones pendientes que
 requieren acceso de red o al PC del usuario (la sesión remota en la nube
 tiene bloqueados los dominios de Shopify y Cloudflare).
 
-## Estado actual (2026-07-31)
+## ✅ Verificación por SSH — 2026-08-10
+
+**El stack está terminado y corriendo.** Lo de abajo quedó congelado en el
+31-07 y da por pendientes dos cosas que ya se hicieron: `dropship-setup` y las
+variables `SHOPIFY_*`. Estado real, leído en el servidor:
+
+| Capa | Estado verificado |
+|---|---|
+| Host | `compai-prod`, Ubuntu 24.04.4, **9 días de uptime**, carga 0.00 |
+| Recursos | 1.1 / 3.8 GB RAM · 13 / 94 GB disco · swap intacto |
+| Contenedores | **7 arriba hace 8 días**: caddy, store, dashboard, business-api, agents-service, postgres (`healthy`), redis |
+| Reinicios / errores | **0 reinicios**, **0 errores** en 24 h |
+| Repo en el VPS | `1cc4e30` (PR #16, `health-endpoint`), árbol limpio |
+| `.env.prod` | `600 root`, **13 variables puestas**, incluidas las cuatro `SHOPIFY_*` |
+| Base de datos | 4 productos (seed) · **0 pedidos** · **0 acciones de agente** |
+| Endpoints | `hola` y `panel` responden 200 vía Caddy; `api` da 404 en la raíz (esperable) |
+
+**Sin verificar** (no se puede desde el servidor): si el webhook quedó
+registrado en Shopify, si el catálogo se creó allá, y la prueba E2E. Los 4
+productos contados son los de `db/seed.sql`, no prueba de que Shopify los tenga.
+
+> ⚠️ **Riesgo abierto: la cuenta de Vultr.** La instancia **no está** en
+> `sebastianmenat Personal Org` —esa cuenta muestra "No Instances" y tiene
+> US$250 de crédito sin usar— sino en una segunda cuenta (`stapiamena`). Si esa
+> cuenta también corre sobre crédito promocional sin tarjeta vinculada, al
+> vencer el crédito Vultr suspende y luego destruye la instancia.
+> **Respaldar `.env.prod` fuera del servidor** (gestor de contraseñas, nunca el
+> repo): el código es reproducible desde GitHub, esos secretos no.
+
+## Estado al 2026-07-31 (histórico — ver bloque de arriba)
 
 - **Sistema completo en `main`**: BD con triggers de las 5 promesas, agentes
   (FastAPI+LangGraph), gateway (NestJS), dashboard y tienda propia (Next.js),
@@ -35,7 +64,8 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
 - **VPS**: **desplegado y accesible**. Vultr Santiago, 2 vCPU / 4 GB,
   `64.176.23.118`, Ubuntu 24.04.4, aprovisionado con `infra/cloud-init.yml`.
   Se entra con `ssh -i C:\Users\sebas\.ssh\id_ed25519 root@64.176.23.118`.
-  Falta solo correr `dropship-setup` (detalle en el punto 4).
+  ~~Falta solo correr `dropship-setup`~~ — **ejecutado; el stack levantó el
+  2026-08-02** (verificación del 10-08 arriba).
 - **DNS**: `compai.cl` inscrito en NIC Chile y delegado a Cloudflare. Los tres
   registros A del VPS creados y propagados. Detalle en el punto 2.
 
@@ -83,7 +113,9 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    (Configuración → General) y aplicar `docs/shopify-tema-compai.md` en el
    editor del tema (Horizon 4.1.3): colores, logotipo y `brand/shopify-custom.css`.
    Los assets de marca están en `brand/` (ver su README).
-4. **VPS: APROVISIONADO 2026-07-31.** Falta un solo paso: `dropship-setup`.
+4. **VPS: DESPLEGADO Y CORRIENDO.** Aprovisionado el 2026-07-31, `dropship-setup`
+   ejecutado y stack arriba desde el 2026-08-02. **Esta misión está cumplida**;
+   lo que sigue se conserva porque documenta cómo se hizo y qué no repetir.
    - IP `64.176.23.118`, Vultr **Santiago**, Cloud Compute 2 vCPU / 4 GB,
      Ubuntu 24.04.4. Latencia desde Chile: **7 ms**.
    - Acceso: `ssh -i C:\Users\sebas\.ssh\id_ed25519 root@64.176.23.118`.
@@ -106,7 +138,9 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    Change OS → Ubuntu 24.04, que consume el user-data al arrancar. La IP se
    conserva.
 
-   **Siguiente paso — lo corre el usuario**, porque pide secretos:
+   **El paso de abajo ya se ejecutó** (10-08: las 13 variables están en
+   `.env.prod` y los 7 contenedores llevan 8 días arriba). Se conserva por si
+   hay que rehacer el despliegue tras una pérdida de la instancia:
 
    ```
    ssh -i C:\Users\sebas\.ssh\id_ed25519 root@64.176.23.118 -t dropship-setup
@@ -120,10 +154,13 @@ tiene bloqueados los dominios de Shopify y Cloudflare).
    hash publicado que descifrar (ver `docs/deploy-production.md`).
    Tarda varios minutos —construye cuatro imágenes— y para eso está el swap.
 
-   - Luego: variables `SHOPIFY_*` en `.env.prod` (`SHOPIFY_CLIENT_ID`,
-     `SHOPIFY_CLIENT_SECRET`, webhook secret = el mismo Client Secret), crear
-     el webhook re-ejecutando el script del punto 1, y la prueba E2E de
-     `docs/shopify-hybrid.md`.
+   - ~~Luego: variables `SHOPIFY_*` en `.env.prod`~~ — **puestas** (10-08):
+     `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET`, `SHOPIFY_WEBHOOK_SECRET`,
+     `SHOPIFY_ADMIN_TOKEN`, `SHOPIFY_STORE_DOMAIN` y `SHOPIFY_API_VERSION`.
+   - **Sigue sin confirmar**: que el webhook esté registrado en Shopify y la
+     prueba E2E de `docs/shopify-hybrid.md`. La BD tiene **0 pedidos**, así que
+     ningún pedido real ha recorrido el circuito todavía — que es exactamente
+     lo que la prueba E2E validaría.
    - Mantención de Vultr: lunes 2026-08-03, 15:00 UTC (11:00 en Chile).
 5. Pendientes manuales del usuario que conviene recordarle: activar COD
    (Configuración → Pagos → Métodos de pago manuales), fotos/tema de la

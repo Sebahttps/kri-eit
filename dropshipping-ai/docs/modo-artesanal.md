@@ -1,8 +1,25 @@
 # Modo artesanal — CompAI v0 sin infraestructura
 
 Estado: **este es el modo operativo activo**. El stack (Shopify + agentes +
-VPS) está terminado y **apagado** hasta que haya demanda probada y costo por
-conversación medido. Ver `deploy-production.md` para reencenderlo.
+VPS) está terminado; ~~apagado~~ **corriendo, por decisión del 2026-08-10**
+(ver recuadro). Ver `deploy-production.md` para el detalle del despliegue.
+
+> **El stack no está apagado — está encendido y ocioso.** Verificado por SSH el
+> 10-08: 7 contenedores arriba desde el 02-08, 0 errores, **0 pedidos y 0
+> acciones de agente**. Costo real medido: **US$0,84/día ≈ US$25/mes**
+> (~$24.000 CLP), a tarjeta vinculada, primera factura el **1 de septiembre**.
+> No hay crédito promocional en esa cuenta de Vultr, así que el cargo es real.
+>
+> Se decidió **dejarlo corriendo** en vez de hacer snapshot y destruir. La
+> razón: si el modo artesanal funciona, se va a querer el stack listo, y el
+> redespliegue cuesta una tarde. El costo se acepta a sabiendas.
+>
+> **Lo que esto cambia en el §8:** las tres condiciones siguen rigiendo, pero
+> ahora gobiernan **cuándo se usa** el stack, no cuándo se enciende. El costo
+> fijo ya se está pagando a medias — el VPS sí, Shopify aparte.
+>
+> Revisión agendada: **2026-09-01**, con la primera factura a la vista
+> (`checklist-y-fechas.md`).
 
 El objetivo de este documento no es "vender online". Es responder una sola
 pregunta con datos reales en vez de supuestos: **¿alguien paga por esto y a

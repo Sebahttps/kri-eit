@@ -84,7 +84,18 @@ calendario: de hogar a mascotas.
 
 | Fecha | Hito | Por qué |
 |---|---|---|
+| **2026-09-01** | **Primera factura del VPS (~US$28) y revisión del stack** | Corre desde el 30-07 a ~US$25/mes contra la tarjeta 4911, sin crédito promocional. Se decidió el 10-08 dejarlo encendido; el 1-sep es cuándo se revisa esa decisión **con el cargo a la vista y con datos de ventas** |
 | **2027-07-28** | **Renovar `compai.cl` en NIC Chile** | Inscrito el 2026-07-28. Un `.cl` que expira se libera y lo puede tomar cualquiera — sería la forma más tonta de perder el activo de marca |
+
+**Qué decidir el 1 de septiembre**, para no volver a improvisarlo:
+
+| Si al 1-sep | Entonces |
+|---|---|
+| Hay ventas y el modo artesanal camina | El stack se queda: va a hacer falta |
+| No hay ventas todavía | Snapshot (~US$1/mes) y destruir la instancia. Se restaura cuando haga falta |
+| Se decidió no seguir con el proyecto | Destruir y bajar el gasto a cero |
+
+Antes de cualquier destrucción: **respaldar `.env.prod`** fuera del servidor.
 
 Aviso: revisar a los 11 meses (junio 2027), no el mismo día.
 

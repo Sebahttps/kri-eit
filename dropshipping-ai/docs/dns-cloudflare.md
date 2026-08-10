@@ -9,7 +9,32 @@ sitios distintos: NIC Chile es el registrador, Cloudflare solo el DNS).
 > y sirve tanto para crear la zona como para apuntar los registros A después.
 > `-Dominio compay.cl` lo reutiliza para el dominio de redirección.
 
-## Orden correcto (el dominio aún no está inscrito)
+## ✅ Estado actual — ejecutado (verificado 2026-08-10)
+
+**Los cinco pasos de abajo ya están hechos.** Se conservan como referencia y
+para reutilizarlos con el dominio de redirección, pero no hay nada pendiente.
+
+| Dato | Valor |
+|---|---|
+| Titular | Sebastián Tapia Mena |
+| Inscripción | 2026-07-28 · NIC Chile |
+| **Expiración** | **2027-07-28** — agendada en `checklist-y-fechas.md` |
+| Nameservers | `aarav.ns.cloudflare.com` · `sierra.ns.cloudflare.com` |
+
+Resolución verificada el 2026-08-10:
+
+| Nombre | Resuelve a | Estado |
+|---|---|---|
+| `compai.cl` | `23.227.38.65` (Shopify) | responde |
+| `www` | CNAME `shops.myshopify.com` | responde |
+| `hola` · `panel` · `api` | `64.176.23.118` (VPS) | **el VPS responde** |
+
+> ⚠️ **Los tres subdominios del VPS están sirviendo.** `modo-artesanal.md`
+> describe el stack como "terminado y **apagado**", pero la infraestructura
+> está en pie. Si el VPS sigue facturando, el costo fijo que el modo artesanal
+> existe para evitar se está pagando igual. **Verificar antes de seguir.**
+
+## Orden de ejecución (referencia — ya completado)
 
 Es tentador inscribir primero y configurar el DNS después, pero **NIC Chile
 pide los nameservers durante la inscripción**. Creando la zona antes, el

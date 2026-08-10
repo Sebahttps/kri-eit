@@ -40,6 +40,7 @@ llena el mismo día de cada movimiento — 2 minutos, sin excepción.
 
 | Consulta | A quién | Por qué importa | Estado |
 |---|---|---|---|
+| **¿El VPS sigue facturando?** | **panel del proveedor** | Los subdominios `hola`, `panel` y `api` responden (verificado 2026-08-10). El stack se declara apagado, pero está en pie — el costo fijo que el modo artesanal evita se estaría pagando igual | ☐ **prioridad** |
 | ¿Iniciar actividades afecta el **seguro de cesantía**? | **AFC** | Es el bloqueante real de cobrar con tarjeta | ☐ |
 | ¿Afilian a persona natural sin inicio de actividades, y qué informan al SII? | **Klap — 600 363 2020** | Confirmar en fuente primaria; lo documentado es secundario | ☐ |
 
@@ -78,6 +79,14 @@ cliente la pide, se le ofrece devolver el dinero.
 
 El pivote de nicho ocurrió igual, pero por análisis (05-08), no por el
 calendario: de hogar a mascotas.
+
+**Fechas duras (no dependen del proyecto):**
+
+| Fecha | Hito | Por qué |
+|---|---|---|
+| **2027-07-28** | **Renovar `compai.cl` en NIC Chile** | Inscrito el 2026-07-28. Un `.cl` que expira se libera y lo puede tomar cualquiera — sería la forma más tonta de perder el activo de marca |
+
+Aviso: revisar a los 11 meses (junio 2027), no el mismo día.
 
 **Ciclo nuevo — anclado al Día 1, aún sin fecha:**
 

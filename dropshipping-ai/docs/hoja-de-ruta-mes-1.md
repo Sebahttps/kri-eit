@@ -11,6 +11,17 @@ aquí está el mapa de decisiones que ese runbook alimenta.
 
 ---
 
+## ⛔ Bloqueado el 2026-08-10 — precios en disputa
+
+Mondo respondió con una lista mayorista cuyos costos son **el doble** de los
+leídos en Yollgo. Con esos números los cinco SKU no pasan el criterio 1.
+**La compra de muestras del §1 queda suspendida** hasta aclararlo. Detalle en
+`asistente-administrativo/gestion/dropshipping-por-encargo/catalogo-mondo-2026-08-10.md`.
+
+Lo que desbloquea: preguntarle a Mondo cuál es el precio mayorista vigente,
+citando el dato de Yollgo. Y de paso, las dos que siguen sin respuesta —
+compra mínima y despacho directo.
+
 ## 1. Esta semana — conseguir el producto en la mano
 
 | Paso | Costo | Depende de |

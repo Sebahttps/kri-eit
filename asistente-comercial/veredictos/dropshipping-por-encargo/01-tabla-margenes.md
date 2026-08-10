@@ -24,6 +24,20 @@ Dos correcciones que invalidaron el método de esa tabla:
 
 ---
 
+## 🚨 Los márgenes de abajo están EN DISPUTA (2026-08-10)
+
+La lista mayorista que Mondo Mascota envió el 10-08 trae los mismos productos
+**al doble de costo**: transportadores a $11.000–$13.500 en vez de
+$4.500–$6.500, camas a $8.900–$12.000 en vez de $5.900–$7.500. Con esos
+costos **los cinco SKU caen bajo los $8.000** y ninguno pasa el criterio 1.
+
+Detalle, hipótesis y catálogo completo en
+`asistente-administrativo/gestion/dropshipping-por-encargo/catalogo-mondo-2026-08-10.md`.
+
+**No se compran las muestras hasta saber cuál es el precio mayorista vigente.**
+La tabla de abajo se conserva porque puede ser la correcta —hay señales de que
+la lista nueva no es la misma fuente— pero hoy no está confirmada.
+
 ## Catálogo vigente: nicho mascotas, 5 SKU (2026-08-05)
 
 Costos leídos en Yollgo (**Mondo Mascota**, tienda 3183, todo `1u/c`) contra

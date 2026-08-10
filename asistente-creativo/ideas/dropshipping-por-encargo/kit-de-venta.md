@@ -106,3 +106,14 @@ hace posible el segundo mensaje.
 Responder en **menos de 10 minutos**, con nombre y de persona a persona. En
 Marketplace la velocidad ES la venta — y esa es exactamente tu ventaja de
 comunicador.
+
+## Nombre del perfil comercial
+
+**"Sebastián — Al Tiro Store"** (decidido 2026-08-10). El nombre propio primero
+no es un detalle de estilo: es la misma respuesta que da el §6 a la objeción de
+estafa —*una persona con nombre que responde*— y una marca sola, sin reseñas
+todavía, no la sostiene. "Al Tiro Store" queda detrás para el recuerdo y para
+ser coherente con la tienda y los anuncios.
+
+Va así en el perfil de WhatsApp Business y en el nombre visible de la tienda
+Shopify.

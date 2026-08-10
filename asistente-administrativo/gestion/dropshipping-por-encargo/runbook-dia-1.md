@@ -21,7 +21,7 @@ exactamente lo que Marketplace penaliza y lo que hace que parezcas reventa.
 |---|---|---|
 | ☐ | Enviar el mensaje de cotización a los **4 proveedores del nicho** (Mondo Mascota, PETBABY, Huanyu, Duo Mai) | `cotizacion-mascotas.md` §3 |
 | ☐ | A **Mondo Mascota por WeChat** (+56 9 2092 9197), además: confirmar la **compra mínima real** y si despachan directo al cliente final | idem |
-| ☐ | Crear WhatsApp Business "Al Tiro Store" con foto y respuestas rápidas | `kit-de-venta.md` §2-6 |
+| ☑ | WhatsApp Business — **ya existe**. Ajustar el nombre comercial a **"Sebastián — Al Tiro Store"** y cargar las respuestas rápidas | `kit-de-venta.md` §2-6 |
 | ☐ | Crear las dos planillas en Google Sheets (ver abajo) | — |
 
 **Las dos planillas, y por qué son dos:**

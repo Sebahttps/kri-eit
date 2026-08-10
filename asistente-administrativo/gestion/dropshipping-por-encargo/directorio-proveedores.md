@@ -6,9 +6,28 @@ Muchos operan en la app **Yollgo** (columna con código y PIN de la planilla —
 verificar el funcionamiento de la app al usarla por primera vez). Datos tal como
 vienen en la planilla; confirmar al contactar.
 
-## ⭐ PRIMERA OLA — cotizar HOY para el catálogo Al Tiro Store (hogar, con WhatsApp)
+## ⭐ NICHO ACTIVO — mascotas
 
-Enviar a estos el mensaje de cotización del kit de venta (Kri-AI §1):
+Los cuatro proveedores del nicho vigente, con el mensaje de cotización de
+`asistente-creativo/ideas/dropshipping-por-encargo/cotizacion-mascotas.md` §3:
+
+| Proveedor | Yollgo | WhatsApp | Rol |
+|---|---|---|---|
+| **Mondo Mascotas** | ✔ 3183 | +56 9 2092 9197 | **Arranque** — vende `1u/c` y tiene consumibles |
+| PETBABY | ✔ 5151 | +56 9 8887 7799 | Profundidad (10u/c) · Bascuñán Guerrero 260 local 1 |
+| HUANYU / PETSHOW | ✔ 2625 | +56 9 5686 7706 | Profundidad (6-12u/c) · Conferencia 265 |
+| Duo Mai | ✔ 2577 | +56 9 4585 9489 | Pedidos por WeChat |
+
+Mondo y Duo Mai toman pedidos por WeChat, no por la app. Huanyu muestra los
+precios con símbolo `€`; son pesos, y su descuento por efectivo vale solo dentro
+del mes.
+
+## 📦 PRIMERA OLA (hogar) — archivada, no ejecutar
+
+Esta ola era para el catálogo de hogar, que quedó fuera de plan: los 10
+productos caen contra los criterios de `dropshipping-ai/docs/modo-artesanal.md`
+§2. Los datos siguen siendo válidos; **la instrucción de cotizar, no.** Se
+conservan por si un nicho futuro los necesita.
 
 | Proveedor | Yollgo | WhatsApp | Dirección |
 |---|---|---|---|
@@ -46,7 +65,7 @@ Los que digan que sí, van al tope de la lista.
 
 - **Belleza:** Xia Tai (IG), Max Belleza ✔3588 +56937488888, Cosmemarc ✔2999
   +56997738667, Romantic Beauty ✔3816 +56974010800, NewKylie ✔2988 +56937363976.
-- **Mascotas** *(nicho de recompra — candidato futuro)*: Pet Baby ✔5151
+- **Mascotas** *(nicho de recompra — **ACTIVO**, ver arriba)*: Pet Baby ✔5151
   +56988877799, Huanyu ✔2625 +56956867706, Mondo Mascotas ✔3183 +56920929197,
   Duo Mai ✔2577 +56945859489.
 - **Juguetería** *(candidato para campaña navideña)*: Happy Mundo ✔3782

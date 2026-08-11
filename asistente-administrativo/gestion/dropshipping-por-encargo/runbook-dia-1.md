@@ -19,10 +19,51 @@ exactamente lo que Marketplace penaliza y lo que hace que parezcas reventa.
 
 | ✔ | Paso | Material |
 |---|---|---|
-| ☐ | Enviar el mensaje de cotización a los **4 proveedores del nicho** (Mondo Mascota, PETBABY, Huanyu, Duo Mai) | `cotizacion-mascotas.md` §3 |
-| ☐ | A **Mondo Mascota por WeChat** (+56 9 2092 9197), además: confirmar la **compra mínima real** y si despachan directo al cliente final | idem |
+| ☐ | **Enviar el pedido a Mondo Mascota por WhatsApp** (+56 9 2092 9197) con los 5 pantallazos | §"El mensaje", abajo |
+| ☑ | ~~Cotizar a los 4 proveedores del nicho~~ — **cerrado 11-08**: Mondo es el proveedor, sin compra mínima, precios de Yollgo | `catalogo-yollgo-verificado.md` |
 | ☑ | WhatsApp Business — **ya existe**. Ajustar el nombre comercial a **"Sebastián — Al Tiro Store"** y cargar las respuestas rápidas | `kit-de-venta.md` §2-6 |
 | ☐ | Crear las dos planillas en Google Sheets (ver abajo) | — |
+
+### El mensaje para pedir las muestras
+
+Adjuntar los **5 pantallazos** del producto y enviar:
+
+```
+Hola! Quiero hacer un pedido de 5 productos, 1 unidad de cada uno.
+Le adjunto las capturas:
+
+1161 · Transportador talla S — $4.500
+1162 · Transportador talla M — $5.500
+1163 · Transportador talla L — $6.500
+X02062 · Cama de felpa 60 cm — $5.900
+X02063 · Cama de felpa 70 cm — $7.500
+
+Total: $29.900
+
+¿Me confirma los precios y si están disponibles?
+Paso a retirar a Sazié 2998.
+```
+
+Por qué está redactado así:
+
+- **"1 unidad de cada uno" va primero.** Es el punto exacto donde aparece un
+  mínimo si existe. Que salga en el mensaje y no en el mesón.
+- **Los precios van explícitos.** Si su lista dice otra cosa, se sabe antes de
+  pagar. Ya se comprobó que hay productos de nombre parecido al doble de precio
+  en la misma categoría.
+- **El código antes del nombre.** Pantallazo + código no deja margen a que
+  preparen otro producto.
+
+**Segundo mensaje — enviar recién cuando confirmen el pedido, no antes:**
+
+```
+Una consulta aparte: para pedidos futuros, ¿ustedes despachan
+directo al cliente final o siempre hay que retirar?
+```
+
+Va separado a propósito: es la última pregunta abierta con el proveedor y decide
+si hay que manipular producto en cada venta. Mezclarla con el primer pedido
+expone a que contesten solo una de las dos.
 
 **Las dos planillas, y por qué son dos:**
 
@@ -39,20 +80,24 @@ exactamente lo que Marketplace penaliza y lo que hace que parezcas reventa.
 Ir a Meiggs con la lista. **Retiro presencial: revisar calidad antes de pagar** —
 es lo que hace sostenible la garantía de 6 meses que respondes tú.
 
-| ✔ | SKU | Producto | Costo |
-|---|---|---|---|
-| ☐ | X-BOLSO-S | Transportador talla S | $4.500 |
-| ☐ | X-BOLSO-M | Transportador talla M | $5.500 |
-| ☐ | X-BOLSO-L | Transportador talla L | $6.500 |
-| ☐ | F6711-60 | Cama de felpa 60 cm | $5.900 |
-| ☐ | F6711-70 | Cama de felpa 70 cm | $7.500 |
-| | | **Total** | **$29.900** |
+| ✔ | SKU | Producto | **Código** | Costo |
+|---|---|---|---|---|
+| ☐ | X-BOLSO-S | Transportador talla S | `1161` | $4.500 |
+| ☐ | X-BOLSO-M | Transportador talla M | `1162` | $5.500 |
+| ☐ | X-BOLSO-L | Transportador talla L | `1163` | $6.500 |
+| ☐ | F6711-60 | Cama de felpa 60 cm | `X02062` | $5.900 |
+| ☐ | F6711-70 | Cama de felpa 70 cm | `X02063` | $7.500 |
+| | | | **Total** | **$29.900** |
+
+**Pedir por código, nunca por nombre.** "Arenero grande" son cuatro productos
+distintos entre $6.300 y $14.500; el mismo riesgo existe en transportadores y
+camas, donde hay más de 20 variantes por categoría.
 
 | ✔ | Paso |
 |---|---|
 | ☐ | Guardar captura/boleta de cada compra en la carpeta `proveedores/` |
 | ☐ | Anotar el costo REAL pagado (puede diferir del leído en Yollgo) |
-| ☐ | Si Mondo exige mínimo por unidad distinto al `1u/c` publicado, **parar y recalcular** antes de comprar |
+| ☐ | **Verificar que no exijan mínimo al pedir una unidad.** Confirmaron que no hay, pero la planilla marca 50u/caja en transportadores y 30u/caja en camas. Si aparece un mínimo, **parar y recalcular** antes de comprar |
 
 ## Tarde (2 horas — costo $0)
 

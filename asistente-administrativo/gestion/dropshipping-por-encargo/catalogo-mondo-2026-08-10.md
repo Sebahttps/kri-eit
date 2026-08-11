@@ -9,6 +9,21 @@ recibido el 2026-08-10 tras la consulta por WhatsApp. Impreso desde
 
 ---
 
+## ✅ CERRADO el 2026-08-11 — no era un alza, era otra selección de productos
+
+La planilla completa del catálogo Yollgo (2.432 productos) se leyó el 11-08 y
+resuelve el enigma: **los precios de este PDF existen en el catálogo** — son
+productos reales, solo que **no los más baratos de su categoría**, con nombres
+genéricos que los hacían parecer los mismos. De las cuatro hipótesis planteadas
+abajo, la correcta era **"productos homónimos pero distintos"**.
+
+Los $5.900 de la cama de felpa 60 cm y los $4.500/$5.500/$6.500 de los
+transportadores **siguen vigentes**, con código de proveedor. Detalle y
+consecuencias en `catalogo-yollgo-verificado.md`.
+
+> **Lección operativa: pedir por código, nunca por nombre.** "Arenero grande"
+> son cuatro productos distintos entre $6.300 y $14.500.
+
 ## ✅ RESUELTO el 2026-08-11 — manda Yollgo
 
 Mondo confirmó que **el precio vigente es el que aparece en Yollgo**. El pedido

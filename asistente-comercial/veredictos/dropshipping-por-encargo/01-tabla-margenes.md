@@ -46,13 +46,18 @@ Costos leídos en Yollgo (**Mondo Mascota**, tienda 3183, todo `1u/c`) contra
 precios observados en Mercado Libre el mismo día. Canal: **Facebook
 Marketplace**, comisión 0%. Envío **por pagar**, así que el margen queda íntegro.
 
-| # | SKU | Producto | Precio venta | Costo | Margen | ¿Va? |
-|---|---|---|---|---|---|---|
-| 1 | X-BOLSO-M | Transportador talla M | $18.990 | $5.500 | **$13.490** | ✓ el mejor |
-| 2 | X-BOLSO-L | Transportador talla L | $19.890 | $6.500 | **$13.390** | ✓ |
-| 3 | X-BOLSO-S | Transportador talla S | $15.990 | $4.500 | **$11.490** | ✓ |
-| 4 | F6711-70 | Cama antiestrés 70 cm | $19.990 | $7.500 | **$12.490** | ✓ precio interpolado |
-| 5 | F6711-60 | Cama antiestrés 60 cm | $16.990 | $5.900 | **$11.090** | ✓ |
+Los cinco costos fueron **verificados uno a uno contra la planilla completa del
+catálogo Yollgo el 11-08** (2.432 productos). Coinciden exactos. La columna
+`Código` es la del proveedor: **pedir por código, no por nombre** — hay cuatro
+"arenero grande" distintos entre $6.300 y $14.500.
+
+| # | SKU | Producto | Código | Precio venta | Costo | Margen | ¿Va? |
+|---|---|---|---|---|---|---|---|
+| 1 | X-BOLSO-M | Transportador talla M | `1162` | $18.990 | $5.500 | **$13.490** | ✓ el mejor |
+| 2 | X-BOLSO-L | Transportador talla L | `1163` | $19.890 | $6.500 | **$13.390** | ✓ |
+| 3 | X-BOLSO-S | Transportador talla S | `1161` | $15.990 | $4.500 | **$11.490** | ✓ |
+| 4 | F6711-70 | Cama antiestrés 70 cm | `X02063` | $19.990 | $7.500 | **$12.490** | ✓ precio interpolado |
+| 5 | F6711-60 | Cama antiestrés 60 cm | `X02062` | $16.990 | $5.900 | **$11.090** | ✓ |
 
 **Costo total de las muestras: $29.900** (una unidad de cada uno).
 
@@ -80,10 +85,17 @@ ticket alto, no consumibles, y son candidatos al catálogo principal.
 ### Proveedor de arranque
 
 **Mondo Mascota** (Yollgo 3183, WeChat +56 9 2092 9197), por dos razones
-independientes: vende **por unidad** —único que permite recorrer la escalera
-muestra → por encargo → profundidad— y **tiene los consumibles**, que es lo que
-sostiene la tesis de recompra. PETBABY (10u/c) y Huanyu (6-12u/c) quedan para
-profundidad, cuando un SKU ya vendió.
+independientes: **no exige compra mínima** —confirmado el 11-08, es lo único que
+permite recorrer la escalera muestra → por encargo → profundidad— y **tiene los
+consumibles**, ya cotizados el 11-08 (antipulgas $900–$2.750, snacks
+$750–$4.300). PETBABY (10u/c) y Huanyu (6-12u/c) quedan para profundidad, cuando
+un SKU ya vendió.
+
+⚠️ **Corrección al 11-08:** este documento decía que Mondo vende `1u/c`. La
+planilla del catálogo indica **50u/caja** en transportadores y **30u/caja** en
+camas. Se interpreta como empaque de caja máster —Sebastián confirmó que no hay
+mínimo— pero **verificarlo en la primera compra**. Detalle en
+`asistente-administrativo/gestion/dropshipping-por-encargo/catalogo-yollgo-verificado.md`.
 
 ---
 

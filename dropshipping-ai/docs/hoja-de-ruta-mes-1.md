@@ -110,9 +110,11 @@ plataformas de pago electrónico). No frena nada del mes 1 —el v0 opera con
 efectivo y transferencia— pero conviene tener la respuesta antes de que sea
 urgente. Detalle en `checklist-y-fechas.md`.
 
-**Pendientes de catálogo.** Las categorías de snacks y antipulgas de Mondo
-quedaron sin leer por inestabilidad de la app. Son la pata consumible de la
-tesis de recompra: cotizarlas antes de la primera post-venta, no después.
+**Pendientes de catálogo — resueltos el 11-08.** Snacks y antipulgas ya están
+cotizados con código y costo en `catalogo-yollgo-verificado.md` §4: antipulgas
+$900–$2.750, snacks $750–$4.300, con los Churu Bioline ($2.490) como candidato
+más fuerte. **No comprarlos todavía**: entran después de la primera venta de un
+durable, cuando ya hay un cliente al que ofrecérselos.
 
 ---
 

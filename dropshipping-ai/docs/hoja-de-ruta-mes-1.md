@@ -11,25 +11,26 @@ aquí está el mapa de decisiones que ese runbook alimenta.
 
 ---
 
-## ⛔ Bloqueado el 2026-08-10 — precios en disputa
+## ✅ Desbloqueado el 2026-08-11 — manda Yollgo, y no hay mínimo
 
-Mondo respondió con una lista mayorista cuyos costos son **el doble** de los
-leídos en Yollgo. Con esos números los cinco SKU no pasan el criterio 1.
-**La compra de muestras del §1 queda suspendida** hasta aclararlo. Detalle en
-`asistente-administrativo/gestion/dropshipping-por-encargo/catalogo-mondo-2026-08-10.md`.
+El bloqueo del 10-08 se cerró: Mondo confirmó que **el precio vigente es el de
+Yollgo**, que el pedido se hace mandando un **pantallazo por WhatsApp**, y que
+**no exige compra mínima**. Los cinco SKU recuperan su margen de $11.090 a
+$13.490 y **la compra de muestras del §1 vuelve a estar en pie**.
 
-Lo que desbloquea: preguntarle a Mondo cuál es el precio mayorista vigente,
-citando el dato de Yollgo. Y de paso, las dos que siguen sin respuesta —
-compra mínima y despacho directo.
+Esto también cancela el escenario de contingencia del §1: sin mínimo, no hay que
+recurrir a PETBABY ni concentrar capital en un SKU. Queda una sola pregunta
+abierta —**¿despachan directo al cliente final?**— que no frena nada esta
+semana, porque las muestras las retiras tú.
 
 ## 1. Esta semana — conseguir el producto en la mano
 
 | Paso | Costo | Depende de |
 |---|---|---|
-| Respuesta de Mondo Mascota: mínimo real + ¿despacha directo? | $0 | ellos |
-| Ir a Meiggs y comprar las 5 muestras | **$29.900** | lo anterior |
+| Ir a Meiggs y comprar las 5 muestras | **$29.900** | nada — desbloqueado |
 | Tomar las 5 fotos por producto | $0 | tener la muestra |
 | Publicar el transportador M en Marketplace | $0 | las fotos |
+| Preguntar a Mondo si despacha directo | $0 | en paralelo, no bloquea |
 
 **El orden no es negociable.** Sin muestra no hay foto real, y sin foto real la
 publicación parece reventa — que es exactamente lo que Marketplace penaliza y lo
@@ -37,19 +38,16 @@ que la escalera del §1 de `modo-artesanal.md` existe para evitar. Invertir el
 orden para "avanzar más rápido" produce cinco anuncios con foto de catálogo y
 cero consultas.
 
-### Si la respuesta de Mondo es mala
+### Contingencia — ya no aplica (11-08)
 
-Mondo Mascota es el proveedor de arranque por vender **por unidad** (`1u/c`).
-Si el mínimo real resulta ser mayor al publicado, o si no despacha directo al
-cliente final, el arranque cambia — pero no se cae.
+Mondo Mascota es el proveedor de arranque por vender **por unidad** (`1u/c`), y
+el 11-08 confirmó que **no hay compra mínima**. La contingencia que seguía se
+conserva solo por si el proveedor cambia de política más adelante:
 
-Sin Mondo, el siguiente es PETBABY: **$49.900 por 10 unidades de un solo SKU**.
-Eso concentra más de **1/4 del capital** en un producto que todavía no ha
-vendido nada, y rompe la regla de exposición por SKU.
-
-> **Decisión en ese escenario: comprar 1 o 2 SKU en caja, no cinco.** Se publica
-> solo lo que se compró. Es más lento, pero es la diferencia entre un error
-> acotado y el capital inmovilizado en cinco apuestas simultáneas.
+> Sin Mondo, el siguiente es PETBABY: **$49.900 por 10 unidades de un solo SKU**.
+> Eso concentra más de **1/4 del capital** en un producto que todavía no ha
+> vendido nada, y rompe la regla de exposición por SKU. En ese escenario:
+> **comprar 1 o 2 SKU en caja, no cinco**, y publicar solo lo que se compró.
 
 ---
 

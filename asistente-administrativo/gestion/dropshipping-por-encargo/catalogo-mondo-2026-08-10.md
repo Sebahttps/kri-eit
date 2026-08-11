@@ -9,7 +9,29 @@ recibido el 2026-08-10 tras la consulta por WhatsApp. Impreso desde
 
 ---
 
-## 🚨 Los precios NO coinciden con los leídos en Yollgo
+## ✅ RESUELTO el 2026-08-11 — manda Yollgo
+
+Mondo confirmó que **el precio vigente es el que aparece en Yollgo**. El pedido
+se hace mandando un **pantallazo del producto por WhatsApp** y solicitándolo;
+**no hay compra mínima**, ni en unidades ni en monto.
+
+Consecuencias, todas a favor:
+
+- La tabla de márgenes del v0 **queda confirmada**: los 5 SKU dan $11.090 a
+  $13.490 y pasan el criterio 1.
+- **La compra de las 5 muestras ($29.900) se reactiva.**
+- Sin mínimo, la escalera muestra → por encargo → profundidad se puede recorrer
+  entera (§1 de `modo-artesanal.md`). PETBABY y su caja de 10u no hace falta.
+- Los precios de esta lista quedan como **techo, no como costo**. Sirven solo
+  para los productos que no estaban en lo leído en Yollgo — areneros y abrigos.
+
+Sigue sin respuesta **si despachan directo al cliente final o hay que retirar**.
+No bloquea la compra de muestras (esas las retira él en Meiggs), pero sí decide
+si hay que manipular producto en cada venta.
+
+La sección de abajo se conserva como registro de cómo se resolvió.
+
+## 🚨 Los precios NO coincidían con los leídos en Yollgo — histórico
 
 Esta es la razón por la que este documento existe. Los costos de esta lista son
 **el doble** de los que sostienen la tabla de márgenes vigente:
@@ -30,8 +52,9 @@ Esta es la razón por la que este documento existe. Los costos de esta lista son
 | Transportador L | $19.890 | **$6.390** | ✗ |
 | Cama (≈ M) | $16.990 | **$6.490** | ✗ |
 
-> **Consecuencia inmediata: la compra de las 5 muestras ($29.900) queda
-> suspendida** hasta aclarar cuál es el precio mayorista vigente.
+> ~~**Consecuencia inmediata: la compra de las 5 muestras ($29.900) queda
+> suspendida** hasta aclarar cuál es el precio mayorista vigente.~~
+> **Levantado el 11-08: manda Yollgo, la compra sigue en pie.**
 
 ### Pero probablemente no es la misma fuente
 
@@ -123,11 +146,14 @@ catálogo principal.
 
 ## Sigue sin respuesta
 
-Las dos preguntas que deciden la semana **no vinieron en el catálogo**:
+De las dos preguntas que decidían la semana, **la 1 ya está contestada**:
 
-1. **¿Hay compra mínima**, en unidades o en monto?
-2. **¿Despachan directo al cliente final**, o hay que retirar?
+1. ~~¿Hay compra mínima, en unidades o en monto?~~ → **No hay mínimo**
+   (confirmado 11-08). La escalera muestra → por encargo → profundidad se
+   recorre completa.
+2. **¿Despachan directo al cliente final**, o hay que retirar? → **pendiente.**
+   Decide si hay que manipular producto en cada venta o si el proveedor
+   despacha por ti.
 
-Sin la 1 no se sabe si se recorre la escalera muestra → por encargo →
-profundidad (§1 de `modo-artesanal.md`). Sin la 2, si hay que manipular
-producto.
+**Cómo se pide:** pantallazo del producto por WhatsApp + solicitud del pedido.
+Sin catálogo de códigos ni orden de compra formal.

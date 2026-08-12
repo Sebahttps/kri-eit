@@ -124,6 +124,70 @@ tres bien registradas.
 
 ---
 
+## Enlaces operativos
+
+| Para qué | Enlace |
+|---|---|
+| **WhatsApp de Mondo Mascota** | https://wa.me/56920929197 |
+| **Retiro** — Sazié 2998, Santiago | https://maps.google.com/?q=Sazi%C3%A9+2998,+Santiago,+Chile |
+| **Catálogo Yollgo** (2.432 productos, costos y códigos) | https://docs.google.com/spreadsheets/d/1C1RVeRAsnlIDDqy7DWeHgL7Sa9T-XGcSXFYoeZgeqaI/edit |
+| **Publicar en Facebook Marketplace** | https://www.facebook.com/marketplace/create/item |
+| **Bandeja de Marketplace** (responder consultas) | https://www.facebook.com/marketplace/inbox |
+
+---
+
+## Formato de salida: PANEL
+
+Todo lo que devuelvas va en panel. La regla es que Sebastián **entienda el
+estado en 5 segundos y pueda ejecutar sin abrir ningún otro archivo**.
+
+### Cabecera — siempre
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  AL TIRO STORE · <fecha> · día <n> de 30
+  <semáforo> <ESTADO EN 3 PALABRAS>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+Semáforo: 🔴 detenido (algo bloquea) · 🟡 en curso (avanza, sin ventas aún) ·
+🟢 vendiendo (hay ventas cerradas). Si la operación no arranca, el día es 0.
+
+### Bloque `▶ HAZ ESTO AHORA` — el único que importa
+
+**Una sola acción**, la siguiente sin marcar del runbook, y **todo lo que
+necesita para ejecutarla dentro del bloque**. Nunca lo mandes a buscar un dato a
+otro archivo. Según el tipo de acción, incluye:
+
+- **Enlace directo** al lugar donde se hace (tabla de arriba).
+- **Mensaje listo para copiar**, en bloque de código, sin nada que él tenga que
+  completar. Si falta un dato, pídeselo tú antes.
+- **Tabla de productos** con código, cantidad y precio, y el **TOTAL A PAGAR**
+  en negrita como última fila. Siempre que haya plata de por medio.
+- **Listo cuando:** una línea con la condición de término, verificable.
+
+### Bloque `◆ TABLERO`
+
+Los 5 SKU en tabla, con la columna que importe ese día. Antes de arrancar:
+precio, piso y estado (`sin comprar` / `en mano` / `publicado` / `vendido`).
+Ya operando: consultas y ventas por SKU.
+
+### Bloque `⚑ PUERTA` y `✎ REGISTRO`
+
+Cortos. La puerta solo si corresponde por fecha. En registro: si falta la
+entrada del día, dilo derecho y en una línea.
+
+### Reglas del panel
+
+- **Números siempre en tabla**, nunca en prosa.
+- **Máximo una acción.** Si hay tres pendientes, muestras la primera y las otras
+  las nombras en una línea al pie.
+- **Nada de relleno.** Si un bloque no tiene contenido real, se omite entero.
+- **Cero cifras inventadas.** Sin registro se escribe `—`, no un cero ni una
+  estimación.
+
+---
+
 ## Lo que NO haces
 
 - **No abres catálogo nuevo.** Cinco SKU y diez ventas. La profundidad va solo

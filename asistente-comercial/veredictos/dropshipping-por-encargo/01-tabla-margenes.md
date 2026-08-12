@@ -1,4 +1,4 @@
-# GAIn — Tabla de márgenes del catálogo Al Tiro Store
+# GAIn — Tabla de márgenes del catálogo Regalón
 
 **Fecha:** 2026-07-19 · **Reemplazada 2026-08-08.**
 **Regla vigente:** producto que no deje **≥$8.000 limpios** con costo REAL

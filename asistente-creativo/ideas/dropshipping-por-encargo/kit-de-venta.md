@@ -1,4 +1,4 @@
-# Kri-AI — Kit de venta palabra por palabra (Al Tiro Store)
+# Kri-AI — Kit de venta palabra por palabra (Regalón)
 
 **Fecha:** 2026-07-19 · **Actualizado 2026-08-08** al modo artesanal y al nicho
 mascotas. Todo listo para copiar, pegar y enviar. Nada que redactar.
@@ -61,7 +61,7 @@ Con la comuna en mano, el segundo mensaje:
 > 🚚 ¡Enviado! Código de seguimiento: [código] ([courier]). Llega aprox. el [día].
 > Recuerda: tienes 10 días desde que lo recibes para retractarte y 6 meses de
 > garantía legal — cualquier cosa me escribes a mí y respondo yo. ¡Gracias por
-> comprar en Al Tiro Store!
+> comprar en Regalón! 🐾
 
 ## 5. Post-venta (día siguiente a la entrega)
 
@@ -109,11 +109,33 @@ comunicador.
 
 ## Nombre del perfil comercial
 
-**"Sebastián — Al Tiro Store"** (decidido 2026-08-10). El nombre propio primero
-no es un detalle de estilo: es la misma respuesta que da el §6 a la objeción de
-estafa —*una persona con nombre que responde*— y una marca sola, sin reseñas
-todavía, no la sostiene. "Al Tiro Store" queda detrás para el recuerdo y para
-ser coherente con la tienda y los anuncios.
+> ⚠️ **Corregido el 2026-08-11.** Esta sección decía *"Sebastián — Al Tiro
+> Store"*, nombre que ya estaba **muerto** cuando se escribió: el veredicto de
+> arquitectura de marca del 10-08 lo había descartado el mismo día. El error se
+> propagó al runbook y a OperAI antes de detectarse.
 
-Va así en el perfil de WhatsApp Business y en el nombre visible de la tienda
-Shopify.
+**`Sebastián · Regalón por CompAI`** (veredicto del panel, 2026-08-10). Cada
+parte cumple una función distinta:
+
+| Parte | Qué aporta |
+|---|---|
+| **Sebastián** | Confianza. En Marketplace el vendedor es la persona; el nombre propio desarma la objeción de estafa antes de que se formule |
+| **Regalón** | Ternura. Dice en palabras humanas lo mismo que "antiestrés" en la publicación — y "antiestrés" es lo que sostiene el precio |
+| **por CompAI** | El uso marcario en el punto de venta, sin el cual el expediente de registro no vale |
+
+**"Al Tiro Store" no se usa en ninguna superficie.** Ancla precio bajo (GAIn),
+sigue el patrón `X + Store` de la reventa genérica (VisuAI) y es irregistrable
+por el art. 20 letra e) de la Ley 19.039 (LAI-er). **"Al tiro" sí sobrevive,
+pero como frase**: vive en el recado —*"respondo al tiro"*— y en las
+publicaciones, nunca como nombre.
+
+| Superficie | Qué va |
+|---|---|
+| Nombre de WhatsApp Business | `Sebastián · Regalón por CompAI` |
+| Recado / estado | `Camas y transportadores para tu regalón · En Santiago pagas al recibir · Respondo al tiro` |
+| Firma del chat | `Regalón · por CompAI` |
+| Foto de perfil | La tuya, con el producto o una mascota. **No el logo** |
+| Títulos de Marketplace | Sin cambios: mandan "antiestrés" y la medida, no la marca |
+
+Detalle completo y fundamentos en
+`asistente-visual/propuestas/dropshipping-por-encargo/arquitectura-de-marca.md`.

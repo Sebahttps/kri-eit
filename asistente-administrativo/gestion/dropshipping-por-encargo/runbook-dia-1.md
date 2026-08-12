@@ -21,7 +21,7 @@ exactamente lo que Marketplace penaliza y lo que hace que parezcas reventa.
 |---|---|---|
 | ☐ | **Enviar el pedido a Mondo Mascota por WhatsApp** (+56 9 2092 9197) con los 5 pantallazos | §"El mensaje", abajo |
 | ☑ | ~~Cotizar a los 4 proveedores del nicho~~ — **cerrado 11-08**: Mondo es el proveedor, sin compra mínima, precios de Yollgo | `catalogo-yollgo-verificado.md` |
-| ☑ | WhatsApp Business — **ya existe**. Ajustar el nombre comercial a **"Sebastián — Al Tiro Store"** y cargar las respuestas rápidas | `kit-de-venta.md` §2-6 |
+| ☐ | WhatsApp Business — **ya existe**. Ajustar el nombre a **`Sebastián · Regalón por CompAI`**, el recado a **`Camas y transportadores para tu regalón · En Santiago pagas al recibir · Respondo al tiro`**, foto tuya (no logo) y cargar las respuestas rápidas | `arquitectura-de-marca.md` §4 |
 | ☐ | Crear las dos planillas en Google Sheets (ver abajo) | — |
 
 ### El mensaje para pedir las muestras

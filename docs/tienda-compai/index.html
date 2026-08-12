@@ -10,20 +10,43 @@
   ============================================================================
   PROCEDENCIA Y CRITERIO DE ESTA PÁGINA
   ============================================================================
-  Estética importada del proyecto de Claude Design "Diseño tienda online
-  CompAI" (89ca4216-f25e-456d-8203-da63c6959c0b, archivo CompAI Tienda.dc.html).
-  Se conservan: paleta oscura, tipografías, el logotipo comp+AI, el doble check
-  como elemento firma, y la arquitectura matriz + vitrina.
+  Reimportada el 2026-08-11 desde el proyecto de Claude Design "Diseño tienda
+  online CompAI" (CompAI Tienda.dc.html + README.md del handoff), con mayor
+  fidelidad que la importación del 2026-08-10.
 
-  Contenido REEMPLAZADO a propósito. El diseño original mostraba collares
-  inteligentes, robo-ratones y cámaras: productos electrónicos que violan el
-  criterio 4 de docs/modo-artesanal.md (garantía legal de 6 meses que responde
-  Sebastián en persona, más certificación SEC). Tampoco mostraba ninguna de las
-  cinco promesas, que son el núcleo de la oferta.
+  QUÉ SE RECUPERÓ EN ESTA SEGUNDA PASADA
+  - El LOGOTIPO REAL como SVG: "comp" en Helvetica/Arial 600 a 56px con
+    letter-spacing -1.2, "AI" en Courier New 700 a 53px con letter-spacing 1.6
+    (#E0954F), y el doble tick en #4CC48B a translate(259 20) scale(1.5).
+    Incluye el filtro "brasa" (feGaussianBlur 5 + 12, feMerge, opacity .9) en
+    el que "comp" va con fill:none — SOLO brillan el AI y los ticks. La versión
+    anterior lo falsificaba con dos <span> de texto HTML.
+  - La estructura del H1 en tres líneas, con el logotipo inline como cierre.
+  - La escala tipográfica exacta del handoff (66 / 38 / 22 / 17 / 15 / 13.5).
+  - La repisa de luz a 14px de alto, no 10px.
+  - Tamaños de logo del spec: header 146×36, footer 117×29, hero 4.91em.
 
-  Aquí van los 5 SKU con margen verificado, las cinco promesas y el nombre
-  acordado por el panel del 2026-08-10 (asistente-visual/propuestas/
-  dropshipping-por-encargo/arquitectura-de-marca.md).
+  QUÉ SE DESCARTA DEL ORIGINAL, Y POR QUÉ
+  - Productos electrónicos (collar inteligente, robo-ratón, bebedero con
+    sensor, cámara): violan el criterio 4 de dropshipping-ai/docs/
+    modo-artesanal.md — garantía legal de 6 meses que responde Sebastián en
+    persona, más certificación SEC. Van los 5 SKU con margen verificado.
+  - Todo el copy de IA ("catálogo curado por AI", "96% match", "buscar con
+    AI"): ClAI-nte reportó que en una vitrina de mascotas lee a bot y resta
+    confianza, que es justo lo que esta página tiene que construir.
+  - Grilla de "Categorías" y "Recomendados para ti": mostrarían secciones
+    vacías y un motor de recomendación que no existe. La arquitectura matriz +
+    subtiendas está definida pero es prematura como obra (ver
+    asistente-visual/propuestas/dropshipping-por-encargo/arquitectura-de-marca.md).
+  - Buscador y "Mi cuenta": no hay catálogo que buscar ni sesiones. El lugar
+    del pill blanco lo ocupa el botón de WhatsApp, que es el canal real.
+
+  QUÉ SE AGREGA, QUE EL ORIGINAL NO TENÍA
+  - Franja de las cinco promesas, con el doble check como elemento firma.
+  - CTA de WhatsApp por producto, con el mensaje ya redactado.
+  - "Cómo funciona" y el pie legal (Ley 19.496, y el aviso de que no hay
+    boleta, que es la única mentira que destruiría el negocio).
+  - Responsive completo: el handoff declara que no estaba diseñado.
 
   NO es la tienda en vivo. La operativa es docs/tienda/ y no se toca desde
   aquí. Esta página es la vitrina de la línea de mascotas bajo la matriz.
@@ -32,154 +55,265 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg: #080A09; --panel: #0D100E; --ink: #E8EDEA; --ink-strong: #F4F7F5;
-    --muted: #9AA5A0; --faint: #7C8783; --dim: #6C7672;
-    --mint: #8FF0B4; --mint-deep: #3FE08A; --copper: #FFB25C; --copper-deep: #E88A3C;
+    /* Tokens del handoff, sección Design Tokens */
+    --bg: #080A09; --surface: #0D100E;
+    --ink-hi: #F4F7F5; --ink: #E8EDEA; --mute: #9AA5A0; --dim: #7C8783; --faint: #6C7672;
+    --mint: #8FF0B4; --mint-tick: #4CC48B; --mint-cta: #7FE7B8;
+    --copper: #FFB25C; --copper-logo: #E0954F; --copper-cta: #E8C08A;
+    --neon: #DCEBFF; --on-cta: #082014;
     --line: rgba(232,237,234,0.09); --line-strong: rgba(232,237,234,0.18);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--bg); }
   body {
     color: var(--ink); font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
   a { color: var(--mint); text-decoration: none; }
   a:hover { color: var(--copper); }
   ::selection { background: var(--mint); color: var(--bg); }
   .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
   .wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+  .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-  /* ---- Cabecera ---- */
+  /* ---- Header sticky ---- */
   header.top {
     position: sticky; top: 0; z-index: 20;
     display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    padding: 16px clamp(20px, 4vw, 48px);
+    padding: 18px clamp(20px, 4vw, 48px);
     background: rgba(8,10,9,0.82); backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(143,240,180,0.14);
   }
-  .logo { display: flex; align-items: baseline; gap: 2px; font-size: 24px; font-weight: 700; letter-spacing: -0.03em; }
-  .logo .a { color: var(--ink-strong); }
-  .logo .b { color: var(--copper); }
-  .logo .dot {
-    margin-left: 10px; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--mint); box-shadow: 0 0 12px 2px rgba(143,240,180,0.8); align-self: center;
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .status {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--mint);
+    box-shadow: 0 0 12px 2px rgba(143,240,180,0.8);
   }
-  header.top nav { display: flex; gap: 28px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  header.top nav {
+    display: flex; align-items: center; gap: 34px;
+    font-size: 13.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--mute);
+  }
+  header.top nav a { color: var(--mute); transition: color 180ms ease-out; }
+  header.top nav a.on { color: var(--ink-hi); }
   .btn-wsp {
-    padding: 9px 18px; border-radius: 999px; background: var(--ink-strong);
+    padding: 9px 18px; border-radius: 999px; background: var(--ink-hi);
     color: var(--bg); font-size: 13px; font-weight: 600; white-space: nowrap;
+    transition: background 180ms ease-out;
   }
   .btn-wsp:hover { background: var(--mint); color: var(--bg); }
-  @media (max-width: 860px) { header.top nav { display: none; } }
+  @media (max-width: 900px) { header.top nav { display: none; } }
 
   /* ---- Hero ---- */
-  .hero { position: relative; overflow: hidden; padding: clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 80px); border-bottom: 1px solid rgba(232,237,234,0.07); }
-  .hero .glow-a { position: absolute; top: -260px; left: 50%; transform: translateX(-50%); width: 900px; height: 520px; max-width: 140vw; background: radial-gradient(ellipse at center, rgba(143,240,180,0.18), rgba(8,10,9,0) 68%); pointer-events: none; }
-  .hero .glow-b { position: absolute; bottom: -180px; right: -60px; width: 620px; height: 420px; max-width: 120vw; background: radial-gradient(ellipse at center, rgba(255,178,92,0.13), rgba(8,10,9,0) 70%); pointer-events: none; }
-  .hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .hero {
+    position: relative; overflow: hidden;
+    padding: clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 88px);
+    border-bottom: 1px solid rgba(232,237,234,0.07);
+  }
+  .hero .glow-a {
+    position: absolute; top: -260px; left: 50%; transform: translateX(-50%);
+    width: 900px; height: 520px; max-width: 140vw;
+    background: radial-gradient(ellipse at center, rgba(143,240,180,0.18), rgba(8,10,9,0) 68%);
+    pointer-events: none;
+  }
+  .hero .glow-b {
+    position: absolute; bottom: -180px; right: -60px;
+    width: 620px; height: 420px; max-width: 120vw;
+    background: radial-gradient(ellipse at center, rgba(255,178,92,0.13), rgba(8,10,9,0) 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(32px, 5vw, 64px); align-items: center;
+  }
   @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px;
     border: 1px solid rgba(143,240,180,0.3); border-radius: 999px;
-    font-size: 11.5px; letter-spacing: .1em; color: var(--mint); text-transform: uppercase;
+    font-size: 11.5px; letter-spacing: 0.1em; color: var(--mint); text-transform: uppercase;
   }
   .eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); display: block; }
-  h1 { margin: 26px 0 0; font-size: clamp(38px, 6.4vw, 66px); line-height: 1.02; letter-spacing: -0.04em; font-weight: 700; text-wrap: balance; }
-  h1 .soft { color: #DCEBFF; text-shadow: 0 0 8px rgba(210,232,255,.6), 0 0 24px rgba(96,166,255,.95), 0 0 62px rgba(46,120,255,.7); }
-  .lede { margin: 22px 0 0; max-width: 480px; font-size: 17px; color: var(--muted); text-wrap: pretty; }
+  h1 {
+    margin: 26px 0 0; font-size: clamp(38px, 6.4vw, 66px); line-height: 1.02;
+    letter-spacing: -0.04em; font-weight: 700; text-wrap: balance; color: var(--ink-hi);
+  }
+  h1 .neon {
+    color: var(--neon);
+    text-shadow: 0 0 8px rgba(210,232,255,0.6), 0 0 24px rgba(96,166,255,0.95), 0 0 62px rgba(46,120,255,0.7);
+  }
+  .lede { margin: 24px 0 0; max-width: 460px; font-size: 17px; line-height: 1.6; color: var(--mute); text-wrap: pretty; }
+  .lede strong { color: var(--ink-hi); font-weight: 600; }
   .tag-regalon {
-    color: var(--mint); font-weight: 600; letter-spacing: .04em;
-    text-shadow: 0 0 14px rgba(143,240,180,.4); font-family: 'IBM Plex Mono', monospace; font-size: .92em;
+    color: var(--mint); font-weight: 600; letter-spacing: 0.04em;
+    text-shadow: 0 0 14px rgba(143,240,180,0.4);
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.9em;
   }
-  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
   .cta-main {
-    display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px;
+    display: inline-flex; align-items: center; gap: 12px; padding: 15px 26px 15px 22px;
     border-radius: 12px; background: linear-gradient(100deg, #8FF0B4 0%, #7FE7B8 55%, #E8C08A 100%);
-    color: #082014; font-weight: 600; font-size: 15px; box-shadow: 0 14px 44px -12px rgba(143,240,180,.65);
+    color: var(--on-cta); font-weight: 600; font-size: 15px;
+    box-shadow: 0 14px 44px -12px rgba(143,240,180,0.65);
+    transition: filter 180ms ease-out;
   }
-  .cta-main:hover { color: #082014; filter: brightness(1.06); }
-  .cta-ghost { padding: 15px 28px; border-radius: 12px; border: 1px solid var(--line-strong); font-weight: 500; font-size: 15px; color: var(--ink); }
-  .cta-ghost:hover { color: var(--ink); border-color: rgba(143,240,180,.4); }
-
+  .cta-main:hover { color: var(--on-cta); filter: brightness(1.06); }
+  .cta-ghost {
+    padding: 15px 28px; border-radius: 12px; border: 1px solid var(--line-strong);
+    font-weight: 500; font-size: 15px; color: var(--ink);
+    transition: border-color 180ms ease-out;
+  }
+  .cta-ghost:hover { color: var(--ink); border-color: rgba(143,240,180,0.4); }
   .hero-art {
     position: relative; aspect-ratio: 4/3; border-radius: 20px; overflow: hidden;
     border: 1px solid rgba(232,237,234,0.1);
-    background: repeating-linear-gradient(135deg, rgba(232,237,234,.05) 0 10px, rgba(232,237,234,.015) 10px 20px);
+    background: repeating-linear-gradient(135deg, rgba(232,237,234,0.05) 0 10px, rgba(232,237,234,0.015) 10px 20px);
     display: flex; align-items: center; justify-content: center; text-align: center;
   }
-  .hero-art .inner { position: relative; font-size: 12px; color: var(--faint); letter-spacing: .06em; line-height: 1.8; padding: 20px; }
+  .hero-art .sheen {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 25%, rgba(143,240,180,0.16), transparent 55%),
+                radial-gradient(circle at 75% 80%, rgba(255,178,92,0.14), transparent 55%);
+  }
+  .hero-art .label { position: relative; font-size: 12px; color: var(--dim); letter-spacing: 0.06em; line-height: 1.7; padding: 20px; }
 
-  /* ---- Promesas ---- */
-  .promesas { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  /* ---- Promesas (no venía en el original) ---- */
+  .promesas {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--line); border-bottom: 1px solid var(--line);
+  }
   @media (max-width: 1000px) { .promesas { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .promesas { grid-template-columns: 1fr; } }
   .promesa { background: var(--bg); padding: 22px clamp(18px, 3vw, 26px); display: flex; gap: 12px; align-items: flex-start; }
   .promesa .check { flex: 0 0 auto; margin-top: 3px; }
-  .promesa b { display: block; font-size: 14px; font-weight: 600; color: var(--ink-strong); }
-  .promesa span { display: block; margin-top: 3px; font-size: 12.5px; color: var(--faint); }
+  .promesa b { display: block; font-size: 14px; font-weight: 600; color: var(--ink-hi); }
+  .promesa span { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: var(--dim); }
 
   /* ---- Vitrina ---- */
+  section.bloque { padding-top: clamp(56px, 8vw, 88px); }
   .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 26px; flex-wrap: wrap; }
-  .kicker { font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
-  .sec-head h2 { margin: 10px 0 0; font-size: clamp(28px, 4.4vw, 38px); font-weight: 700; letter-spacing: -0.02em; }
-  .sec-head p { margin: 10px 0 0; font-size: 15px; color: var(--muted); }
+  .kicker { font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint); }
+  .sec-head h2 { margin: 10px 0 0; font-size: clamp(28px, 4.4vw, 38px); font-weight: 700; letter-spacing: -0.02em; color: var(--ink-hi); }
+  .sec-head p { margin: 10px 0 0; font-size: 15px; color: var(--mute); }
 
-  .frame { position: relative; border-radius: 24px; padding: 1px; background: linear-gradient(160deg, rgba(143,240,180,.55), rgba(255,178,92,.35) 55%, rgba(143,240,180,.15)); }
-  .frame-in { position: relative; border-radius: 23px; overflow: hidden; background: linear-gradient(180deg, #0A1210 0%, #090B0A 100%); padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) clamp(32px, 4vw, 48px); }
-  .frame-in .beam { position: absolute; top: 0; left: 6%; right: 6%; height: 2px; background: linear-gradient(90deg, transparent, var(--mint), var(--copper), transparent); box-shadow: 0 0 26px 4px rgba(143,240,180,.45); }
-  .frame-in .halo { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% -10%, rgba(143,240,180,.16), transparent 60%); pointer-events: none; }
+  .frame {
+    position: relative; border-radius: 24px; padding: 1px;
+    background: linear-gradient(160deg, rgba(143,240,180,0.55), rgba(255,178,92,0.35) 55%, rgba(143,240,180,0.15));
+  }
+  .frame-in {
+    position: relative; border-radius: 23px; overflow: hidden;
+    background: linear-gradient(180deg, #0A1210 0%, #090B0A 100%);
+    padding: clamp(34px, 5vw, 56px) clamp(20px, 4vw, 48px) clamp(32px, 4vw, 48px);
+  }
+  .beam {
+    position: absolute; top: 0; left: 6%; right: 6%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--mint), var(--copper), transparent);
+    box-shadow: 0 0 26px 4px rgba(143,240,180,0.45);
+  }
+  .halo { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% -10%, rgba(143,240,180,0.16), transparent 60%); }
 
-  .grid-prod { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .grid-prod { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
   @media (max-width: 1080px) { .grid-prod { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 720px)  { .grid-prod { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 460px)  { .grid-prod { grid-template-columns: 1fr; } }
 
-  .prod { display: flex; flex-direction: column; gap: 14px; }
+  .prod { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
   .prod .shot {
-    width: 100%; aspect-ratio: 1/1; border-radius: 14px; border: 1px solid rgba(232,237,234,.08);
-    background: repeating-linear-gradient(135deg, rgba(232,237,234,.05) 0 8px, rgba(232,237,234,.015) 8px 16px);
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    font-size: 11px; color: var(--dim); padding: 12px;
+    width: 100%; aspect-ratio: 1/1; border-radius: 14px; border: 1px solid rgba(232,237,234,0.08);
+    background: repeating-linear-gradient(135deg, rgba(232,237,234,0.05) 0 8px, rgba(232,237,234,0.015) 8px 16px);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--faint); line-height: 1.7; padding: 12px;
   }
-  .prod .beam-sm { width: 78%; height: 10px; border-radius: 4px; align-self: center; background: linear-gradient(90deg, rgba(143,240,180,.15), rgba(143,240,180,.5), rgba(143,240,180,.15)); box-shadow: 0 6px 22px rgba(143,240,180,.35); }
-  .prod h3 { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
-  .prod .spec { font-size: 12.5px; color: var(--faint); }
-  .prod .precio { font-size: 17px; color: var(--copper); font-weight: 500; }
+  /* Repisa de luz — 14px según el handoff */
+  .prod .shelf {
+    width: 78%; height: 14px; border-radius: 4px;
+    background: linear-gradient(90deg, rgba(143,240,180,0.15), rgba(143,240,180,0.5), rgba(143,240,180,0.15));
+    box-shadow: 0 6px 22px rgba(143,240,180,0.35);
+  }
+  .prod .meta { display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; }
+  .prod h3 { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink-hi); }
+  .prod .spec { font-size: 12.5px; line-height: 1.5; color: var(--dim); }
+  .prod .precio { margin-top: 2px; font-size: 15px; color: var(--copper); }
   .prod .pedir {
-    margin-top: auto; display: block; text-align: center; padding: 11px;
-    border: 1px solid var(--line-strong); border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+    width: 100%; margin-top: 4px; padding: 11px; border: 1px solid var(--line-strong);
+    border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+    transition: border-color 180ms ease-out, color 180ms ease-out;
   }
   .prod .pedir:hover { border-color: var(--mint); color: var(--mint); }
 
   /* ---- Cómo funciona ---- */
-  .como { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: clamp(24px, 4vw, 34px); }
-  .como h3 { margin: 0 0 20px; font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--mint); }
+  .como { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: clamp(24px, 4vw, 34px); }
+  .como h3 { margin: 0 0 20px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mint); }
   .como ol { margin: 0; padding: 0; list-style: none; counter-reset: paso; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 22px; }
-  .como li { counter-increment: paso; font-size: 13.5px; color: var(--muted); }
-  .como li::before { content: counter(paso, decimal-leading-zero); display: block; font-size: 11.5px; font-weight: 700; color: var(--copper); letter-spacing: .1em; margin-bottom: 6px; }
-  .como b { display: block; color: var(--ink-strong); margin-bottom: 3px; font-weight: 600; }
+  .como li { counter-increment: paso; font-size: 13.5px; line-height: 1.55; color: var(--mute); }
+  .como li::before { content: counter(paso, decimal-leading-zero); display: block; font-size: 11.5px; font-weight: 700; color: var(--copper); letter-spacing: 0.1em; margin-bottom: 6px; font-family: 'IBM Plex Mono', monospace; }
+  .como b { display: block; color: var(--ink-hi); margin-bottom: 3px; font-weight: 600; }
 
   /* ---- Pie ---- */
-  footer.legal { margin-top: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line); padding: 40px 0 64px; font-size: 13px; color: var(--faint); }
-  footer.legal .cols { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-  footer.legal .fine { margin-top: 28px; max-width: 70ch; line-height: 1.7; }
-  footer.legal .fine b { color: var(--muted); }
-  .firma { margin-top: 22px; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-size: 11.5px; }
+  footer.legal { margin-top: clamp(56px, 8vw, 104px); border-top: 1px solid rgba(232,237,234,0.08); padding: 48px 0 64px; font-size: 13px; color: var(--dim); }
+  footer.legal .cols { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+  footer.legal .cols nav { display: flex; gap: 28px; flex-wrap: wrap; }
+  footer.legal a { color: var(--dim); }
+  footer.legal .fine { margin: 28px 0 0; max-width: 70ch; line-height: 1.7; }
+  footer.legal .fine b { color: var(--mute); }
+  .firma { margin-top: 22px; font-weight: 600; color: var(--mute); letter-spacing: 0.06em; text-transform: uppercase; font-size: 11.5px; }
 </style>
 </head>
 <body>
 
+<!--
+  LOGOTIPO — construcción exacta del handoff, sección "Logotipo".
+  Se define una sola vez y se referencia con <use> en header, hero y pie.
+  #brasa  : filtro de resplandor (blur 5 + blur 12, unidos con feMerge).
+  #brillo : capa que RECIBE el filtro. "comp" va con fill:none a propósito,
+            así solo brillan el "AI" y los ticks.
+  #marca  : capa sólida, sin filtro, que va encima.
+-->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="brasa" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b1"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b2"/>
+      <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/></feMerge>
+    </filter>
+    <g id="brillo">
+      <text x="4" y="58" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="600" letter-spacing="-1.2" fill="none">comp<tspan font-family="'Courier New', Courier, monospace" font-weight="700" font-size="53" letter-spacing="1.6" fill="#E0954F">AI</tspan></text>
+      <g transform="translate(259 20) scale(1.5)" fill="none" stroke="#4CC48B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 8.5 L5 12.5 L12 4"/><path d="M10 8.5 L14 12.5 L21 4"/>
+      </g>
+    </g>
+    <g id="marca">
+      <text x="4" y="58" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="600" letter-spacing="-1.2" fill="#F4F7F5">comp<tspan font-family="'Courier New', Courier, monospace" font-weight="700" font-size="53" letter-spacing="1.6" fill="#E0954F">AI</tspan></text>
+      <g transform="translate(259 20) scale(1.5)" fill="none" stroke="#4CC48B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 8.5 L5 12.5 L12 4"/><path d="M10 8.5 L14 12.5 L21 4"/>
+      </g>
+    </g>
+    <!-- Doble check de las promesas: el mismo gesto del logotipo, a escala de UI -->
+    <g id="tick2" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="1,7 6,12 14,2" stroke="#3FE08A"/>
+      <polyline points="10,7 15,12 23,2" stroke="#6FF0A8"/>
+    </g>
+  </defs>
+</svg>
+
 <header class="top">
-  <div class="logo"><span class="a">comp</span><span class="b">AI</span><span class="dot"></span></div>
+  <div class="brand">
+    <!-- Tamaño de header según el spec: 146 × 36 -->
+    <svg viewBox="4 6 290 68" width="146" height="36" role="img" aria-label="CompAI" style="display:block; overflow:visible;">
+      <use href="#brillo" filter="url(#brasa)" opacity="0.9"></use>
+      <use href="#marca"></use>
+    </svg>
+    <span class="status" aria-hidden="true"></span>
+  </div>
+
   <nav>
-    <a href="#vitrina" style="color:var(--ink-strong)">Vitrina</a>
+    <a class="on" href="#vitrina">Vitrina</a>
     <a href="#como">Cómo funciona</a>
     <a href="#garantia">Garantía</a>
   </nav>
+
   <a class="btn-wsp" rel="noopener"
      href="https://wa.me/56962469977?text=Hola%20Sebasti%C3%A1n%2C%20vi%20la%20vitrina%20Regal%C3%B3n%20y%20quiero%20hacer%20un%20pedido.">Escribir por WhatsApp</a>
 </header>
@@ -188,43 +322,55 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
-    <div class="glow-a"></div><div class="glow-b"></div>
+    <div class="glow-a" aria-hidden="true"></div>
+    <div class="glow-b" aria-hidden="true"></div>
+
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow mono"><i></i> Vitrina 01 · mascotas</div>
 
+        <!--
+          Estructura del original: tres líneas, la última cerrando con el
+          logotipo inline (4.91em × 1.214em, vertical-align -0.286em).
+          El original decía "Compra / inteligente. / Compra compAI".
+        -->
         <h1>
-          Tu regalón<br><span class="soft">duerme mejor</span>.<br>
-          <span style="color:#F6F2EC; text-shadow:0 0 10px rgba(255,255,255,.5), 0 0 34px rgba(255,240,220,.35);">comp</span><span style="color:var(--copper-deep); text-shadow:0 0 10px rgba(232,138,60,.8), 0 0 36px rgba(232,138,60,.5);">AI</span><svg viewBox="0 0 44 24" aria-hidden="true" style="width:.62em; height:auto; margin-left:.22em; overflow:visible; filter:drop-shadow(0 0 6px rgba(74,222,128,.9)) drop-shadow(0 0 16px rgba(74,222,128,.45));"><polyline points="2,13 11,21 26,3" fill="none" stroke="#3FE08A" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="17,13 26,21 41,3" fill="none" stroke="#6FF0A8" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+          Tu regalón<br>
+          <span class="neon">duerme mejor</span>.<br>
+          Compra en <svg viewBox="4 6 290 68" role="img" aria-label="CompAI"
+             style="display:inline-block; width:4.91em; height:1.214em; vertical-align:-0.286em; overflow:visible;">
+            <use href="#brillo" filter="url(#brasa)" opacity="0.9"></use>
+            <use href="#marca"></use>
+          </svg>
         </h1>
 
         <p class="lede">
           Estrenamos <span class="tag-regalon">[REGALÓN]</span>, la vitrina de mascotas de CompAI.
           Camas antiestrés y transportadores elegidos uno por uno, revisados en la mano antes de
-          despacharlos. <b style="color:var(--ink-strong); font-weight:600;">En Santiago pagas cuando lo
-          tienes en la mano.</b>
+          despacharlos. <strong>En Santiago pagas cuando lo tienes en la mano.</strong>
         </p>
 
         <div class="cta-row">
           <a class="cta-main" rel="noopener"
              href="https://wa.me/56962469977?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20ver%20la%20vitrina%20Regal%C3%B3n.">
-            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:19px;height:19px">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:19px; height:19px;">
               <ellipse cx="12" cy="16" rx="5.4" ry="4.6" fill="#082014"></ellipse>
               <circle cx="5.6" cy="11.4" r="2.5" fill="#082014"></circle>
               <circle cx="18.4" cy="11.4" r="2.5" fill="#082014"></circle>
               <circle cx="9.2" cy="6.4" r="2.4" fill="#082014"></circle>
               <circle cx="14.8" cy="6.4" r="2.4" fill="#082014"></circle>
             </svg>
-            Explorar [REGALÓN] <span style="font-size:17px">→</span>
+            Explorar [REGALÓN] <span style="font-size:17px;">→</span>
           </a>
           <a class="cta-ghost" href="#como">Cómo funciona</a>
         </div>
       </div>
 
       <div class="hero-art">
-        <div class="inner mono">
+        <div class="sheen" aria-hidden="true"></div>
+        <div class="label mono">
           foto real del producto<br>
-          <span style="color:var(--dim)">pendiente — se toma con la muestra en la mano</span>
+          <span style="color:#5C6663;">pendiente — se toma con la muestra en la mano</span>
         </div>
       </div>
     </div>
@@ -233,86 +379,97 @@
   <!-- ================= PROMESAS ================= -->
   <section class="promesas" id="garantia" aria-label="Nuestras promesas">
     <div class="promesa">
-      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><polyline points="1,7 6,12 14,2" fill="none" stroke="#3FE08A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,7 15,12 23,2" fill="none" stroke="#6FF0A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><use href="#tick2"/></svg>
       <div><b>Stock confirmado</b><span>Lo verifico con bodega antes de cobrarte, y te mando la captura.</span></div>
     </div>
     <div class="promesa">
-      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><polyline points="1,7 6,12 14,2" fill="none" stroke="#3FE08A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,7 15,12 23,2" fill="none" stroke="#6FF0A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><use href="#tick2"/></svg>
       <div><b>Pagas al recibir</b><span>En la Región Metropolitana. A regiones, reserva con abono y saldo al llegar.</span></div>
     </div>
     <div class="promesa">
-      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><polyline points="1,7 6,12 14,2" fill="none" stroke="#3FE08A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,7 15,12 23,2" fill="none" stroke="#6FF0A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><use href="#tick2"/></svg>
       <div><b>Seguimiento real</b><span>Código del courier por WhatsApp el mismo día del despacho.</span></div>
     </div>
     <div class="promesa">
-      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><polyline points="1,7 6,12 14,2" fill="none" stroke="#3FE08A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,7 15,12 23,2" fill="none" stroke="#6FF0A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><use href="#tick2"/></svg>
       <div><b>Garantía de 6 meses</b><span>La legal, y la respondo yo con nombre y teléfono.</span></div>
     </div>
     <div class="promesa">
-      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><polyline points="1,7 6,12 14,2" fill="none" stroke="#3FE08A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="10,7 15,12 23,2" fill="none" stroke="#6FF0A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="check" viewBox="0 0 24 14" width="20" aria-hidden="true"><use href="#tick2"/></svg>
       <div><b>10 días para retractarte</b><span>Sin explicaciones. Si lo pides en plazo, se devuelve.</span></div>
     </div>
   </section>
 
   <!-- ================= VITRINA ================= -->
-  <section id="vitrina" class="wrap" style="padding-top:clamp(56px,8vw,88px)">
+  <section id="vitrina" class="wrap bloque">
     <div class="sec-head">
       <div>
         <div class="kicker mono">Vitrina 01</div>
         <h2>[REGALÓN]</h2>
         <p>Cinco productos. Ni uno más hasta que estos prueben que sirven.</p>
       </div>
-      <div class="mono" style="font-size:12px; color:var(--faint)">sin electrónica · sin baterías · sin enchufe</div>
+      <div class="mono" style="font-size:12px; color:var(--dim);">sin electrónica · sin baterías · sin enchufe</div>
     </div>
 
     <div class="frame">
       <div class="frame-in">
-        <div class="beam"></div><div class="halo"></div>
+        <div class="beam" aria-hidden="true"></div>
+        <div class="halo" aria-hidden="true"></div>
 
         <div class="grid-prod">
 
           <article class="prod">
             <div class="shot mono">foto real<br>transportador S</div>
-            <div class="beam-sm"></div>
-            <h3>Bolso transportador · Talla S</h3>
-            <div class="spec">Malla ventilada en tres caras, plegable. Gatos y perros hasta 5 kg.</div>
-            <div class="precio mono">$15.990</div>
+            <div class="shelf" aria-hidden="true"></div>
+            <div class="meta">
+              <h3>Bolso transportador · Talla S</h3>
+              <div class="spec">Malla ventilada en tres caras, plegable. Gatos y perros hasta 5 kg.</div>
+              <div class="precio mono">$15.990</div>
+            </div>
             <a class="pedir" rel="noopener" href="https://wa.me/56962469977?text=Hola%2C%20quiero%20el%20Bolso%20transportador%20talla%20S%20(%2415.990).%20%C2%BFTienes%20stock%3F">Pedir por WhatsApp</a>
           </article>
 
           <article class="prod">
             <div class="shot mono">foto real<br>transportador M</div>
-            <div class="beam-sm"></div>
-            <h3>Bolso transportador · Talla M</h3>
-            <div class="spec">La talla que más se pide. Base firme para que no se hunda. Hasta 8 kg.</div>
-            <div class="precio mono">$18.990</div>
+            <div class="shelf" aria-hidden="true"></div>
+            <div class="meta">
+              <h3>Bolso transportador · Talla M</h3>
+              <div class="spec">La talla que más se pide. Base firme para que no se hunda. Hasta 8 kg.</div>
+              <div class="precio mono">$18.990</div>
+            </div>
             <a class="pedir" rel="noopener" href="https://wa.me/56962469977?text=Hola%2C%20quiero%20el%20Bolso%20transportador%20talla%20M%20(%2418.990).%20%C2%BFTienes%20stock%3F">Pedir por WhatsApp</a>
           </article>
 
           <article class="prod">
             <div class="shot mono">foto real<br>transportador L</div>
-            <div class="beam-sm"></div>
-            <h3>Bolso transportador · Talla L</h3>
-            <div class="spec">Para viajes largos, donde necesita darse vuelta. Hasta 12 kg.</div>
-            <div class="precio mono">$19.890</div>
+            <div class="shelf" aria-hidden="true"></div>
+            <div class="meta">
+              <h3>Bolso transportador · Talla L</h3>
+              <div class="spec">Para viajes largos, donde necesita darse vuelta. Hasta 12 kg.</div>
+              <div class="precio mono">$19.890</div>
+            </div>
             <a class="pedir" rel="noopener" href="https://wa.me/56962469977?text=Hola%2C%20quiero%20el%20Bolso%20transportador%20talla%20L%20(%2419.890).%20%C2%BFTienes%20stock%3F">Pedir por WhatsApp</a>
           </article>
 
           <article class="prod">
             <div class="shot mono">foto real<br>cama 60 cm</div>
-            <div class="beam-sm"></div>
-            <h3>Cama antiestrés · 60 cm</h3>
-            <div class="spec">El borde elevado da sensación de refugio y baja la ansiedad. Hasta 10 kg.</div>
-            <div class="precio mono">$16.990</div>
+            <div class="shelf" aria-hidden="true"></div>
+            <div class="meta">
+              <h3>Cama antiestrés · 60 cm</h3>
+              <div class="spec">El borde elevado da sensación de refugio y baja la ansiedad. Hasta 10 kg.</div>
+              <div class="precio mono">$16.990</div>
+            </div>
             <a class="pedir" rel="noopener" href="https://wa.me/56962469977?text=Hola%2C%20quiero%20la%20Cama%20antiestr%C3%A9s%2060%20cm%20(%2416.990).%20%C2%BFTienes%20stock%3F">Pedir por WhatsApp</a>
           </article>
 
           <article class="prod">
             <div class="shot mono">foto real<br>cama 70 cm</div>
-            <div class="beam-sm"></div>
-            <h3>Cama antiestrés · 70 cm</h3>
-            <div class="spec">Para los que se estiran o dormían apretados en una cama chica. Hasta 20 kg.</div>
-            <div class="precio mono">$19.990</div>
+            <div class="shelf" aria-hidden="true"></div>
+            <div class="meta">
+              <h3>Cama antiestrés · 70 cm</h3>
+              <div class="spec">Para los que se estiran o dormían apretados en una cama chica. Hasta 20 kg.</div>
+              <div class="precio mono">$19.990</div>
+            </div>
             <a class="pedir" rel="noopener" href="https://wa.me/56962469977?text=Hola%2C%20quiero%20la%20Cama%20antiestr%C3%A9s%2070%20cm%20(%2419.990).%20%C2%BFTienes%20stock%3F">Pedir por WhatsApp</a>
           </article>
 
@@ -322,7 +479,7 @@
   </section>
 
   <!-- ================= CÓMO FUNCIONA ================= -->
-  <section id="como" class="wrap" style="padding-top:clamp(56px,8vw,88px)">
+  <section id="como" class="wrap bloque">
     <div class="como">
       <h3>Cómo funciona</h3>
       <ol>
@@ -337,12 +494,15 @@
   <!-- ================= PIE ================= -->
   <footer class="legal wrap">
     <div class="cols">
-      <div class="logo" style="font-size:20px"><span class="a">comp</span><span class="b">AI</span></div>
-      <div style="display:flex; gap:26px; flex-wrap:wrap">
-        <a href="#vitrina" style="color:var(--faint)">Vitrina</a>
-        <a href="#como" style="color:var(--faint)">Cómo funciona</a>
-        <a href="#garantia" style="color:var(--faint)">Garantía</a>
-      </div>
+      <!-- Tamaño de pie según el spec: 117 × 29, opacity .75, SIN glow -->
+      <svg viewBox="4 6 290 68" width="117" height="29" role="img" aria-label="CompAI" style="display:block; overflow:visible;">
+        <use href="#marca" opacity="0.75"></use>
+      </svg>
+      <nav>
+        <a href="#vitrina">Vitrina</a>
+        <a href="#como">Cómo funciona</a>
+        <a href="#garantia">Garantía</a>
+      </nav>
       <span class="mono">© 2026 CompAI</span>
     </div>
 

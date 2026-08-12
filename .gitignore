@@ -1,3 +1,11 @@
 .env.prod
 __pycache__/
 *.py[cod]
+
+# Artefactos generados por orchestrator.py
+propuesta_creativa.md
+evaluacion_cliente.md
+propuesta_comercial.md
+dictamen_legal.md
+reporte_financiero.md
+direccion_arte.md

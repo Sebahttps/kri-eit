@@ -78,13 +78,17 @@ es la verificación disponible.
 
 ## Gotchas
 
-- **Sin base, el API no se degrada: se muere.** `RealtimeGateway.onModuleInit`
-  (`src/realtime/realtime.gateway.ts:23`) abre su propio cliente `pg` para el
-  `LISTEN eventos`; ese `await` rechaza, `bootstrap()` no captura nada y el
-  proceso cae *después* de mapear las 12 rutas y *antes* de que `listen()`
-  termine. El puerto 4000 nunca se abre. El `HealthController` está escrito para
-  contestar `503 {estado:"degradado", db:false}` en ese caso, pero nunca alcanza
-  a contestarlo.
+- **Sin base, el API arranca igual y lo dice.** `/health` contesta
+  `503 {estado:"degradado", db:false}` y `RealtimeGateway` reintenta el `LISTEN`
+  cada 5 s hasta que Postgres aparece; cuando aparece, se engancha solo, sin
+  reiniciar nada. Lo mismo al revés: si matas Postgres con el API corriendo, el
+  proceso sobrevive y el health vuelve a 503. Hasta el 12-ago-2026 no era así —
+  el `await` del gateway tumbaba el arranque y el 503 nunca llegaba a
+  contestarse. Si ves ese comportamiento, estás corriendo un `dist/` viejo:
+  recompila.
+- **Pero las rutas que consultan la base siguen dando 500 sin ella.** `/products`
+  sin Postgres responde `500`, no un 503. Solo el `/health` distingue hoy
+  "sin base" de "bug". Queda pendiente.
 - **`localhost` no sirve en el DSN.** Resuelve a `::1` primero y el clúster local
   solo escucha en IPv4. Usa `127.0.0.1` en `BUSINESS_DATABASE_URL`.
 - **`embedded-postgres` no trae `psql` ni `createdb`** — solo `initdb`, `pg_ctl` y
@@ -103,11 +107,17 @@ es la verificación disponible.
   (`clave-local-1234`) antes de probar el login. Eso vive solo en el clúster
   desechable.
 - **`POST /orders/:id/checkout` necesita el agents-service en `:8000`** para
-  confirmar stock con el proveedor. Sin él devuelve `500 Internal server error`
-  con `fetch failed` en el log — mientras que si el agents-service *responde* con
-  error, `src/orders/orders.service.ts:87` lo traduce a un 422 explicativo. La
-  misma indisponibilidad se reporta de dos formas distintas según dónde falle.
-  El driver detecta el puerto cerrado y lo marca `[SALTO]` en vez de `[FALLA]`.
+  confirmar stock con el proveedor. Sin él devuelve `503` ("El Agente B2B no está
+  disponible…"); si el agents-service *responde* con error, es un `422`. Dos
+  fallos distintos, dos códigos distintos — hasta el 12-ago-2026 el primero salía
+  como `500` pelado. El detalle con la URL interna va al log, no a la respuesta.
+  El driver exige ese 503 y marca el paso como `[SALTO]` porque el flujo no puede
+  completarse, no porque tolere el error.
+- **`emitirOrdenCompra` nunca lanza, a propósito.** Corre *después* de que el
+  pago quedó registrado; si lanzara, un agents-service caído le diría al cliente
+  que su pago falló cuando sí se cobró. Devuelve
+  `{status:"error", detalle:"…la OC queda pendiente"}` dentro de una respuesta
+  200.
 - **El correlativo `numero` de los pedidos es una secuencia que no se reinicia.**
   Tras varias corridas verás `numero: 34`; `local-db.mjs reset` lo vuelve a 1.
 - **Puertos vecinos:** 3000 es el dashboard y 3001 la tienda — son los orígenes
@@ -117,8 +127,9 @@ es la verificación disponible.
 
 | Síntoma | Causa y arreglo |
 |---|---|
-| `AggregateError [ECONNREFUSED] ::1:5432` y el proceso muere | No hay base. `local-db.mjs up`. |
-| `[driver] ERROR: el API no abrió :4000` | Lo mismo; el driver lo detecta en ~2 s y lo dice. |
+| `WARN [RealtimeGateway] sin eventos en vivo (ECONNREFUSED …:5432)` cada 5 s | No hay base. El API funciona a medias a propósito; `local-db.mjs up` y se engancha solo. |
+| `/health` responde `503 {estado:"degradado"}` | Igual que arriba: el API está vivo, la base no. |
+| El proceso muere al arrancar con `ECONNREFUSED 5432` | Es el comportamiento viejo: estás corriendo un `dist/` anterior al 12-ago-2026. `npm run build`. |
 | `no se encontró el supervisor del seed` | La base existe sin seed. `local-db.mjs reset`. |
 | `catálogo vacío; ¿se aplicó el seed?` | Igual que el anterior. |
 | `EADDRINUSE :4000` | Quedó una instancia viva de una corrida anterior. `Get-Process node \| Stop-Process -Force`. |

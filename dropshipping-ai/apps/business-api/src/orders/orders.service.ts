@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  Logger,
   NotFoundException,
+  ServiceUnavailableException,
   UnprocessableEntityException,
 } from "@nestjs/common";
 import { Pool } from "pg";
@@ -14,7 +16,31 @@ type ItemDto = { product_id: string; cantidad: number };
 
 @Injectable()
 export class OrdersService {
+  private readonly log = new Logger(OrdersService.name);
+
   constructor(@Inject(DB) private readonly db: Pool) {}
+
+  /**
+   * Única puerta hacia el agents-service. Existe para que sus dos fallos, que
+   * no son lo mismo, tampoco se reporten igual:
+   *  - contesta con error  -> 422, lo decide quien llama según el caso
+   *  - no contesta         -> 503, condición transitoria y reintentable
+   *
+   * Antes el segundo caso ni siquiera llegaba a decidirse: el fetch lanzaba y
+   * salía un 500 "Internal server error" que no distingue "el otro servicio
+   * está caído" de "este servicio tiene un bug".
+   */
+  private async llamarAgentes(ruta: string, init?: Parameters<typeof fetch>[1]) {
+    try {
+      return await fetch(`${AGENTS_API()}${ruta}`, init);
+    } catch (e) {
+      // El detalle queda en el log; hacia fuera no se publica la URL interna.
+      this.log.error(`agents-service inalcanzable en ${AGENTS_API()}${ruta}: ${(e as Error).message}`);
+      throw new ServiceUnavailableException(
+        "El Agente B2B no está disponible; el pedido queda como está. Reintenta en unos minutos.",
+      );
+    }
+  }
 
   /** Crea el pedido en estado 'carrito' con sus ítems y total calculado. */
   async crear(cliente: { nombre: string; email?: string; telefono?: string; direccion?: string },
@@ -80,8 +106,8 @@ export class OrdersService {
    * contra entrega (promesa b). Contra entrega emite la OC de inmediato.
    */
   async checkout(orderId: string, paymentMethod: "online" | "contra_entrega") {
-    const resp = await fetch(
-      `${AGENTS_API()}/back-office/pedidos/${orderId}/confirmar-stock`,
+    const resp = await this.llamarAgentes(
+      `/back-office/pedidos/${orderId}/confirmar-stock`,
       { method: "POST" },
     );
     if (!resp.ok) {
@@ -141,13 +167,23 @@ export class OrdersService {
     return { status: "pagado", orden_compra: oc };
   }
 
-  /** El Agente B2B emite la OC (o escala al Supervisor si supera su umbral). */
+  /**
+   * El Agente B2B emite la OC (o escala al Supervisor si supera su umbral).
+   *
+   * No lanza: se llama después de que el pago quedó registrado, así que un
+   * agents-service caído no puede convertirse en un error de la petición. Eso
+   * le diría al cliente que su pago falló cuando sí se cobró. La OC queda
+   * pendiente y se reporta en la respuesta.
+   */
   private async emitirOrdenCompra(orderId: string) {
-    const resp = await fetch(`${AGENTS_API()}/back-office/ordenes-compra`, {
+    const resp = await this.llamarAgentes("/back-office/ordenes-compra", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ order_id: orderId }),
-    });
+    }).catch(() => null);
+    if (!resp) {
+      return { status: "error", detalle: "Agente B2B no disponible: la OC queda pendiente" };
+    }
     if (!resp.ok) {
       return { status: "error", detalle: `Agente B2B respondió HTTP ${resp.status}` };
     }

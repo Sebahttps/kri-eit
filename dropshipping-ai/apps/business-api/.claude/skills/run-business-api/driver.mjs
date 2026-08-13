@@ -152,16 +152,14 @@ async function manejar() {
   } else {
     saltados++;
     console.log(`\n[SALTO] agents-service no está en :${AGENTES}: el checkout no puede completarse.`);
-    const r = await pedir("POST", `/orders/${id}/checkout`, {
+    // Que esté caído no exime al API de decirlo bien: 503 (transitorio,
+    // reintentable), no un 500 que confunde "el otro servicio no está" con
+    // "este servicio tiene un bug".
+    await pedir("POST", `/orders/${id}/checkout`, {
       body: { payment_method: "contra_entrega" },
-      nota: "sin agents-service",
+      espera: 503,
+      nota: "sin agents-service debe dar 503, no 500",
     });
-    if (r.status === 500) {
-      console.log(
-        "          conocido: el fetch al agents-service lanza y sale un 500 pelado,\n" +
-          "          mientras que un error HTTP del mismo servicio sí da 422 (orders.service.ts:87).",
-      );
-    }
   }
 
   await pedir("GET", `/orders/${id}`, { espera: 200, nota: "detalle del pedido" });
@@ -184,8 +182,9 @@ async function manejar() {
     });
     if (!(await esperarPuerto(PUERTO, { muerto: () => cayo }))) {
       throw new Error(
-        `el API no abrió :${PUERTO}. Sin base en 5432 el proceso muere en el arranque ` +
-          "(RealtimeGateway.onModuleInit); corre local-db.mjs up primero.",
+        `el API no abrió :${PUERTO}. Ojo: desde el 12-ago-2026 la falta de base ya no ` +
+          "impide arrancar (arranca degradado), así que esto es otra cosa: revisa el log " +
+          "de arriba, el puerto ocupado o un dist/ sin compilar.",
       );
     }
   } else if (!(await puertoAbierto(PUERTO))) {

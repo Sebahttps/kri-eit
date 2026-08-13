@@ -1,4 +1,4 @@
-import { ValidationPipe } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 
@@ -12,4 +12,9 @@ async function bootstrap() {
   app.enableCors({ origin: origins });
   await app.listen(Number(process.env.PORT ?? 4000));
 }
-bootstrap();
+bootstrap().catch((e) => {
+  // Sin este catch, cualquier fallo de arranque salía como
+  // UnhandledPromiseRejection: un volcado de pila que no dice qué faltaba.
+  Logger.error(`No se pudo arrancar: ${(e as Error).message}`, "Bootstrap");
+  process.exit(1);
+});

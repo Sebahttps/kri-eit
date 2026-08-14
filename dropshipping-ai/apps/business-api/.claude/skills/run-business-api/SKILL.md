@@ -53,6 +53,14 @@ Contra un API que ya está corriendo, sin `--start`:
 node .claude/skills/run-business-api/driver.mjs
 ```
 
+Para comprobar el modo degradado —que sin base el API sigue en pie y lo dice con
+503 en todas las rutas, sin volverse goloso con las que no la tocan:
+
+```powershell
+node .claude/skills/run-business-api/local-db.mjs down
+node .claude/skills/run-business-api/driver.mjs --start --sin-base
+```
+
 Manejo de la base:
 
 ```powershell
@@ -86,9 +94,13 @@ es la verificación disponible.
   el `await` del gateway tumbaba el arranque y el 503 nunca llegaba a
   contestarse. Si ves ese comportamiento, estás corriendo un `dist/` viejo:
   recompila.
-- **Pero las rutas que consultan la base siguen dando 500 sin ella.** `/products`
-  sin Postgres responde `500`, no un 503. Solo el `/health` distingue hoy
-  "sin base" de "bug". Queda pendiente.
+- **Todas las rutas lo reportan igual, no solo `/health`.** Un filtro global
+  (`src/db/db-unavailable.filter.ts`) traduce los fallos de conexión de Postgres
+  a `503 {estado:"degradado", db:false, mensaje:…}` en cualquier ruta. Distingue
+  por código (`ECONNREFUSED`, `57P0x`, `08xxx`) y por mensaje para los fallos del
+  pool, que llegan sin código. Un error de SQL de verdad (`42601`, `23505`) no
+  entra ahí a propósito: ese sigue saliendo como 500, que es lo correcto.
+  Verificable con `driver.mjs --sin-base`.
 - **`localhost` no sirve en el DSN.** Resuelve a `::1` primero y el clúster local
   solo escucha en IPv4. Usa `127.0.0.1` en `BUSINESS_DATABASE_URL`.
 - **`embedded-postgres` no trae `psql` ni `createdb`** — solo `initdb`, `pg_ctl` y

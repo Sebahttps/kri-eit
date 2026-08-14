@@ -9,6 +9,12 @@
  *
  * Requiere la base arriba (local-db.mjs up). Sale con código 1 si algo que
  * debería funcionar no funcionó.
+ *
+ * Con --sin-base hace lo contrario: comprueba, con Postgres apagado, que el API
+ * siga en pie y que cada ruta lo reporte con 503.
+ *
+ *   node .claude/skills/run-business-api/local-db.mjs down
+ *   node .claude/skills/run-business-api/driver.mjs --start --sin-base
  */
 import { spawn } from "node:child_process";
 import net from "node:net";
@@ -90,6 +96,35 @@ async function sembrarClaveSupervisor() {
   await c.end();
   if (r.rowCount !== 1) throw new Error("no se encontró el supervisor del seed; ¿falta el seed?");
   console.log(`[ ok ] clave local puesta a ${CRED.email}`);
+}
+
+/**
+ * Contrato del modo degradado: con Postgres apagado el API sigue en pie y cada
+ * ruta lo dice con 503, no con el 500 que significa "bug acá dentro". Lo que no
+ * toca la base (validación, token, uuid) debe seguir contestando igual: si esto
+ * empieza a dar 503, el filtro se volvió demasiado goloso.
+ */
+async function manejarDegradado() {
+  console.log("\n=== Rutas que consultan la base: deben dar 503 ===");
+  const uuid = "3f0d5722-cd58-4794-bf3d-d055938179c5";
+  await pedir("GET", "/health", { espera: 503 });
+  await pedir("GET", "/products", { espera: 503 });
+  await pedir("GET", "/products/categorias", { espera: 503 });
+  await pedir("GET", `/orders/${uuid}`, { espera: 503 });
+  await pedir("POST", "/orders", {
+    body: { cliente: { nombre: "Prueba" }, items: [{ product_id: uuid, cantidad: 1 }] },
+    espera: 503,
+  });
+  await pedir("POST", "/auth/login", { body: CRED, espera: 503 });
+
+  console.log("\n=== Lo que no toca la base: sin cambios ===");
+  await pedir("POST", "/auth/login", {
+    body: { email: "malo", password: "corta" },
+    espera: 400,
+    nota: "ValidationPipe",
+  });
+  await pedir("GET", "/orders", { espera: 401, nota: "sin token" });
+  await pedir("GET", "/orders/no-es-uuid", { espera: 400, nota: "ParseUUIDPipe" });
 }
 
 async function manejar() {
@@ -192,7 +227,7 @@ async function manejar() {
   }
 
   try {
-    await manejar();
+    await (process.argv.includes("--sin-base") ? manejarDegradado() : manejar());
   } finally {
     if (api) api.kill();
   }

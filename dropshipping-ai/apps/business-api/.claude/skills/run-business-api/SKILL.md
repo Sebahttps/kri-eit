@@ -108,8 +108,19 @@ es la verificación disponible.
 - **Cada `.sql` se manda como una sola query.** Partirlo por `;` rompe los cuerpos
   `$$` de las funciones de `001_notify_events.sql`.
 - **Lanzar `postgres` heredando los handles del shell cuelga el shell.** El
-  script lo lanza `detached` con la salida a `pg.log`. Lo mismo pasa con
+  script lo lanza en segundo plano con la salida a `pg.log`. Lo mismo pasa con
   `pg_ctl start` desde PowerShell.
+- **Pero en Windows NO lo lances con `detached` de Node.** Eso es
+  `DETACHED_PROCESS`: el proceso queda **sin consola**, y cuando un programa de
+  consola sin consola lanza hijos —Postgres crea un `postgres.exe` por cada
+  conexión y por cada proceso auxiliar—, Windows le da a cada hijo una consola
+  nueva **con su ventana negra**. Con el dashboard consultando cada pocos
+  segundos son ventanas apareciendo sin parar (medido: 14 procesos, 10 con
+  ventana). `windowsHide: true` **no** lo arregla, porque oculta la ventana del
+  proceso que lanzas tú, no la de los hijos que crea Postgres. Lo que funciona es
+  darle una consola real pero oculta: `Start-Process -WindowStyle Hidden`, que es
+  lo que hace `local-db.mjs`. Verificado con 12 conexiones simultáneas: 0
+  ventanas.
 - **npm ≥ 11 no ejecuta el postinstall de `@embedded-postgres`** (avisa
   `allow-scripts`). En Windows da igual: ese script solo rehace symlinks y los
   `.exe` ya vienen usables.

@@ -127,15 +127,40 @@ async function arrancar(bin) {
     log("ya estaba corriendo");
     return;
   }
-  // Detached y con la salida a un archivo: si el proceso hereda los handles del
-  // shell, el shell se queda colgado esperando a que el demonio termine.
-  const salida = fs.openSync(LOG, "a");
-  const p = spawn(
-    path.join(bin, `postgres${EXE}`),
-    ["-D", DATA, "-p", String(PUERTO), "-c", "listen_addresses=127.0.0.1"],
-    { detached: true, stdio: ["ignore", salida, salida] },
-  );
-  p.unref();
+  const exe = path.join(bin, `postgres${EXE}`);
+  const args = ["-D", DATA, "-p", String(PUERTO), "-c", "listen_addresses=127.0.0.1"];
+
+  if (process.platform === "win32") {
+    // En Windows hay que darle una consola OCULTA, no quitársela.
+    //
+    // `detached` de Node se traduce a DETACHED_PROCESS: el proceso queda sin
+    // consola ninguna. Y cuando un programa de consola sin consola lanza hijos
+    // —Postgres crea un postgres.exe por cada conexión y por cada proceso
+    // auxiliar—, Windows le asigna a cada hijo una consola nueva, con su
+    // ventana negra. Con el dashboard consultando cada pocos segundos, eso son
+    // ventanas apareciendo sin parar: se contaron 14 procesos, 10 con ventana.
+    //
+    // `windowsHide` no lo arregla: oculta la ventana del proceso que lanzamos,
+    // pero los hijos los crea Postgres, no nosotros. Start-Process -WindowStyle
+    // Hidden sí, porque crea una consola real pero oculta, y los hijos la
+    // heredan en vez de pedir una propia.
+    const lista = args.map((a) => `'${a}'`).join(",");
+    spawnSync(
+      "powershell",
+      [
+        "-NoProfile",
+        "-Command",
+        `Start-Process -FilePath '${exe}' -ArgumentList ${lista} -WindowStyle Hidden ` +
+          `-RedirectStandardOutput '${LOG}' -RedirectStandardError '${LOG}.err'`,
+      ],
+      { stdio: "ignore", windowsHide: true },
+    );
+  } else {
+    // En Unix no existe el problema: detached solo desprende el grupo de procesos.
+    const salida = fs.openSync(LOG, "a");
+    const p = spawn(exe, args, { detached: true, stdio: ["ignore", salida, salida] });
+    p.unref();
+  }
   const c = await conectar("postgres", 60);
   await c.end();
   log(`Postgres escuchando en 127.0.0.1:${PUERTO} (log: ${LOG})`);

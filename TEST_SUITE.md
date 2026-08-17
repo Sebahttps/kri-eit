@@ -25,6 +25,7 @@ python3 -m unittest discover -s tests -p "test_*.py"
 | @visuai | Director de Arte del estudio |
 | @operai | Jefe de Operación del modo artesanal |
 | @paiton | Ingeniero de Software Principal y Arquitecto de Soluciones |
+| @instagrai | Encargado de los mensajes de Instagram (cola de borradores y tono) |
 
 ## Qué valida la suite (`tests/test_agents_schema.py`)
 
@@ -35,6 +36,19 @@ python3 -m unittest discover -s tests -p "test_*.py"
 3. **Prompts maestros**: existen los 6 `asistente-*/PROMPT.md`, no están
    vacíos y contienen el bloque `<validation_checks>` de autocomprobación.
 4. **Este archivo**: referencia a todos los agentes registrados.
+
+## Suite del agente de Instagram (`instagram-agent/tests/`)
+
+Suite propia, fuera de la de CI porque depende de paquetes externos:
+
+```bash
+cd instagram-agent && python3 -m unittest discover -s tests -p "test_*.py"
+```
+
+`test_seguridad.py` (firma HMAC de los webhooks de Meta) y `test_politica.py`
+(qué se responde solo y qué espera aprobación) corren sin instalar nada.
+`test_esquemas.py` y `test_flujo.py` requieren `pip install -r requirements.txt`;
+usan dobles, así que ningún test toca la red ni la cuenta real.
 
 ## Pipeline de orquestación (`orchestrator.py`)
 

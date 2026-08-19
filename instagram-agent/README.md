@@ -30,10 +30,15 @@ cuenta personal donde del otro lado hay conocidos, no clientes.
 | `sensible` | conflicto, coqueteo, mala noticia | ✋ borrador, prioridad alta (bloqueado) |
 | `spam` | bots y estafas | 🚫 se descarta |
 
-Además, **nunca** se envía solo si: es el primer DM de esa persona, hace falta
-información que solo tú tienes, la confianza es baja, ya van 3 respuestas
-automáticas con ese contacto en el día, la respuesta salió de más de 140
-caracteres, o ya respondiste y no te han contestado.
+Además, **nunca** se envía solo si: **nunca le has contestado a esa persona**,
+hace falta información que solo tú tienes, la confianza es baja, ya van 3
+respuestas automáticas con ese contacto en el día, la respuesta salió de más de
+140 caracteres, o el mensaje llegó fuera de la ventana de 24 h de Meta.
+
+La primera barrera es la que más manda y no se mide en mensajes sino en
+respuestas tuyas: alguien que te escribe cuatro veces seguidas sigue siendo un
+desconocido. Lo que abre la puerta a que el agente conteste solo es que **tú
+hayas respondido antes desde el panel**.
 
 *Bloqueado* significa que ni agregándolo a `IG_AUTO_CATEGORIAS` sale solo: son
 las categorías donde un bot hace daño de verdad.
@@ -118,9 +123,14 @@ cuadro editable. Botón *Enviar* (con tus ediciones) o *Descartar*.
 | Endpoint | Para qué |
 |---|---|
 | `GET /health` | Estado y modo actual |
-| `GET /borradores?token=…` | Pendientes en JSON |
-| `POST /borradores/{id}/enviar?token=…` | Enviar (`{"texto": "..."}` para editar) |
-| `POST /borradores/{id}/descartar?token=…` | Descartar |
+| `GET /borradores` | Pendientes en JSON |
+| `POST /borradores/{id}/enviar` | Enviar (`{"texto": "..."}` para editar) |
+| `POST /borradores/{id}/descartar` | Descartar |
+
+El `?token=…` va **solo la primera vez**, al abrir `/panel`. De ahí queda en una
+cookie `HttpOnly` y no vuelve a aparecer en ninguna URL: una credencial en el
+query string se escribe en el log de accesos de Caddy y en el historial del
+navegador, y esta abre tus mensajes privados.
 
 ---
 

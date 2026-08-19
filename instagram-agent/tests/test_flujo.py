@@ -6,6 +6,7 @@ no toca la red. Requiere las dependencias instaladas.
 import hashlib
 import hmac
 import json
+import time
 import os
 import sys
 import tempfile
@@ -55,11 +56,22 @@ def _firmar(cuerpo: bytes) -> str:
     return "sha256=" + hmac.new(SECRETO.encode(), cuerpo, hashlib.sha256).hexdigest()
 
 
-def _dm(mid: str, texto: str, autor: str = "999") -> bytes:
+def _ahora_ms() -> int:
+    """El fixture tenía la fecha clavada en abril de 2024.
+
+    Daba igual mientras `dentro_de_ventana` era siempre `True`; ahora que la
+    ventana de 24 h se mide contra el reloj, un mensaje de hace dos años entra
+    fuera de plazo y todo termina en borrador sin que el test lo diga.
+    """
+    return int(time.time() * 1000)
+
+
+def _dm(mid: str, texto: str, autor: str = "999", ts: int | None = None) -> bytes:
+    marca = _ahora_ms() if ts is None else ts
     return json.dumps({"object": "instagram", "entry": [{
-        "id": MI_ID, "time": 1712000000,
+        "id": MI_ID, "time": marca // 1000,
         "messaging": [{"sender": {"id": autor}, "recipient": {"id": MI_ID},
-                       "timestamp": 1712000000000,
+                       "timestamp": marca,
                        "message": {"mid": mid, "text": texto}}],
     }]}).encode()
 
@@ -209,6 +221,88 @@ class TestFlujo(unittest.TestCase):
         html = self.cliente.get("/panel", params={"token": "panel-secreto"}).text
         self.assertNotIn("<script>alert(1)</script>", html)
         self.assertIn("&lt;script&gt;", html)
+
+    # --- barreras, ejercidas por el flujo real y no con un Contexto a mano ----
+    #
+    # Los tests de `test_politica.py` prueban que la función pura decide bien
+    # cuando le entregan el estado correcto. Estos prueban lo otro, que es donde
+    # estaba el bug: que el estado que el almacén construye de verdad llegue a
+    # tomar esos valores alguna vez.
+
+    def test_desconocido_que_escribe_dos_veces_sigue_sin_respuesta_sola(self):
+        """Dos mensajes seguidos no son una conversación.
+
+        Contando mensajes, el segundo DM de un desconocido ya dejaba de ser
+        "primer contacto" y se respondía solo. Lo que abre la puerta es que él
+        haya contestado, no que el otro insista.
+        """
+        self._entrante("m-desc1", "hola", "888")
+        self._entrante("m-desc2", "quedó increíble la foto", "888")
+
+        self.assertEqual([d for d in self.instagram.dms if d[0] == "888"], [])
+
+    def test_tope_diario_cruzado_de_verdad(self):
+        """El cuarto cumplido del día ya no sale solo.
+
+        El tope es 3 y se cuenta contra la base, no contra un número puesto a
+        mano. Hace falta un turno suyo previo para salir de "primer contacto".
+        """
+        self._entrante("m-tope0", "hola", "901")
+        pendientes = self.cliente.get("/borradores",
+                                      params={"token": "panel-secreto"}).json()
+        bid = next(b for b in pendientes if b["autor_id"] == "901")["id"]
+        self.cliente.post(f"/borradores/{bid}/enviar",
+                          params={"token": "panel-secreto"}, json={"texto": "hola!"})
+
+        for i in range(3):
+            self._entrante(f"m-tope{i + 1}", "quedó increíble", "901")
+        automaticos = [d for d in self.instagram.dms if d == ("901", "gracias!")]
+        self.assertEqual(len(automaticos), 3)
+
+        self._entrante("m-tope4", "en serio, increíble", "901")
+        self.assertEqual(
+            len([d for d in self.instagram.dms if d == ("901", "gracias!")]), 3)
+        pendientes = self.cliente.get("/borradores",
+                                      params={"token": "panel-secreto"}).json()
+        self.assertTrue(any(b["autor_id"] == "901" and "tope diario" in b["razon"]
+                            for b in pendientes))
+
+    def test_mensaje_viejo_no_se_responde_solo(self):
+        """Un webhook rezagado cae fuera de la ventana de 24 h de Meta.
+
+        Antes esto no podía fallar: la ventana se medía contra el turno que el
+        propio procesador acababa de escribir, así que siempre daba "recién
+        llegado".
+        """
+        viejo = _ahora_ms() - 48 * 60 * 60 * 1000
+        cuerpo = _dm("m-viejo", "quedó increíble la foto", "555", ts=viejo)
+        self.cliente.post("/webhook", content=cuerpo,
+                          headers={"x-hub-signature-256": _firmar(cuerpo)})
+
+        self.assertEqual([d for d in self.instagram.dms if d[0] == "555"], [])
+
+    # --- el token del panel --------------------------------------------------
+
+    def test_token_por_url_queda_en_cookie_y_no_se_repite(self):
+        """Entrar por la URL deja la sesión en una cookie `HttpOnly`.
+
+        La credencial abre sus DMs: en el query string quedaría escrita en el
+        log de accesos de Caddy y en el historial del navegador.
+        """
+        cliente = TestClient(main.app)
+        r = cliente.get("/panel", params={"token": "panel-secreto"})
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(cliente.cookies.get("ig_panel"), "panel-secreto")
+        self.assertIn("httponly", r.headers["set-cookie"].lower())
+        self.assertNotIn("panel-secreto", r.text)
+
+        # Y de ahí en adelante entra sin token en la URL.
+        self.assertEqual(cliente.get("/borradores").status_code, 200)
+
+    def test_cookie_falsa_no_abre_el_panel(self):
+        cliente = TestClient(main.app)
+        cliente.cookies.set("ig_panel", "panel-secretp")   # una letra distinta
+        self.assertEqual(cliente.get("/borradores").status_code, 401)
 
 
 if __name__ == "__main__":

@@ -94,8 +94,17 @@ class Almacen:
             filas = await cur.fetchall()
         return [dict(f) for f in reversed(filas)]
 
-    async def estado_contacto(self, autor_id: str, ventana_horas: int) -> dict[str, Any]:
-        """Datos que necesita `politica.Contexto` para decidir."""
+    async def estado_contacto(self, autor_id: str) -> dict[str, Any]:
+        """Datos que necesita `politica.Contexto` para decidir.
+
+        **Se llama antes de registrar el mensaje entrante**, porque todo lo de
+        acá describe la conversación *previa*. Anotar primero y preguntar
+        después hace que las respuestas hablen del mensaje que se está mirando
+        en vez del historial, que es justo lo contrario de lo que se necesita.
+
+        `dentro_de_ventana` no sale de acá: lo calcula el procesador contra el
+        timestamp del propio evento. Ver `procesador._dentro_de_ventana`.
+        """
         ahora = int(time.time() * 1000)
         async with aiosqlite.connect(self.ruta) as db:
             db.row_factory = aiosqlite.Row
@@ -106,29 +115,20 @@ class Almacen:
                 (autor_id, ahora - _UN_DIA_MS))
             autorespuestas_hoy = (await cur.fetchone())["n"]
 
+            # "Primer contacto" es **que Sebastián no le haya contestado nunca**,
+            # no que sea el primer mensaje. Contando mensajes, un desconocido que
+            # escribe dos veces seguidas —"hola" y tres segundos después "quedó
+            # buena la foto"— pasaba la barrera con el segundo, sin que nadie
+            # hubiera aprobado nada. Lo que abre la puerta a responder solo es
+            # que exista una respuesta previa suya, aprobada desde el panel.
             cur = await db.execute(
-                "SELECT rol FROM turnos WHERE autor_id = ? ORDER BY creado_en DESC LIMIT 1",
+                "SELECT COUNT(*) AS n FROM turnos WHERE autor_id = ? AND rol = 'yo'",
                 (autor_id,))
-            fila = await cur.fetchone()
-            ultimo_rol = fila["rol"] if fila else None
-
-            cur = await db.execute(
-                "SELECT MAX(creado_en) AS t FROM turnos WHERE autor_id = ? AND rol = 'contacto'",
-                (autor_id,))
-            ultimo_del_contacto = (await cur.fetchone())["t"]
-
-            cur = await db.execute("SELECT COUNT(*) AS n FROM turnos WHERE autor_id = ?",
-                                   (autor_id,))
-            total_turnos = (await cur.fetchone())["n"]
-
-        dentro = (ultimo_del_contacto is not None
-                  and ahora - ultimo_del_contacto <= ventana_horas * 60 * 60 * 1000)
+            turnos_mios = (await cur.fetchone())["n"]
 
         return {
             "autorespuestas_hoy": autorespuestas_hoy,
-            "ultimo_turno_fue_mio": ultimo_rol == "yo",
-            "dentro_de_ventana": dentro,
-            "es_primer_contacto": total_turnos <= 1,
+            "es_primer_contacto": turnos_mios == 0,
         }
 
     # --- Borradores ------------------------------------------------------

@@ -3,7 +3,6 @@
 HTML plano y sin dependencias. Todo lo que viene de Instagram se escapa: el
 texto de un DM es contenido de un tercero y no se inyecta crudo en la página.
 """
-import json
 from html import escape
 
 ESTILOS = """
@@ -38,8 +37,12 @@ SCRIPT = """
 async function accion(id, ruta, texto) {
   const estado = document.getElementById('estado-' + id);
   estado.textContent = 'enviando…';
-  const r = await fetch(`/borradores/${id}/${ruta}?token=${TOKEN}`, {
-    method: 'POST', headers: {'content-type': 'application/json'},
+  // Sin token en la URL: va en la cookie `ig_panel`, que `fetch` manda sola
+  // por ser mismo origen. Una credencial en el query string termina en el log
+  // de Caddy y en el historial del navegador.
+  const r = await fetch(`/borradores/${id}/${ruta}`, {
+    method: 'POST', credentials: 'same-origin',
+    headers: {'content-type': 'application/json'},
     body: JSON.stringify(texto === undefined ? {} : {texto}),
   });
   if (r.ok) { document.getElementById('item-' + id).remove(); return; }
@@ -76,7 +79,7 @@ def _item(b: dict) -> str:
 </article>"""
 
 
-def render(borradores: list[dict], token: str) -> str:
+def render(borradores: list[dict]) -> str:
     cuerpo = ("".join(_item(b) for b in borradores) if borradores
               else '<p class="vacio">Nada pendiente. Todo respondido.</p>')
     plural = "s" if len(borradores) != 1 else ""
@@ -89,5 +92,5 @@ def render(borradores: list[dict], token: str) -> str:
 <p class="sub">{len(borradores)} mensaje{plural} esperando tu visto bueno.</p>
 {cuerpo}
 </main>
-<script>const TOKEN = {json.dumps(token)};{SCRIPT}</script>
+<script>{SCRIPT}</script>
 </body></html>"""

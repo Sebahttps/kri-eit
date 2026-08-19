@@ -73,11 +73,6 @@ class TestLimites(unittest.TestCase):
                      Contexto(es_primer_contacto=True))
         self.assertEqual(d.accion, "borrador")
 
-    def test_no_insiste_si_ya_respondi(self):
-        d = _decidir(Clasificacion("cumplido", 0.99, "gracias"),
-                     Contexto(ultimo_turno_fue_mio=True))
-        self.assertEqual(d.accion, "ignorar")
-
     def test_tope_diario_por_contacto(self):
         d = _decidir(Clasificacion("cumplido", 0.99, "gracias"),
                      Contexto(autorespuestas_hoy=3))

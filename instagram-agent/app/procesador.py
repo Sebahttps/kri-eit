@@ -12,6 +12,20 @@ from .redactor import clasificar_y_redactar
 log = logging.getLogger(__name__)
 
 
+def _dentro_de_ventana(timestamp_ms: int, ventana_horas: int) -> bool:
+    """¿Este mensaje es lo bastante reciente como para contestarlo solo?
+
+    Meta permite responder dentro de las 24 h del último mensaje del contacto.
+    Se mide contra el evento porque es el evento el que abre la ventana; leerlo
+    de la base obliga a escribir primero, y ese orden es justo el que rompía las
+    otras dos barreras.
+    """
+    if timestamp_ms <= 0:
+        return True
+    ahora_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+    return ahora_ms - timestamp_ms <= ventana_horas * 60 * 60 * 1000
+
+
 class Procesador:
     def __init__(self, almacen: Almacen, cliente: ClienteInstagram | None = None):
         self.almacen = almacen
@@ -21,19 +35,31 @@ class Procesador:
         if not await self.almacen.evento_nuevo(evento.id):
             return politica.Decision("ignorar", "evento duplicado (reintento de Meta)")
 
-        await self.almacen.registrar_turno(
-            evento.autor_id, "contacto", evento.texto or f"({evento.contexto})")
-
+        # El estado se lee ANTES de anotar el mensaje entrante, y el orden no es
+        # cosmético: `es_primer_contacto` pregunta por la conversación previa. Con
+        # el turno nuevo ya escrito, un desconocido que manda dos mensajes al hilo
+        # dejaba de ser "primer contacto" con el segundo, sin que nadie hubiera
+        # aprobado nada.
         historial = await self.almacen.historial(evento.autor_id, limite=10)
-        clas = await clasificar_y_redactar(evento, historial[:-1])
+        estado = await self.almacen.estado_contacto(evento.autor_id)
 
-        estado = await self.almacen.estado_contacto(
-            evento.autor_id, settings.ventana_respuesta_horas)
-        # La ventana de 24 h aplica a DMs. Un comentario público se puede
-        # responder cuando sea.
+        # La ventana de 24 h de Meta se mide contra el mensaje que estamos
+        # contestando, no contra la base: es este evento el que la abre. Sin
+        # `timestamp_ms` (algunos formatos no lo traen) se asume recién llegado,
+        # que es el caso normal — el webhook llega en segundos.
+        estado["dentro_de_ventana"] = _dentro_de_ventana(
+            evento.timestamp_ms, settings.ventana_respuesta_horas)
+
+        # Un comentario público no tiene ventana ni "primer contacto": está a la
+        # vista de todos y contestarlo no invade a nadie.
         if evento.tipo == "comentario":
             estado["dentro_de_ventana"] = True
             estado["es_primer_contacto"] = False
+
+        await self.almacen.registrar_turno(
+            evento.autor_id, "contacto", evento.texto or f"({evento.contexto})")
+
+        clas = await clasificar_y_redactar(evento, historial)
 
         decision = politica.decidir(
             clas, politica.Contexto(**estado),

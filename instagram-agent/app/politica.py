@@ -38,9 +38,8 @@ class Clasificacion:
 class Contexto:
     """Estado del hilo en el momento de decidir."""
     autorespuestas_hoy: int = 0        # cuántas van con este contacto hoy
-    ultimo_turno_fue_mio: bool = False  # ya respondí y no me han contestado
-    dentro_de_ventana: bool = True      # ventana de 24 h de mensajería de Meta
-    es_primer_contacto: bool = False    # nunca hemos hablado por DM
+    dentro_de_ventana: bool = True     # ventana de 24 h de mensajería de Meta
+    es_primer_contacto: bool = False   # él nunca le ha contestado a esta persona
 
 
 @dataclass(frozen=True)
@@ -101,10 +100,21 @@ def decidir(clas: Clasificacion, ctx: Contexto, *,
     if ctx.es_primer_contacto:
         return Decision("borrador", "primer contacto por DM", clas.respuesta)
 
-    # No insistir: si ya respondí y no me han contestado, callarse.
-    if ctx.ultimo_turno_fue_mio:
-        return Decision("ignorar", "ya respondí y no hay turno nuevo de la persona")
-
+    # Acá había una barrera de "no insistir: si ya respondí y no me han
+    # contestado, callarse". Se sacó porque no puede cumplirse nunca, y forzarla
+    # a cumplirse era peor que dejarla muerta.
+    #
+    # El motivo: este servicio solo decide cuando **llega un mensaje de la otra
+    # persona** — es lo único que dispara el webhook. "No me han contestado" y
+    # "estoy procesando su contestación" son estados que no coexisten. Escrita
+    # como estaba, la condición era siempre falsa; escrita "bien" —leyendo el
+    # estado antes de anotar el turno entrante— pasa a ser cierta justo en el
+    # caso sano: él respondió, la persona respondió de vuelta. Habría mandado a
+    # `ignorar` toda conversación normal de ida y vuelta.
+    #
+    # Lo que esa barrera quería evitar de verdad —contestarle cuatro veces
+    # seguidas a alguien que manda cuatro mensajes al hilo— lo cubre el tope
+    # diario que viene justo abajo, que sí se puede medir.
     if ctx.autorespuestas_hoy >= max_por_contacto_dia:
         return Decision("borrador", "tope diario de respuestas automáticas con este contacto",
                         clas.respuesta)

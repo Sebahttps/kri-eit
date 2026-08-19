@@ -7,10 +7,12 @@
     POST /borradores/{id}/descartar
     GET  /health
 """
+import hmac
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request
+from fastapi import (BackgroundTasks, Cookie, Depends, FastAPI, HTTPException,
+                     Query, Request)
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from pydantic import BaseModel
 
@@ -30,6 +32,16 @@ procesador = Procesador(almacen)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Sin `IG_IG_USER_ID` el filtro de `esquemas.normalizar` compara contra ""
+    # y no excluye nada: un comentario propio —que no trae `is_echo`— entraría
+    # como si fuera de otra persona y el agente se contestaría a sí mismo. Es la
+    # mitad de la defensa contra el bucle y era opcional por descuido, así que
+    # el servicio no arranca sin ella.
+    if not settings.ig_user_id:
+        raise RuntimeError(
+            "Falta IG_IG_USER_ID (el IGSID de tu propia cuenta). Sin eso el "
+            "agente no distingue tus propios comentarios y puede responderse "
+            "a sí mismo en bucle.")
     await almacen.iniciar()
     yield
 
@@ -37,11 +49,25 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="KRI-EIT · Agente de Instagram", version="0.1.0", lifespan=lifespan)
 
 
-def _autorizar(token: str | None = Query(default=None)) -> None:
-    """El panel expone tus DMs: sin token configurado, no se abre."""
+COOKIE_PANEL = "ig_panel"
+
+
+def _autorizar(token: str | None = Query(default=None),
+               cookie: str | None = Cookie(default=None, alias=COOKIE_PANEL)) -> None:
+    """El panel expone tus DMs: sin token configurado, no se abre.
+
+    El token se acepta por query **solo para entrar**; de ahí en adelante viaja
+    en una cookie `HttpOnly`. Una credencial en la URL queda escrita en el log
+    de accesos de Caddy y en el historial del navegador, y esta abre los
+    mensajes privados de Sebastián: no puede vivir ahí.
+
+    `compare_digest` en vez de `==` porque comparar credenciales carácter a
+    carácter filtra por tiempo cuánto prefijo acertaste.
+    """
     if not settings.panel_token:
         raise HTTPException(503, "IG_PANEL_TOKEN no está configurado")
-    if token != settings.panel_token:
+    presentado = cookie or token or ""
+    if not hmac.compare_digest(presentado, settings.panel_token):
         raise HTTPException(401, "token inválido")
 
 
@@ -115,6 +141,20 @@ async def descartar_borrador(borrador_id: int):
 
 @app.get("/panel", response_class=HTMLResponse, tags=["panel"],
          dependencies=[Depends(_autorizar)])
-async def panel(token: str = Query()):
+async def panel(request: Request, token: str | None = Query(default=None)):
     from .panel import render
-    return render(await almacen.pendientes(), token)
+
+    respuesta = HTMLResponse(render(await almacen.pendientes()))
+    if token:
+        # Llegó por la URL: se guarda en cookie y no se vuelve a pedir. `samesite
+        # strict` es lo que evita que otra página dispare los POST de enviar o
+        # descartar en nombre de Sebastián.
+        #
+        # `secure` sigue al esquema en vez de ir fijo en `True`: en producción
+        # Caddy sirve todo por HTTPS y la cookie va marcada, pero clavarlo hace
+        # que en HTTP el navegador guarde una cookie que después no manda —
+        # sesión que no arranca y nada que lo explique.
+        respuesta.set_cookie(
+            COOKIE_PANEL, token, httponly=True, samesite="strict",
+            secure=request.url.scheme == "https", max_age=30 * 24 * 60 * 60)
+    return respuesta

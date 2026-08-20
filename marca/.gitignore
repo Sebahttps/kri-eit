@@ -1,0 +1,9 @@
+# Segunda barrera. El repo es publico y un timbre es un facsimil de
+# autorizacion: el de PDF esta hecho para pegarse sobre un documento y el de
+# Gerente General valida contratos y poderes. Publicarlos equivale a repartir el
+# sello de la empresa.
+#
+# Viven solo en local, en compai_workspace/ (ya bloqueado en el .gitignore raiz).
+timbre-*
+*timbre*
+firma-*

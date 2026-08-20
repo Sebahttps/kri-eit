@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 51 41" width="118" height="99" role="img" aria-label="Doble tick CompAI">
+  <title>CompAI — doble tick diurno</title>
+  <g transform="scale(1.5)" fill="none" stroke="#1F7A52" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 8.5 L5 12.5 L12 4"></path>
+    <path d="M10 8.5 L14 12.5 L21 4"></path>
+  </g>
+</svg>

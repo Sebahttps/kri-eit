@@ -41,13 +41,29 @@ clasificador, usar la equivalente que ofrezca):
 > Internet y otros medios electrónicos, de electrodomésticos, aparatos
 > electrónicos de uso doméstico, freidoras de aire, aspiradoras, aspiradoras
 > robot, audífonos y auriculares, aparatos de iluminación, lámparas, artículos
-> para el hogar y accesorios tecnológicos; agrupamiento, por cuenta de
+> para el hogar y accesorios tecnológicos, **equipos informáticos, servidores,
+> periféricos, y equipos y aparatos de red y de telecomunicaciones**;
+> agrupamiento, por cuenta de
 > terceros, de dichos productos, para que los consumidores puedan examinarlos
 > y comprarlos; publicidad; marketing digital; promoción de ventas para
 > terceros; gestión de negocios comerciales; administración comercial;
 > servicios de intermediación comercial; tramitación administrativa de pedidos
 > de compra; servicios de pedidos en línea; suministro de información
 > comercial y de precios sobre productos por redes informáticas.
+
+> **Ampliación del 19-ago-2026 — equipos informáticos y de red.** La lista
+> original enumeraba electrodomésticos de hogar; "accesorios tecnológicos" es
+> demasiado vago para sostener un servidor o un switch si alguien lo discute.
+>
+> **Por qué se corrige ahora y no después:** una vez presentada la solicitud, la
+> cobertura **solo se puede restringir, nunca ampliar**. Ampliarla más tarde no
+> es una corrección, es una solicitud nueva: **3 UTM = $214.947** (UTM de agosto
+> de 2026, $71.649). Editar este párrafo hoy cuesta $0.
+>
+> Lo que esta clase **no** cubre y hay que tener claro: los servicios de datos y
+> el licenciamiento de software son **clase 42**, y el software descargable es
+> **clase 9**. Si el negocio llega a venderlos, son otras 3 UTM por clase — no se
+> resuelve estirando el texto de la 35.
 
 ## Los pagos (calendario completo)
 

@@ -60,9 +60,26 @@ descuido de software.
 3. Si el punto 3 es sí: codificar la lista negra **antes** de la primera oferta
    automatizada, no después.
 
-## Respuestas
-1. No
-2. No
-3. No
+## Respuestas — 2026-08-20
 
-> *(pendiente)*
+| | Pregunta | Respuesta |
+|---|---|---|
+| 1 | ¿Socio, accionista, director, gerente o representante de la constructora? | **No** |
+| 2 | ¿Pariente hasta 3er grado que sea funcionario directivo de un organismo? | **No** |
+| 3 | ¿La constructora vende o podría vender por Mercado Público? | **No** |
+
+**Cerrado.** Las tres en no, así que:
+
+- La declaración jurada N° 948459 del 19-ago **está correcta y no hay que
+  rehacerla**. No hay empresa relacionada que declarar.
+- **No hay inhabilidad** frente a ningún organismo por el art. 4 inc. 6 de la
+  Ley 19.886 ni por el art. 54 de la Ley 18.575.
+- **No hace falta la lista negra** en el orquestador. El riesgo de colusión en
+  licitaciones del art. 3 letra a) del DL 211 no se puede configurar si la
+  constructora no oferta por Mercado Público.
+
+**Cuándo se reabre esto:** si alguna vez entras como socio o representante de la
+constructora, o si ella se inscribe como proveedora del Estado. En cualquiera de
+los dos casos hay que rehacer la declaración jurada —el panel tiene *Crear Nueva
+Declaración*— y recién ahí la lista negra pasa a ser necesaria. Mantener el dato
+desactualizado es lo que el art. 35 septies sanciona, no el vínculo en sí.

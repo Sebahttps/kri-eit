@@ -1,6 +1,11 @@
+.env
 .env.prod
 __pycache__/
 *.py[cod]
+
+# Base de datos local del agente de Instagram (historial y borradores)
+instagram-agent/datos/
+*.db
 
 # Artefactos generados por orchestrator.py
 propuesta_creativa.md

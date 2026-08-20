@@ -9,3 +9,16 @@ propuesta_comercial.md
 dictamen_legal.md
 reporte_financiero.md
 direccion_arte.md
+
+# Credenciales y documentos de la empresa. El repo es publico.
+#
+# El .pfx es el certificado tributario digital: trae la llave privada con la
+# que se firma ante el SII. Publicarlo es entregarle a cualquiera la firma de
+# la empresa. Los PDF de constitucion y las declaraciones juradas llevan RUT
+# personal, domicilio particular y telefono.
+*.pfx
+*.p12
+*.pem
+*.key
+compai_workspace/
+documentos-empresa/

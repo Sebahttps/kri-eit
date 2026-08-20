@@ -23,7 +23,7 @@
 | **Administración** | Gerente General, con las facultades de un factor de comercio |
 | **Inicio de actividades** | **16-ago-2026** · folio 16884724 · certificado el 17-ago |
 | **Clasificación SII** | **Primera categoría · afecto a IVA · segmento MICRO EMPRESA** |
-| **Registro de Proveedores** | Inscrita y **hábil por 1 año** desde ago-2026 |
+| **Registro de Proveedores** | Inscrita y **hábil por 1 año** desde ago-2026 — había opción de 6 y 12 meses, **se pagó la anual**. Renueva en ago-2027 |
 | **Declaración de beneficiarios finales** | N° 948459, firmada 19-ago-2026 |
 
 **Por qué importa el segmento MICRO EMPRESA:** Mercado Público registra como

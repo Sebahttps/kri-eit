@@ -51,17 +51,39 @@ Pages*. Hasta entonces la página se ve por `http://` sin problema; lo único qu
 no se debe hacer es forzar HTTPS antes de que el certificado exista, porque eso
 deja el sitio inaccesible en vez de solo sin cifrar.
 
-## ⚠️ Lo que hay que hacer el día que se destruya el VPS
+## El VPS y sus subdominios — cerrado el 2026-08-20
 
-`api.compai.cl`, `hola.compai.cl` y `panel.compai.cl` siguen apuntando a
-**`64.176.23.118`**. Cuando la instancia se destruya, Vultr libera esa IP y se
-la asigna a otro cliente.
+**La instancia está destruida** y **`api`, `hola` y `panel` fueron eliminados**
+de Cloudflare el mismo día, verificado por consulta DNS: los tres dejaron de
+resolver.
 
-**Esos tres registros se borran en el mismo momento en que se destruya la
-instancia, no después.** Si quedan, apuntan a un servidor ajeno: quien reciba
-esa IP puede levantar lo que quiera y para el mundo sería un subdominio de
-CompAI, con su certificado y todo. Es un secuestro de subdominio por *dangling
-DNS*, y el costo de evitarlo son tres clics.
+Se hizo en ese orden y no al revés por una razón concreta. Al destruir la
+instancia, Vultr libera `64.176.23.118` y se la asigna a otro cliente. Un
+registro que sobrevive a su servidor apunta a una máquina ajena: quien reciba
+esa IP puede levantar lo que quiera y, para cualquiera que mire, sería un
+subdominio de CompAI. Se llama *dangling DNS* y es la vía más barata de
+secuestrar un subdominio.
+
+**Regla para la próxima vez: los registros de un servidor se borran en la misma
+sesión en que el servidor muere.** No al día siguiente.
+
+### Lo que se aprendió del costo
+
+| | |
+|---|---|
+| Cargo final de la instancia | **US$19,94** |
+| Disco | **100 GB NVMe** — por eso el snapshot pesaba 100 GB |
+| `Auto Backups` | **estaba habilitado** y nadie lo contó |
+
+Ese último punto explica la desviación que nunca cuadró: el gasto real corría a
+~US$0,94 por día contra los US$0,84 modelados. Los respaldos automáticos de
+Vultr son un cargo aparte, típicamente un 20 % sobre el precio de la instancia.
+**Al estimar el costo de un VPS hay que sumar los respaldos automáticos**, que
+vienen activados y no aparecen en el precio publicado.
+
+El snapshot se descartó por lo mismo: a US$0,05 por GB, 100 GB son **US$5 al
+mes**, no el ~US$1 estimado. Sobre un stack sin ventas y enteramente
+reproducible desde el repo, el atajo no valía US$60 al año.
 
 ## Lo que esta página no resuelve
 

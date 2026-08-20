@@ -1,51 +1,58 @@
-# Pendiente: compai.cl necesita una página, aunque sea una sola
+# compai.cl — resuelto el 2026-08-20
 
-**Anotado:** 2026-08-20 · **No bloquea vender.** Se puede cotizar sin sitio.
+**`https://compai.cl` está en línea**, sirviendo la página de servicio desde
+GitHub Pages. El repo es `Sebahttps/CompAI` (público, rama `main`, raíz), y la
+fuente de la página vive en `kri-eit/sitio-compai/`.
 
-## El problema
+## Qué se cambió en Cloudflare
 
-El dominio está inscrito y pagado hasta el 28-jul-2027, y **ya aparece impreso
-en todo**: la carátula de oferta, la ficha de empresa, las tres plantillas
-comerciales, la firma de correo, la papelería y las tarjetas. El correo
-`stapiamena@compai.cl` cuelga de ahí.
+Los valores anteriores quedan escritos por si alguna vez hay que volver atrás.
 
-Hoy la raíz apunta a la tienda Shopify del dropshipping de mascotas, que se
-archiva. O sea que el comprador público que reciba una cotización, lea
-`compai.cl` al pie y escriba la dirección en el navegador —**y algunos lo van a
-hacer, porque el comprador público es averso al riesgo y verifica**— va a caer
-en una tienda de camas de perro, o en nada.
+| Registro | Antes | Ahora |
+|---|---|---|
+| `compai.cl` A | `23.227.38.65` (Shopify) | `185.199.108.153` (GitHub Pages) |
+| `compai.cl` AAAA | `2620:127:f00f:5::` (Shopify) | `2606:50c0:8000::153` (GitHub Pages) |
+| `www.compai.cl` CNAME | `shops.myshopify.com` | `sebahttps.github.io` |
 
-Eso es peor que no tener sitio. Un dominio sin página se lee como "empresa
-nueva"; un dominio que lleva a otro negocio se lee como "acá hay algo raro".
+**Lo que NO se tocó, a propósito:** el registro `MX → smtp.google.com` y los
+tres `TXT` (SPF, DMARC y verificación de Google). Ese MX es lo que hace existir
+`stapiamena@compai.cl`, que está impreso en la carátula de oferta, la ficha de
+empresa, las plantillas comerciales y la firma de correo. Tocarlo por descuido
+deja a la empresa sin correo el mismo día que lo repartió en todos lados.
 
-## Qué alcanza
+Todo quedó en **Solo DNS** (nube gris), igual que `regalon`. Con el proxy
+naranja activo desde el principio, GitHub a veces no logra emitir su
+certificado y el sitio queda con error de TLS sin causa aparente.
 
-**Una página de servicio. Una sola, estática.** No hace falta un sitio.
+## Pendiente menor: el certificado de `www`
 
-Lo mínimo que tiene que decir, y es casi lo mismo que ya está escrito en
-`marca/comercial/ficha-empresa.html`:
+`https://compai.cl` responde 200. `https://www.compai.cl` todavía falla el TLS
+porque GitHub aún no emite el certificado que cubre el subdominio — al 20-ago la
+API reporta `https_certificate: null`. Suele resolverse solo en menos de una
+hora desde que el DNS apunta bien.
 
-- Qué hace CompAI y para quién
-- Razón social, RUT y que está hábil en el Registro de Proveedores
-- Las tres líneas de servicio
-- Correo y teléfono de contacto
-- El logotipo, en su versión diurna
+Si persiste: en *Settings → Pages* del repo, borrar el dominio personalizado,
+guardar, volver a escribirlo y guardar. Eso fuerza a GitHub a re-verificar el
+DNS y pedir un certificado nuevo que cubra ápice y `www`.
 
-Con eso, el comprador que verifica encuentra lo que esperaba encontrar. Es todo
-lo que tiene que lograr.
+**No es urgente.** El dominio impreso en todos los documentos es `compai.cl`,
+sin `www`.
 
-## Cómo, sin gastar
+## ⚠️ Lo que hay que hacer el día que se destruya el VPS
 
-**GitHub Pages**, igual que `regalon.compai.cl`. Es gratis, sirve HTML estático,
-Cloudflare ya administra el DNS y solo hay que apuntar la raíz. **No requiere el
-VPS** — y eso importa, porque la decisión de apagarlo sigue abierta y este sitio
-no puede quedar amarrado a ella.
+`api.compai.cl`, `hola.compai.cl` y `panel.compai.cl` siguen apuntando a
+**`64.176.23.118`**. Cuando la instancia se destruya, Vultr libera esa IP y se
+la asigna a otro cliente.
 
-El contenido sale casi entero de la ficha de empresa, así que el trabajo real es
-maquetar una página, no redactarla.
+**Esos tres registros se borran en el mismo momento en que se destruya la
+instancia, no después.** Si quedan, apuntan a un servidor ajeno: quien reciba
+esa IP puede levantar lo que quiera y para el mundo sería un subdominio de
+CompAI, con su certificado y todo. Es un secuestro de subdominio por *dangling
+DNS*, y el costo de evitarlo son tres clics.
 
-## Lo que hay que resolver antes
+## Lo que esta página no resuelve
 
-Que la raíz de `compai.cl` hoy la ocupa Shopify. Mover el registro es parte del
-cierre de la tienda, no de este pendiente — pero **este pendiente no se puede
-ejecutar hasta que aquello se decida**, porque los dos quieren la misma raíz.
+**Quitarle el dominio a Shopify no cancela el plan de Shopify.** La tienda dejó
+de ser alcanzable desde `compai.cl`, pero la facturación sigue corriendo por su
+lado — y la promo de US$1/mes se acaba alrededor del 1-nov, cuando el plan
+Básico salta a ~US$39. Eso se cierra en el panel de Shopify, no acá.

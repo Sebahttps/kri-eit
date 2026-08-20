@@ -1,0 +1,18 @@
+COMPAI GLOBAL SOLUTIONS SPA,,,ORDEN DE PEDIDO,
+compai.cl · Santiago Chile,,,RUT:,78.491.451-8
+,,,"OP N°:",
+,,,,
+Cliente:,,RUT cliente:,,
+Dirección:,,Fecha emisión:,,
+Solicitado por:,,,,
+,,,,
+Ítem,Descripción,Cantidad,Precio unitario,Total
+1,,,,=C10*D10
+2,,,,=C11*D11
+3,,,,=C12*D12
+4,,,,=C13*D13
+5,,,,=C14*D14
+,,,,
+,,,Neto,=SUM(E10:E14)
+,,,IVA 19%,=E16*0.19
+,,,TOTAL,=E16+E17

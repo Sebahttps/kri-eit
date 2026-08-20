@@ -1,0 +1,23 @@
+COMPAI GLOBAL SOLUTIONS SPA,,,COTIZACIÓN,
+compai.cl · Santiago Chile,,,RUT:,78.491.451-8
+,,,Cotización N°:,
+,,,,
+Cliente:,,,ID adquisición:,
+RUT cliente:,,,Fecha emisión:,
+Dirección:,,,Validez de la oferta:,15 días
+,,,,
+Plazo de entrega:,,,Forma de pago:,
+Garantía:,,,,
+,,,,
+Ítem,Descripción,Cantidad,Precio unitario,Total
+1,,,,=C13*D13
+2,,,,=C14*D14
+3,,,,=C15*D15
+4,,,,=C16*D16
+5,,,,=C17*D17
+,,,,
+,,,Neto,=SUM(E13:E17)
+,,,IVA 19%,=E19*0.19
+,,,TOTAL,=E19+E20
+,,,,
+Precios en pesos chilenos. El neto no incluye IVA.,,,,

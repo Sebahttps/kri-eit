@@ -225,9 +225,41 @@ que la sociedad **no ha declarado por no formar parte de su giro**.
 | **620200** | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS | Especificación técnica de equipamiento, configuración y puesta en marcha, administración de infraestructura. Lo ejecuta el titular | Currículum y obra verificable del representante legal; descripción de servicios en compai.cl |
 | **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Repositorio público de código y currículum del representante legal; el propio sitio de la empresa como muestra de desarrollo |
 | **631100** | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS | La empresa opera un servidor virtual contratado y el dominio `compai.cl`; sobre esa infraestructura presta hospedaje y procesamiento de datos | Facturas del proveedor de servidor virtual; certificado de titularidad del dominio en NIC Chile |
-| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Ingeniería en computación e informática y consultoría técnica de proyectos de infraestructura tecnológica: especificaciones técnicas para bases de licitación, dimensionamiento y evaluación de alternativas. Sostiene los rubros inscritos de "ingeniería en computación e informática" y "consultoría" | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; estatuto, objeto social |
+| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Consultoría técnica de proyectos de infraestructura tecnológica **asistida por sistemas de inteligencia artificial**: análisis de requerimientos, elaboración y revisión de especificaciones técnicas para bases de licitación, dimensionamiento y evaluación comparada de alternativas. Sostiene los rubros inscritos de ingeniería en computación e informática y de consultoría, y se apoya en los diez rubros de software y plataformas de IA | Rubros inscritos en el Registro de Proveedores; plataforma multiagente desarrollada por el representante legal, de código público; currículum y obra verificable |
 | **829900** | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. | **Capacitación y formación** —los dos rubros inscritos de capacitación, científica y no científica, incluida la alfabetización en inteligencia artificial para funcionarios— y apoyo administrativo en procesos de compra pública | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; descripción del servicio en compai.cl |
 
+
+### 7.1 Sobre la actividad 711002
+
+Es la actividad que más conviene precisar, porque su glosa —"empresas de
+servicios de ingeniería"— admite lecturas distintas.
+
+**Qué comprende y qué no.** Corresponde a servicios de **ingeniería en
+computación e informática y consultoría técnica**, el rubro de ese nombre entre
+los inscritos en el Registro de Proveedores. No comprende servicios de
+arquitectura de edificaciones ni de ingeniería de obra civil, que se clasifican
+en el código 711001 y que la sociedad **no ha declarado por no formar parte de
+su giro**.
+
+**En qué consiste el servicio.** El comprador público que licita equipamiento o
+sistemas necesita, antes de licitar, definir qué va a pedir: traducir una
+necesidad operativa en especificaciones técnicas exigibles, dimensionar
+capacidades y comparar alternativas del mercado. Ese trabajo es previo a la
+compra, es distinto de proveer el bien, y es donde la sociedad presta consultoría.
+
+**Qué lo distingue.** La sociedad ejecuta esa consultoría **aplicando sistemas de
+inteligencia artificial avanzada** al análisis de requerimientos, la revisión de
+especificaciones y la evaluación comparada de alternativas. No es un descriptor
+comercial: es la misma capacidad que sostiene los diez rubros de software y
+plataformas de IA inscritos en el Registro de Proveedores, y se materializa en
+una plataforma multiagente desarrollada íntegramente por el representante legal,
+cuyo código es público y verificable.
+
+**Sobre la idoneidad.** En Chile los servicios de consultoría informática y
+técnica **no constituyen una profesión de ejercicio reservado**: no existe
+colegiatura obligatoria ni exigencia de título habilitante para prestarlos. La
+idoneidad se acredita por la obra ejecutada, y la de la sociedad es verificable
+en línea.
 ---
 
 ## 8. Medios materiales con los que opera
@@ -243,20 +275,44 @@ que la sociedad **no ha declarado por no formar parte de su giro**.
 
 ---
 
-## 9. Documentos que se acompañan
+## 9. Antecedentes de respaldo
 
-| N.º | Documento | Acredita |
+El formulario de la solicitud ofrece cuatro casilleros de adjuntos, de los cuales
+tres no corresponden al estado actual de la empresa:
+
+| Casillero | Situación |
+|---|---|
+| Descripción de su actividad o negocio | **Este documento.** |
+| Contrato | La sociedad no ha suscrito contratos: no registra ventas ni clientes adjudicados. |
+| Factura electrónica de proveedores | No se han recibido documentos tributarios electrónicos de proveedores nacionales. La cadena de abastecimiento está en apertura de cuentas de revendedor, según se detalla en el punto 6. |
+| Declaración de Ingreso (DIN) | La sociedad no realiza importaciones. Compra a distribuidores establecidos en Chile. |
+
+Por esa razón este documento se presenta **autosuficiente**: los antecedentes que
+lo respaldan se identifican a continuación, separando los que el Servicio puede
+verificar directamente en línea de los que se mantienen a disposición y se
+remiten a requerimiento.
+
+### 9.1 Verificables en línea, sin necesidad de adjunto
+
+| Antecedente | Dónde se comprueba | Acredita |
 |---|---|---|
-| 1 | Certificado de estatuto actualizado y de vigencia de la sociedad (Registro de Empresas y Sociedades) | Existencia, objeto social y representación |
-| 2 | Cédula de identidad del representante legal | Identidad |
-| 3 | Título de dominio del inmueble y autorización de uso a favor de la sociedad | Domicilio tributario |
-| 4 | Certificado de inscripción hábil en el Registro de Proveedores del Estado, ficha pública y **detalle de los 21 rubros inscritos** | Actividad comercial y correspondencia rubro-actividad — las siete |
-| 5 | Solicitudes de cuenta de revendedor ante Licencias OnLine y Arquimed, de 20-08-2026 | Cadena de abastecimiento — 465100 / 469000 |
-| 6 | Cotizaciones recibidas de distribuidores mayoristas | Relación con proveedores |
-| 7 | Antecedentes profesionales del representante legal: currículum, **obra verificable** —sitio institucional, infraestructura administrada y repositorio público de código— y título profesional | 620200 / 620900 / 631100 / 711002 |
-| 8 | Impresión del sitio web `https://compai.cl` con la oferta de bienes y servicios | Todas las actividades |
-| 9 | Facturas del proveedor de servidor virtual y certificado de titularidad del dominio `compai.cl` | 631100 |
-| 10 | Modelo de cotización y de propuesta de servicios de la empresa | 620200 / 711002 / 829900 |
+| Inscripción y habilidad en el Registro de Proveedores del Estado, con los 21 rubros inscritos y la acreditación vigente hasta el 19-08-2027 | `proveedor.mercadopublico.cl/ficha/78.491.451-8` | Actividad comercial y correspondencia entre rubros inscritos y actividades declaradas — las siete |
+| Constitución, estatuto vigente y representación legal | Registro de Empresas y Sociedades, por RUT | Existencia, objeto social y facultades del representante |
+| Sitio institucional con la oferta de bienes y servicios | `https://compai.cl` | Todas las actividades |
+| Titularidad del dominio | Registro de NIC Chile, por dominio | 631100 |
+| Repositorio público de código del representante legal | Perfil público en GitHub, disponible a requerimiento | 620900 — desarrollo de software |
+
+### 9.2 A disposición del Servicio, se remiten a requerimiento
+
+| Antecedente | Acredita |
+|---|---|
+| Cédula de identidad del representante legal | Identidad |
+| Título de dominio del inmueble y autorización de uso a favor de la sociedad | Domicilio tributario |
+| Solicitudes de apertura de cuenta de revendedor ante distribuidores, de 20-08-2026 | Cadena de abastecimiento — 465100 / 469000 |
+| Cotizaciones recibidas de distribuidores mayoristas | Relación con proveedores |
+| Currículum del representante legal y detalle de la obra ejecutada | 620200 / 620900 / 631100 / 711002 |
+| Facturas del proveedor de servidor virtual | 631100 |
+| Modelo de cotización y de propuesta de servicios | 620200 / 711002 / 829900 |
 
 ---
 

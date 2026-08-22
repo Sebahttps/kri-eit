@@ -53,15 +53,21 @@ FICHA_PROVEEDOR = "https://proveedor.mercadopublico.cl/ficha/78.491.451-8"
 # que deje de estarlo, justo ante quien rinde cuentas a Contraloría.
 ACREDITADO_HASTA = "19 de agosto de 2027"
 
-# Giros vigentes ante el SII, tal como salen en el certificado. El comprador
-# público coteja giro contra el rubro de la licitación: es el primer dato que
-# copia al expediente.
+# Giros vigentes ante el SII. Los siete son de primera categoría, afectos a
+# IVA, con fecha 16-08-2026. Las glosas van tal como las emite el SII, sin
+# parafrasear: el comprador público coteja giro contra el rubro de la
+# licitación y es el primer dato que copia al expediente.
+#
+# Ojo: hasta el 22-ago esta lista tenía solo cinco. Faltaban 711002 y 829900,
+# porque la fuente que se usó (identidad-tributaria.md) estaba incompleta.
 GIROS = [
     ("465100", "Venta al por mayor de computadores, equipo periférico y programas informáticos"),
     ("469000", "Venta al por mayor no especializada"),
-    ("620200", "Consultoría de informática y gestión de instalaciones informáticas"),
-    ("620900", "Otras actividades de TI y de servicios informáticos"),
+    ("620200", "Actividades de consultoría de informática y de gestión de instalaciones informáticas"),
+    ("620900", "Otras actividades de tecnología de la información y de servicios informáticos"),
     ("631100", "Procesamiento de datos, hospedaje y actividades conexas"),
+    ("711002", "Empresas de servicios de ingeniería y actividades conexas de consultoría técnica"),
+    ("829900", "Otras actividades de servicios de apoyo a las empresas n.c.p."),
 ]
 
 # Paleta nocturna. El logotipo nació para fondo oscuro y este es el único

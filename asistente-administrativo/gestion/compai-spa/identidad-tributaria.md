@@ -37,13 +37,22 @@ precio y plazo, no currículum. Esa condición ya está cumplida.
 Los siete códigos declarados. **Lo que se puede facturar sale de acá, no del
 estatuto** — el objeto social es más amplio que los giros.
 
-| Código | Actividad |
+> **Corregido el 22-ago-2026: son SIETE, no cinco.** Esta tabla listaba solo
+> las cinco primeras y con las glosas parafraseadas. Faltaban 711002 y 829900,
+> y de acá salió la lista incompleta que se publicó en compai.cl. Las glosas de
+> abajo son ahora las que emite el SII, textuales.
+
+Las siete son **primera categoría, afectas a IVA, con fecha 16-08-2026**.
+
+| Código | Actividad (glosa del SII) |
 |---|---|
-| 465100 | Venta al por mayor de computadores, equipo periférico y programas informáticos |
-| 469000 | Venta al por mayor no especializada |
-| 620200 | Consultoría de informática y gestión de instalaciones informáticas |
-| 620900 | Otras actividades de TI y de servicios informáticos |
-| 631100 | Procesamiento de datos, hospedaje y actividades conexas |
+| 465100 | VENTA AL POR MAYOR DE COMPUTADORES, EQUIPO PERIFERICO Y PROGRAMAS INFORMATICOS |
+| 469000 | VENTA AL POR MAYOR NO ESPECIALIZADA |
+| 620200 | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS |
+| 620900 | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS |
+| 631100 | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS |
+| 711002 | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA |
+| 829900 | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. |
 | 711002 | Servicios de ingeniería y consultoría técnica |
 | 829900 | Otras actividades de servicios de apoyo a las empresas |
 

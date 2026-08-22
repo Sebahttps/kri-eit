@@ -81,10 +81,19 @@ de cobrar.
 
 Para los servicios (consultoría informática, desarrollo, procesamiento de datos y
 consultoría técnica) el ciclo es más simple, porque no hay proveedor intermedio: el
-servicio lo presta **el propio titular**, que es [título profesional del titular] y
-desarrollador de software, con su propio equipamiento y desde el domicilio
-tributario de la sociedad. Se factura contra hito o contra período, según lo que
-establezca la orden de compra o el contrato.
+servicio lo presta **el propio titular**, [título profesional del titular] de
+profesión y desarrollador de software y arquitecto de soluciones en ejercicio, con
+su propio equipamiento y desde el domicilio tributario de la sociedad.
+
+Su competencia técnica se acredita con **obra verificable antes que con el título**:
+el sitio institucional de la empresa, desarrollado íntegramente por él sin
+dependencias de terceros; la infraestructura de dominio, correo corporativo
+autenticado y servidor que administra; y su repositorio público de código. En Chile
+los servicios informáticos no constituyen una profesión de ejercicio reservado, de
+modo que la idoneidad se demuestra por el trabajo ejecutado.
+
+Se factura contra hito o contra período, según lo que establezca la orden de compra
+o el contrato.
 
 ---
 
@@ -213,8 +222,8 @@ que la sociedad **no ha declarado por no formar parte de su giro**.
 |---|---|---|---|
 | **465100** | VENTA AL POR MAYOR DE COMPUTADORES, EQUIPO PERIFERICO Y PROGRAMAS INFORMATICOS | Actividad principal. Venta de computadores, periféricos, equipos de red y licencias a organismos públicos, bajo pedido | Ficha de proveedor ChileCompra; solicitud de cuenta de revendedor con Licencias OnLine; estatuto, objeto letra b) |
 | **469000** | VENTA AL POR MAYOR NO ESPECIALIZADA | Las compras públicas agrupan en una misma orden bienes de rubros distintos: mobiliario, insumos de oficina, material didáctico y de laboratorio. El código permite facturar esa mezcla en un solo documento | Solicitud de cuenta con Arquimed (material didáctico y de laboratorio); estatuto, objeto letra b) |
-| **620200** | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS | Especificación técnica de equipamiento, configuración y puesta en marcha, administración de infraestructura. Lo ejecuta el titular | Antecedentes profesionales del representante legal; descripción de servicios en compai.cl |
-| **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Antecedentes profesionales del representante legal; sitio web |
+| **620200** | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS | Especificación técnica de equipamiento, configuración y puesta en marcha, administración de infraestructura. Lo ejecuta el titular | Currículum y obra verificable del representante legal; descripción de servicios en compai.cl |
+| **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Repositorio público de código y currículum del representante legal; el propio sitio de la empresa como muestra de desarrollo |
 | **631100** | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS | La empresa opera un servidor virtual contratado y el dominio `compai.cl`; sobre esa infraestructura presta hospedaje y procesamiento de datos | Facturas del proveedor de servidor virtual; certificado de titularidad del dominio en NIC Chile |
 | **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Ingeniería en computación e informática y consultoría técnica de proyectos de infraestructura tecnológica: especificaciones técnicas para bases de licitación, dimensionamiento y evaluación de alternativas. Sostiene los rubros inscritos de "ingeniería en computación e informática" y "consultoría" | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; estatuto, objeto social |
 | **829900** | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. | **Capacitación y formación** —los dos rubros inscritos de capacitación, científica y no científica, incluida la alfabetización en inteligencia artificial para funcionarios— y apoyo administrativo en procesos de compra pública | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; descripción del servicio en compai.cl |
@@ -244,7 +253,7 @@ que la sociedad **no ha declarado por no formar parte de su giro**.
 | 4 | Certificado de inscripción hábil en el Registro de Proveedores del Estado, ficha pública y **detalle de los 21 rubros inscritos** | Actividad comercial y correspondencia rubro-actividad — las siete |
 | 5 | Solicitudes de cuenta de revendedor ante Licencias OnLine y Arquimed, de 20-08-2026 | Cadena de abastecimiento — 465100 / 469000 |
 | 6 | Cotizaciones recibidas de distribuidores mayoristas | Relación con proveedores |
-| 7 | Antecedentes profesionales del representante legal: título profesional y currículum | 620200 / 620900 / 631100 / 711002 |
+| 7 | Antecedentes profesionales del representante legal: currículum, **obra verificable** —sitio institucional, infraestructura administrada y repositorio público de código— y título profesional | 620200 / 620900 / 631100 / 711002 |
 | 8 | Impresión del sitio web `https://compai.cl` con la oferta de bienes y servicios | Todas las actividades |
 | 9 | Facturas del proveedor de servidor virtual y certificado de titularidad del dominio `compai.cl` | 631100 |
 | 10 | Modelo de cotización y de propuesta de servicios de la empresa | 620200 / 711002 / 829900 |

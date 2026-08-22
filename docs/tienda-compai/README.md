@@ -34,5 +34,18 @@ Las decisiones que la sostienen, que son de negocio y no de código:
 | Guiones de venta y objeciones | `asistente-creativo/ideas/dropshipping-por-encargo/kit-de-venta.md` |
 | Criterios del catálogo y del negocio | `dropshipping-ai/docs/modo-artesanal.md` |
 
-**No confundir con `docs/tienda/`**, que es la tienda operativa del estudio y
-sigue en este repositorio.
+## `docs/tienda/` ya no existe
+
+Hasta el 22-ago-2026 este README decía *"no confundir con `docs/tienda/`, que
+es la tienda operativa del estudio"*. **Era falso.** Esa carpeta tenía una copia
+vieja de esta misma vitrina —11 KB contra los 31 KB de la buena— con precios
+que ya no corrían ($16.990 y $10.300) y sin un solo botón de WhatsApp. Y estaba
+**publicada**: `kri-eit` sirve Pages desde `/docs`, así que respondía 200 en
+`sebahttps.github.io/kri-eit/tienda/`.
+
+Sobrevivió a la mudanza del 11-ago por el nombre de la carpeta: el puntero
+quedó en `docs/tienda-compai/` y el HTML viejo en `docs/tienda/`.
+
+Se borró el 22-ago-2026, junto con el enlace que la página del estudio tenía en
+su pie. **Ninguna de las dos vitrinas está en uso por ahora**; la buena sigue
+existiendo en su repo y su dominio, sin tocar.

@@ -89,14 +89,83 @@ cd sitio-compai && python -m http.server 8777
 y abrir `http://127.0.0.1:8777`. Para ver la versión impresa, Ctrl+P y mirar la
 vista previa.
 
-## Lo que falta para que esté en línea
+## Cómo está publicada
 
-1. **La raíz de `compai.cl` la ocupa Shopify hoy** (`23.227.38.65`), y `www`
-   apunta a `shops.myshopify.com`. Hay que moverlos.
-2. Publicar por **GitHub Pages**, igual que `regalon.compai.cl`. Es gratis y no
-   depende del VPS — eso importa, porque el VPS se está apagando.
-3. En Cloudflare, apuntar la raíz a GitHub Pages. Cloudflare aplana CNAME en el
-   ápice, así que no hace falta poner las cuatro IP a mano.
+En línea desde el 21-ago-2026 y verificado desde fuera ese mismo día.
 
-**Quitar el dominio de Shopify no cancela el plan de Shopify.** Son dos cosas
-distintas y la facturación sigue corriendo por su lado.
+| | |
+|---|---|
+| Dominio | `https://compai.cl` (y `www` redirige 301 al ápice) |
+| Repositorio publicador | `github.com/Sebahttps/CompAI` — solo `CNAME`, `README.md`, `index.html`, `404.html` |
+| Origen | GitHub Pages, rama `main`, raíz |
+| DNS | Cloudflare, registro **DNS-only**: la respuesta trae `Server: GitHub.com`, no pasa por el proxy naranja |
+| Certificado | Let's Encrypt emitido por Pages, renovación automática |
+| Peso | 34 KB en un archivo, ~8,5 KB con gzip, cero peticiones externas |
+
+El VPS ya no participa: se destruyó el 20-ago y los subdominios `hola`, `panel`
+y `api` se eliminaron de Cloudflare para no dejar *dangling DNS*.
+
+## Cómo se actualiza
+
+```
+python sitio-compai/_construir.py        # genera index.html y 404.html
+cd sitio-compai && python -m http.server 8777   # revisar en 127.0.0.1:8777
+```
+
+Cuando esté bueno, copiar **los dos archivos** al repo publicador
+(`CompAI/`), commit y push. GitHub Pages sirve con `Cache-Control: max-age=600`,
+así que el cambio puede tardar hasta diez minutos en verse.
+
+**No editar `index.html` ni `404.html` a mano**, en ninguno de los dos repos: se
+generan y se pisan.
+
+## La 404
+
+`404.html` se construye del mismo script y reusa encabezado y pie. Sin ella,
+un enlace mal copiado desde un PDF aterriza en la página de error de GitHub con
+el octocat, que descubre el andamio justo delante del comprador. Lleva
+`noindex` y una sola salida: volver a la portada.
+
+## Los datos de contacto, y por qué sí van
+
+`TELEFONO`, `DOMICILIO` y `FICHA_PROVEEDOR` están completos desde el
+21-ago-2026. Antes iban vacíos "porque el repo es público", y **esa razón era
+falsa**: `index.html` se publica en la web abierta y es tan público como el
+repo, e indexable. Iban vacíos porque eran una decisión pendiente.
+
+- **Teléfono**: va. Ya estaba impreso en la cotización, en la firma de correo y
+  en la ficha de Mercado Público.
+- **Domicilio**: va a nivel de ciudad y región, sin calle. El domicilio
+  tributario es particular y la dirección exacta no le aporta al comprador lo
+  suficiente como para justificarlo.
+- **Ficha de proveedor**: `https://proveedor.mercadopublico.cl/ficha/<RUT>`.
+  Convierte "Inscrita y hábil" de afirmación propia en dato verificable de un
+  clic. **Sin comprobar todavía si esa URL se ve sin sesión iniciada** — si
+  pidiera login hay que quitar el enlace y dejar solo la fecha.
+- **`ACREDITADO_HASTA`**: 19 de agosto de 2027, tomado de la propia ficha. La
+  habilidad es un estado que caduca; afirmarla sin fecha deja expuesta a la
+  empresa el día que deje de estarlo.
+
+## Dos inconsistencias que la página no puede arreglar sola
+
+Salieron al leer la ficha de Mercado Público el 21-ago y las ve cualquier
+comprador que cruce los datos:
+
+1. **Hay dos domicilios distintos.** El estatuto y el RES dicen *Carmen 668,
+   depto 825, Santiago*; Mercado Público dice *CARRION 1507 DP 1930 P19,
+   INDEPENDENCIA*. Uno de los dos está desactualizado.
+2. **En Mercado Público el contacto es un Gmail.** La ficha muestra
+   `stapiamena@gmail.com` como correo laboral, mientras el sitio y las
+   cotizaciones usan `stapiamena@compai.cl`. Al comprador que verifica le
+   aparecen dos correos distintos para la misma empresa.
+
+## Lo que la página todavía no contesta
+
+- **Despacho a regiones: sí o no.** Primera pregunta de cualquier comprador
+  fuera de la RM.
+- **Boletas de garantía y de seriedad de la oferta: si se pueden tomar.** Sobre
+  cierto monto, no poder tomarlas es no poder ofertar.
+
+**Los plazos se dejan como están.** La sección `02` dice que no se compromete
+una fecha que no esté respaldada; poner plazos genéricos rompería lo más
+creíble que tiene la página.

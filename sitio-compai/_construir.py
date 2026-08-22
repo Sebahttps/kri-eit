@@ -27,8 +27,42 @@ MARCA = AQUI.parent / "marca"
 RAZON = "COMPAI GLOBAL SOLUTIONS SpA"
 RUT = "78.491.451-8"
 CORREO = "stapiamena@compai.cl"
-# El teléfono no se versiona: el repo es público. Completar antes de construir.
-TELEFONO = ""
+# El teléfono SÍ va, decidido el 21-ago-2026. La regla anterior de no
+# versionarlo "porque el repo es público" no protegía nada: index.html se
+# publica en la web abierta y es igual de público. Y el número ya va impreso en
+# la cotización, en la firma de correo y en la ficha de Mercado Público.
+TELEFONO = "+56 9 6246 9977"
+
+# Quién responde. Un correo sin persona detrás obliga al comprador a preguntar
+# a quién le está escribiendo, y eso es una barrera de conversión.
+CONTACTO_NOMBRE = "Sebastián Tapia Mena"
+CONTACTO_CARGO = "Gerente General y representante legal"
+
+# Domicilio comercial. Va a nivel de ciudad y región, sin calle: el domicilio
+# tributario es particular y publicar la dirección exacta no aporta al
+# comprador lo suficiente como para justificarlo.
+DOMICILIO = "Santiago, Región Metropolitana"
+
+# Ficha del proveedor en Mercado Público. Con URL, el sello de habilidad deja
+# de ser la empresa afirmándolo de sí misma y pasa a ser verificable de un
+# clic, que es lo primero que pidió el comprador simulado.
+FICHA_PROVEEDOR = "https://proveedor.mercadopublico.cl/ficha/78.491.451-8"
+
+# Hasta cuándo está acreditada, tal como lo declara la ficha. La habilidad es
+# un estado que caduca: afirmarla sin fecha deja expuesta a la empresa el día
+# que deje de estarlo, justo ante quien rinde cuentas a Contraloría.
+ACREDITADO_HASTA = "19 de agosto de 2027"
+
+# Giros vigentes ante el SII, tal como salen en el certificado. El comprador
+# público coteja giro contra el rubro de la licitación: es el primer dato que
+# copia al expediente.
+GIROS = [
+    ("465100", "Venta al por mayor de computadores, equipo periférico y programas informáticos"),
+    ("469000", "Venta al por mayor no especializada"),
+    ("620200", "Consultoría de informática y gestión de instalaciones informáticas"),
+    ("620900", "Otras actividades de TI y de servicios informáticos"),
+    ("631100", "Procesamiento de datos, hospedaje y actividades conexas"),
+]
 
 # Paleta nocturna. El logotipo nació para fondo oscuro y este es el único
 # soporte donde puede vivir así: los documentos que se imprimen usan la diurna,
@@ -101,13 +135,80 @@ if TELEFONO:
     _tel = TELEFONO.replace(" ", "")
     contacto_pie += f' · <a href="tel:{_tel}">{TELEFONO}</a>'
 
+# Los giros se arman fuera del f-string para no pelear con las llaves.
+_giros_html = "".join(
+    f'<li><span class="mono">{c}</span> {g}</li>' for c, g in GIROS
+)
+
+# Sello de habilidad: enlace verificable si hay ficha, texto si no.
+_vigencia = f' · acreditada hasta el {ACREDITADO_HASTA}' if ACREDITADO_HASTA else ''
+_sello_habil = f'<span class="habil">{ticks("ticks", 26)}Inscrita y hábil</span>{_vigencia}'
+if FICHA_PROVEEDOR:
+    _sello_habil = (
+        f'<a class="habil verificar" href="{FICHA_PROVEEDOR}" rel="noopener">'
+        f'{ticks("ticks", 26)}Inscrita y hábil</a>{_vigencia}'
+        f'<span class="verificar-nota">Ver la ficha en Mercado Público</span>'
+    )
+
+# Fila de domicilio, solo si está autorizado.
+_fila_domicilio = fila("Domicilio", DOMICILIO) if DOMICILIO else ""
+
+# Teléfono en la sección de contacto, no solo en el pie: la pregunta del
+# comprador es "si el despacho no llega el viernes, ¿a quién llamo?", y el pie
+# está demasiado abajo para contestarla.
+_telefono_grande = ""
+if TELEFONO:
+    _telefono_grande = (
+        f'<a class="correo-grande telefono" href="tel:{TELEFONO.replace(" ", "")}">'
+        f'{TELEFONO}</a>'
+    )
+
+# Persona de contacto sobre el correo.
+_persona = ""
+if CONTACTO_NOMBRE:
+    _persona = (
+        f'<p class="contacto-persona"><strong>{CONTACTO_NOMBRE}</strong>'
+        f'<span>{CONTACTO_CARGO}</span></p>'
+    )
+
+# JSON-LD: que el dominio se lea como entidad y no como enlace pelado cuando
+# circula pegado en un correo entre compradores. Se arma con concatenación
+# para no doblar llaves dentro del f-string.
+_jsonld = (
+    '{"@context":"https://schema.org","@type":"Organization",'
+    '"name":"CompAI","legalName":"' + RAZON + '",'
+    '"taxID":"' + RUT + '",'
+    '"url":"https://compai.cl/",'
+    '"email":"' + CORREO + '",'
+    '"areaServed":"CL",'
+    '"address":{"@type":"PostalAddress","addressLocality":"Santiago",'
+    '"addressRegion":"Región Metropolitana","addressCountry":"CL"}'
+    + (',"telephone":"' + TELEFONO + '"' if TELEFONO else '')
+    + '}'
+)
+
+DESCRIPCION = (
+    f"{RAZON} provee hardware, insumos y servicios de tecnología a organismos "
+    f"del Estado a través de Mercado Público. RUT {RUT}, inscrita y hábil en el "
+    f"Registro de Proveedores."
+)
+
 HTML = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CompAI · Equipamiento tecnológico y servicios informáticos para el sector público</title>
-<meta name="description" content="{RAZON} provee hardware, insumos y servicios de tecnología a organismos del Estado a través de Mercado Público. RUT {RUT}, inscrita y hábil en el Registro de Proveedores.">
+<meta name="description" content="{DESCRIPCION}">
+<link rel="canonical" href="https://compai.cl/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CompAI">
+<meta property="og:title" content="CompAI · Equipamiento tecnológico y servicios informáticos para el sector público">
+<meta property="og:description" content="{DESCRIPCION}">
+<meta property="og:url" content="https://compai.cl/">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{_jsonld}</script>
 <meta name="theme-color" content="{FONDO}">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23080A09'/><path d='M14 34l7 7 13-15M30 34l7 7 13-15' fill='none' stroke='%234CC48B' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/></svg>">
@@ -395,6 +496,31 @@ HTML = f"""<!DOCTYPE html>
   }}
   .correo-grande:hover {{ color: var(--crema); border-color: var(--crema); }}
   .contacto-nota {{ margin: 16px 0 0; color: var(--tenue); font-size: 15px; max-width: 52ch; }}
+  .vias {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 26px; }}
+  .correo-grande.telefono {{ color: var(--crema); border-color: rgba(245,240,228,.35); }}
+  .correo-grande.telefono:hover {{ color: var(--verde); border-color: var(--verde); }}
+  .contacto-persona {{ margin: 0 0 14px; line-height: 1.45; }}
+  .contacto-persona strong {{ display: block; color: var(--crema); font-size: 18.5px; font-weight: 600; }}
+  .contacto-persona span {{
+    display: block; margin-top: 2px; color: var(--texto2); font-size: 15px;
+  }}
+
+  /* Giros: lista de datos duros dentro de la ficha, no prosa. */
+  .giros {{ margin: 0; padding: 0; list-style: none; }}
+  .giros li {{
+    display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px;
+    align-items: baseline; padding: 3px 0; font-size: 15.5px; color: var(--texto2);
+  }}
+  .giros li + li {{ border-top: 1px solid var(--borde); margin-top: 3px; padding-top: 6px; }}
+  .giros .mono {{ color: var(--crema); }}
+  a.verificar {{ text-decoration: none; border-bottom: 1px solid rgba(76,196,139,.4); }}
+  a.verificar:hover {{ color: var(--crema); border-color: var(--crema); }}
+  .verificar-nota {{
+    display: block; margin-top: 6px;
+    font-family: 'Courier New', Courier, monospace; font-size: 12px;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--tenue);
+  }}
+  @media print {{ .verificar-nota {{ color: #46504A; }} }}
 
   footer {{
     border-top: 1px solid var(--borde);
@@ -542,8 +668,10 @@ HTML = f"""<!DOCTYPE html>
       {fila("Razón social", RAZON)}
       {fila("RUT", f'<span class="mono">{RUT}</span>')}
       {fila("Constitución", '<span class="mono">15 de agosto de 2026</span>')}
-      {fila("Registro de Proveedores",
-            f'<span class="habil">{ticks("ticks", 26)}Inscrita y hábil</span>')}
+      {fila("Registro de Proveedores", _sello_habil)}
+      {fila("Giros ante el SII", f'<ul class="giros">{_giros_html}</ul>')}
+      {fila("Facturación", "Electrónica, con inicio de actividades vigente")}
+      {_fila_domicilio}
     </dl>
     <p class="declaracion">CompAI es una empresa nueva y opera con inicio de
       actividades vigente, facturación electrónica y habilidad al día.
@@ -556,7 +684,11 @@ HTML = f"""<!DOCTYPE html>
 <section class="marco seccion">
   {rotulo("04", "Contacto")}
   <div class="cuerpo">
-    <a class="correo-grande" href="mailto:{CORREO}">{CORREO}</a>
+    {_persona}
+    <div class="vias">
+      <a class="correo-grande" href="mailto:{CORREO}">{CORREO}</a>
+      {_telefono_grande}
+    </div>
     <p class="contacto-nota">Consultas de cotización, disponibilidad y plazos de
       entrega.</p>
   </div>
@@ -575,5 +707,39 @@ HTML = f"""<!DOCTYPE html>
 (AQUI / "index.html").write_text(HTML, encoding="utf-8")
 destino = AQUI / "index.html"
 print("Escrito:", destino, f"({destino.stat().st_size / 1024:.1f} KB)")
+
+# La 404 de GitHub Pages muestra el octocat y descubre el andamio. Esta usa la
+# misma cabecera y el mismo pie, así que un enlace mal copiado desde un PDF
+# sigue aterrizando en CompAI.
+# Corta justo después del encabezado: el aviso tiene que ser lo primero que se
+# vea, no ir debajo del hero de portada.
+_corte_cabeza = HTML.index("</header>") + len("</header>")
+_corte_pie = HTML.index('<footer class="marco">')
+HTML_404 = (
+    HTML[:_corte_cabeza]
+    + '''
+
+<div class="marco hero">
+  <p class="kicker">Error 404</p>
+  <h1>Esa dirección no existe</h1>
+  <p class="bajada">La página de <strong>''' + RAZON + '''</strong> es una sola.
+    Si llegaste desde una cotización, el enlace correcto es compai.cl sin nada
+    después.</p>
+  <p style="margin:26px 0 0">
+    <a class="correo-grande" href="/">compai.cl</a>
+  </p>
+</div>
+
+'''
+    + HTML[_corte_pie:]
+).replace(
+    "<title>CompAI · Equipamiento tecnológico y servicios informáticos para el sector público</title>",
+    "<title>Página no encontrada · CompAI</title>",
+    1,
+).replace(
+    '<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"', 1
+)
+(AQUI / "404.html").write_text(HTML_404, encoding="utf-8")
+print("Escrito:", AQUI / "404.html", f"({(AQUI / '404.html').stat().st_size / 1024:.1f} KB)")
 if not TELEFONO:
     print("TELEFONO vacío: el pie sale solo con el correo.")

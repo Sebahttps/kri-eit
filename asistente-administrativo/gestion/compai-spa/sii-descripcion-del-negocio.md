@@ -177,6 +177,38 @@ Las siete actividades declaradas corresponden a las dos líneas del negocio:
 **reventa de bienes tecnológicos al Estado** y **servicios informáticos y técnicos
 prestados por el titular**.
 
+**Las siete no son una declaración amplia por precaución: cada una sostiene
+rubros concretos en los que la sociedad está inscrita** en el Registro de
+Proveedores del Estado. La inscripción comprende **21 rubros** del catálogo de
+bienes y servicios, distribuidos así:
+
+| Bloque de rubros inscritos | N.º | Actividades que lo sostienen |
+|---|---|---|
+| Software y plataformas de inteligencia artificial | 10 | 465100 · 620900 |
+| Servicios de TI, datos e ingeniería | 3 | 620200 · 620900 · 631100 · 711002 |
+| Consultoría y transformación digital | 2 | 620200 · 711002 · 829900 |
+| Capacitación y formación | 2 | 829900 |
+| Venta de equipos e insumos | 4 | 465100 · 469000 |
+
+**Por qué diez rubros de software y no uno.** Las bases de licitación del Estado
+describen una misma solución con etiquetas incompatibles entre sí: un mismo
+sistema puede aparecer catalogado como "software de gestión", "software de
+consultas y gestión de datos" o "software específico para la industria" según
+quién redacte las bases. Estar inscrito en un solo rubro implica no recibir el
+aviso de los demás procesos. La amplitud responde a cómo cataloga el comprador,
+no a una pretensión de la empresa.
+
+**Por qué la cobertura de equipos es acotada.** Las actividades 465100 y 469000
+permitirían inscribir el catálogo completo de hardware. Se inscribieron solo
+cuatro rubros: aquellos que la sociedad puede proveer de forma directa o con un
+socio integrador. Inscribir más generaría avisos de procesos que no se está en
+condiciones de atender.
+
+**Sobre la actividad 711002.** Corresponde a servicios de **ingeniería en
+computación e informática** —el rubro de ese nombre está entre los inscritos—,
+no a servicios de arquitectura de edificaciones, que se clasifican en 711001 y
+que la sociedad **no ha declarado por no formar parte de su giro**.
+
 | Código | Glosa | Operación concreta que la sustenta | Respaldo que se acompaña |
 |---|---|---|---|
 | **465100** | VENTA AL POR MAYOR DE COMPUTADORES, EQUIPO PERIFERICO Y PROGRAMAS INFORMATICOS | Actividad principal. Venta de computadores, periféricos, equipos de red y licencias a organismos públicos, bajo pedido | Ficha de proveedor ChileCompra; solicitud de cuenta de revendedor con Licencias OnLine; estatuto, objeto letra b) |
@@ -184,8 +216,8 @@ prestados por el titular**.
 | **620200** | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS | Especificación técnica de equipamiento, configuración y puesta en marcha, administración de infraestructura. Lo ejecuta el titular | Antecedentes profesionales del representante legal; descripción de servicios en compai.cl |
 | **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Antecedentes profesionales del representante legal; sitio web |
 | **631100** | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS | La empresa opera un servidor virtual contratado y el dominio `compai.cl`; sobre esa infraestructura presta hospedaje y procesamiento de datos | Facturas del proveedor de servidor virtual; certificado de titularidad del dominio en NIC Chile |
-| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Consultoría técnica de proyectos de infraestructura tecnológica: elaboración de especificaciones técnicas para bases de licitación, dimensionamiento y evaluación técnica de alternativas | Antecedentes profesionales del representante legal; estatuto, objeto social |
-| **829900** | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. | Apoyo administrativo a terceros en procesos de compra pública: preparación de documentación de ofertas, gestión documental y seguimiento de órdenes de compra | Descripción del servicio en compai.cl; estatuto, objeto letra e) |
+| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Ingeniería en computación e informática y consultoría técnica de proyectos de infraestructura tecnológica: especificaciones técnicas para bases de licitación, dimensionamiento y evaluación de alternativas. Sostiene los rubros inscritos de "ingeniería en computación e informática" y "consultoría" | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; estatuto, objeto social |
+| **829900** | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. | **Capacitación y formación** —los dos rubros inscritos de capacitación, científica y no científica, incluida la alfabetización en inteligencia artificial para funcionarios— y apoyo administrativo en procesos de compra pública | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; descripción del servicio en compai.cl |
 
 ---
 
@@ -209,7 +241,7 @@ prestados por el titular**.
 | 1 | Certificado de estatuto actualizado y de vigencia de la sociedad (Registro de Empresas y Sociedades) | Existencia, objeto social y representación |
 | 2 | Cédula de identidad del representante legal | Identidad |
 | 3 | Título de dominio del inmueble y autorización de uso a favor de la sociedad | Domicilio tributario |
-| 4 | Certificado de inscripción hábil en el Registro de Proveedores del Estado y ficha pública | Actividad comercial — 465100 / 469000 / 829900 |
+| 4 | Certificado de inscripción hábil en el Registro de Proveedores del Estado, ficha pública y **detalle de los 21 rubros inscritos** | Actividad comercial y correspondencia rubro-actividad — las siete |
 | 5 | Solicitudes de cuenta de revendedor ante Licencias OnLine y Arquimed, de 20-08-2026 | Cadena de abastecimiento — 465100 / 469000 |
 | 6 | Cotizaciones recibidas de distribuidores mayoristas | Relación con proveedores |
 | 7 | Antecedentes profesionales del representante legal: título profesional y currículum | 620200 / 620900 / 631100 / 711002 |

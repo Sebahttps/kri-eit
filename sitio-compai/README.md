@@ -146,18 +146,22 @@ repo, e indexable. Iban vacíos porque eran una decisión pendiente.
   habilidad es un estado que caduca; afirmarla sin fecha deja expuesta a la
   empresa el día que deje de estarlo.
 
-## Dos inconsistencias que la página no puede arreglar sola
+## Coherencia entre fuentes
 
-Salieron al leer la ficha de Mercado Público el 21-ago y las ve cualquier
-comprador que cruce los datos:
+Un comprador que verifica cruza tres fuentes: esta página, la ficha de Mercado
+Público y el estatuto. Tienen que decir lo mismo.
 
-1. **Hay dos domicilios distintos.** El estatuto y el RES dicen *Carmen 668,
-   depto 825, Santiago*; Mercado Público dice *CARRION 1507 DP 1930 P19,
-   INDEPENDENCIA*. Uno de los dos está desactualizado.
-2. **En Mercado Público el contacto es un Gmail.** La ficha muestra
-   `stapiamena@gmail.com` como correo laboral, mientras el sitio y las
-   cotizaciones usan `stapiamena@compai.cl`. Al comprador que verifica le
-   aparecen dos correos distintos para la misma empresa.
+**Domicilio — resuelto el 21-ago-2026.** El estatuto decía *Carmen 668, depto
+825, Santiago* y Mercado Público *CARRION 1507 DP 1930 P19, INDEPENDENCIA*. Se
+actualizó el RES a **Carrion 1507, block B, depto 1930, Independencia**, con lo
+que las dos fuentes coinciden en cuanto se firme el trámite. La página muestra
+solo *Santiago, Región Metropolitana*, por decisión: la calle no aporta lo
+suficiente como para publicar un domicilio particular.
+
+**Correo — abierto.** La ficha de Mercado Público trae `stapiamena@gmail.com`
+como correo laboral, mientras la página y las cotizaciones usan
+`stapiamena@compai.cl`. Al comprador que verifica le aparecen dos correos para
+la misma empresa. Se corrige en el escritorio de ChileCompra, no acá.
 
 ## Lo que la página todavía no contesta
 

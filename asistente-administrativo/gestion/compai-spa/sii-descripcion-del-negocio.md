@@ -88,7 +88,7 @@ su propio equipamiento y desde el domicilio tributario de la sociedad.
 Su competencia técnica se acredita con **obra verificable antes que con el título**:
 el sitio institucional de la empresa, desarrollado íntegramente por él sin
 dependencias de terceros; la infraestructura de dominio, correo corporativo
-autenticado y servidor que administra; y su repositorio público de código. En Chile
+autenticado y servidor que administra; y su repositorio público de código en `https://github.com/Sebahttps/kri-eit`. En Chile
 los servicios informáticos no constituyen una profesión de ejercicio reservado, de
 modo que la idoneidad se demuestra por el trabajo ejecutado.
 
@@ -223,9 +223,9 @@ que la sociedad **no ha declarado por no formar parte de su giro**.
 | **465100** | VENTA AL POR MAYOR DE COMPUTADORES, EQUIPO PERIFERICO Y PROGRAMAS INFORMATICOS | Actividad principal. Venta de computadores, periféricos, equipos de red y licencias a organismos públicos, bajo pedido | Ficha de proveedor ChileCompra; solicitud de cuenta de revendedor con Licencias OnLine; estatuto, objeto letra b) |
 | **469000** | VENTA AL POR MAYOR NO ESPECIALIZADA | Las compras públicas agrupan en una misma orden bienes de rubros distintos: mobiliario, insumos de oficina, material didáctico y de laboratorio. El código permite facturar esa mezcla en un solo documento | Solicitud de cuenta con Arquimed (material didáctico y de laboratorio); estatuto, objeto letra b) |
 | **620200** | ACTIVIDADES DE CONSULTORIA DE INFORMATICA Y DE GESTION DE INSTALACIONES INFORMATICAS | Especificación técnica de equipamiento, configuración y puesta en marcha, administración de infraestructura. Lo ejecuta el titular | Currículum y obra verificable del representante legal; descripción de servicios en compai.cl |
-| **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Repositorio público de código y currículum del representante legal; el propio sitio de la empresa como muestra de desarrollo |
+| **620900** | OTRAS ACTIVIDADES DE TECNOLOGIA DE LA INFORMACION Y DE SERVICIOS INFORMATICOS | Desarrollo de software a medida, automatización de procesos y soporte técnico | Repositorio público de código en `https://github.com/Sebahttps/kri-eit`; el propio sitio de la empresa como muestra de desarrollo; currículum del representante legal |
 | **631100** | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS | La empresa opera un servidor virtual contratado y el dominio `compai.cl`; sobre esa infraestructura presta hospedaje y procesamiento de datos | Facturas del proveedor de servidor virtual; certificado de titularidad del dominio en NIC Chile |
-| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Consultoría técnica de proyectos de infraestructura tecnológica **asistida por sistemas de inteligencia artificial**: análisis de requerimientos, elaboración y revisión de especificaciones técnicas para bases de licitación, dimensionamiento y evaluación comparada de alternativas. Sostiene los rubros inscritos de ingeniería en computación e informática y de consultoría, y se apoya en los diez rubros de software y plataformas de IA | Rubros inscritos en el Registro de Proveedores; plataforma multiagente desarrollada por el representante legal, de código público; currículum y obra verificable |
+| **711002** | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA | Consultoría técnica de proyectos de infraestructura tecnológica **asistida por sistemas de inteligencia artificial**: análisis de requerimientos, elaboración y revisión de especificaciones técnicas para bases de licitación, dimensionamiento y evaluación comparada de alternativas. Sostiene los rubros inscritos de ingeniería en computación e informática y de consultoría, y se apoya en los diez rubros de software y plataformas de IA | Rubros inscritos en el Registro de Proveedores; plataforma multiagente de código público en `https://github.com/Sebahttps/kri-eit`; currículum y obra verificable |
 | **829900** | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. | **Capacitación y formación** —los dos rubros inscritos de capacitación, científica y no científica, incluida la alfabetización en inteligencia artificial para funcionarios— y apoyo administrativo en procesos de compra pública | Rubros inscritos en el Registro de Proveedores; antecedentes profesionales del representante legal; descripción del servicio en compai.cl |
 
 
@@ -253,7 +253,7 @@ especificaciones y la evaluación comparada de alternativas. No es un descriptor
 comercial: es la misma capacidad que sostiene los diez rubros de software y
 plataformas de IA inscritos en el Registro de Proveedores, y se materializa en
 una plataforma multiagente desarrollada íntegramente por el representante legal,
-cuyo código es público y verificable.
+cuyo código es público y verificable en `https://github.com/Sebahttps/kri-eit`.
 
 **Sobre la idoneidad.** En Chile los servicios de consultoría informática y
 técnica **no constituyen una profesión de ejercicio reservado**: no existe
@@ -300,7 +300,7 @@ remiten a requerimiento.
 | Constitución, estatuto vigente y representación legal | Registro de Empresas y Sociedades, por RUT | Existencia, objeto social y facultades del representante |
 | Sitio institucional con la oferta de bienes y servicios | `https://compai.cl` | Todas las actividades |
 | Titularidad del dominio | Registro de NIC Chile, por dominio | 631100 |
-| Repositorio público de código del representante legal | Perfil público en GitHub, disponible a requerimiento | 620900 — desarrollo de software |
+| Repositorio público de código: plataforma multiagente desarrollada por el representante legal | `https://github.com/Sebahttps/kri-eit` | 620900 — desarrollo de software · 711002 — consultoría técnica asistida por IA |
 
 ### 9.2 A disposición del Servicio, se remiten a requerimiento
 

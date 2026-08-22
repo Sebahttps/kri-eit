@@ -25,11 +25,14 @@ python3 -m unittest discover -s tests -p "test_*.py"
 | @visuai | Director de Arte del estudio |
 | @operai | Jefe de Operación del modo artesanal |
 | @paiton | Ingeniero de Software Principal y Arquitecto de Soluciones |
+| @juniar | Asistente junior de gestión (correo repetitivo, sin criterio comercial) |
 
 ## Qué valida la suite (`tests/test_agents_schema.py`)
 
-1. **Configuraciones de agente**: los 8 agentes registrados existen en
-   `.claude/agents/`, sin faltantes ni sobrantes.
+1. **Configuraciones de agente**: hay al menos 6 archivos en
+   `.claude/agents/`. Hoy son **9**; la suite no exige una lista cerrada, así
+   que sumar un agente no rompe nada — pero sí hay que agregarlo a la tabla de
+   arriba, que es la referencia legible del estudio.
 2. **Frontmatter YAML**: cada configuración declara `name`, `description`
    y `tools`.
 3. **Prompts maestros**: existen los 6 `asistente-*/PROMPT.md`, no están

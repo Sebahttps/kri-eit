@@ -25,15 +25,27 @@ AQUI = pathlib.Path(__file__).resolve().parent
 MARCA = AQUI.parent
 
 # --- Datos de la empresa -----------------------------------------------------
-# El teléfono NO va acá: este archivo se versiona en un repo público. Quien
-# genere el documento completa la variable antes de correrlo y la deja en blanco
-# al guardar. Si queda vacía, el bloque de contacto simplemente la omite.
+# El teléfono ya es público por decisión del 21-ago-2026: va impreso en
+# compai.cl, en la firma de correo y en la ficha de Mercado Público. La regla
+# anterior de dejarlo vacío "porque el repo es público" no protegía nada.
+# Los datos que SÍ siguen fuera del repo —RUN y domicilio particular— se leen
+# de `_datos_privados.py`, que está en el .gitignore de esta carpeta.
 RAZON = "COMPAI GLOBAL SOLUTIONS SpA"
 FANTASIA = "CompAI SpA"
 RUT = "78.491.451-8"
 CORREO = "stapiamena@compai.cl"
 SITIO = "compai.cl"
-TELEFONO = ""   # ej. "+56 9 0000 0000"
+TELEFONO = "+56 9 6246 9977"
+
+# Datos que no se versionan. Si el archivo no está, el documento se genera
+# igual y deja los marcadores a la vista: una degradación honesta, se nota
+# que falta algo en vez de salir un dato en blanco sin avisar.
+PRIVADOS = {}
+try:
+    import _datos_privados
+    PRIVADOS = getattr(_datos_privados, "DATOS", {})
+except ImportError:
+    pass
 
 # --- Marca -------------------------------------------------------------------
 TINTA = "#1A1D1B"
@@ -306,3 +318,195 @@ for f in ("caratula-oferta-tecnica.html", "ficha-empresa.html"):
 if not TELEFONO:
     print("\nTELEFONO está vacío: el bloque de contacto sale sin él.")
     print("Completarlo antes de generar, y dejarlo en blanco al versionar.")
+
+
+# =============================================================================
+# 3. Descripción del negocio para el SII
+# =============================================================================
+# Se arma desde el markdown de `asistente-administrativo/gestion/compai-spa/`
+# para que exista UNA sola fuente: si el texto cambia allá, el documento con
+# papelería se regenera y no quedan dos versiones divergentes.
+#
+# Diferencia con los otros dos: este no cabe en una hoja. Los documentos de una
+# página dibujan la carta con `@page { margin: 0 }` y el padding adentro de
+# `.hoja`; acá eso dejaría las páginas de continuación con el texto pegado al
+# borde, porque el padding solo aplica a la primera. Por eso este lleva
+# márgenes reales en `@page` y suelta el padding al imprimir.
+
+import re as _re
+
+FUENTE_SII = (AQUI.parent.parent / "asistente-administrativo" / "gestion" /
+              "compai-spa" / "sii-descripcion-del-negocio.md")
+
+
+def _md(t):
+    """Markdown acotado: lo que este documento usa y nada más.
+
+    Los párrafos se acumulan: el markdown viene con saltos de línea duros a
+    ~85 caracteres, y un <p> por línea partiría cada párrafo en pedazos.
+    """
+    salida, en_tabla, en_lista, parrafo = [], False, False, []
+
+    def cerrar_parrafo():
+        if parrafo:
+            salida.append("<p>" + " ".join(parrafo) + "</p>")
+            parrafo.clear()
+
+    def cerrar_lista():
+        nonlocal en_lista
+        if en_lista:
+            salida.append("</ul>")
+            en_lista = False
+
+    def cerrar_tabla():
+        nonlocal en_tabla
+        if en_tabla:
+            salida.append("</table>")
+            en_tabla = False
+
+    for linea in t.split("\n"):
+        l = linea.rstrip()
+
+        if l.startswith("|"):
+            cerrar_parrafo()
+            cerrar_lista()
+            celdas = [c.strip() for c in l.strip("|").split("|")]
+            if all(_re.fullmatch(r":?-{2,}:?", c or "-") for c in celdas):
+                continue
+            if not en_tabla:
+                salida.append('<table class="datos">')
+                en_tabla = True
+                salida.append("<tr>" + "".join("<th>" + c + "</th>" for c in celdas) + "</tr>")
+            else:
+                salida.append("<tr>" + "".join("<td>" + c + "</td>" for c in celdas) + "</tr>")
+            continue
+        cerrar_tabla()
+
+        if not l.strip():
+            cerrar_parrafo()
+            cerrar_lista()
+            continue
+
+        if l.strip() == "---":
+            cerrar_parrafo()
+            cerrar_lista()
+            continue
+
+        if l.startswith("#"):
+            cerrar_parrafo()
+            cerrar_lista()
+            nivel = len(l) - len(l.lstrip("#"))
+            texto = l[nivel:].strip()
+            if nivel == 1:
+                salida.append("<h1>" + texto + "</h1>")
+            elif nivel == 2:
+                salida.append("<h2>" + texto + "</h2>")
+            else:
+                salida.append("<h3>" + texto + "</h3>")
+            continue
+
+        if l.startswith("> "):
+            cerrar_parrafo()
+            cerrar_lista()
+            salida.append("<blockquote>" + l[2:] + "</blockquote>")
+            continue
+
+        if l.startswith("- ") or _re.match(r"^\d+\. ", l):
+            cerrar_parrafo()
+            if not en_lista:
+                salida.append("<ul>")
+                en_lista = True
+            salida.append("<li>" + _re.sub(r"^(- |\d+\. )", "", l) + "</li>")
+            continue
+
+        # Continuación de un item de lista: se pega al anterior.
+        if en_lista and l.startswith("  "):
+            if salida and salida[-1].endswith("</li>"):
+                salida[-1] = salida[-1][:-5] + " " + l.strip() + "</li>"
+            continue
+
+        parrafo.append(l.strip())
+
+    cerrar_parrafo()
+    cerrar_lista()
+    cerrar_tabla()
+
+    h = "\n".join(salida)
+    h = _re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", h)
+    h = _re.sub(r"`([^`]+?)`", r"<code>\1</code>", h)
+    return h
+
+
+if FUENTE_SII.exists():
+    _texto = FUENTE_SII.read_text(encoding="utf-8")
+
+    # Fuera los dos bloques internos del borrador.
+    if "> **AVISO INTERNO" in _texto:
+        _a = _texto.index("> **AVISO INTERNO")
+        _texto = _texto[:_a] + _texto[_texto.index("---", _a):]
+    if "## Marcadores a completar" in _texto:
+        _b = _texto.index("## Marcadores a completar")
+        _texto = _texto[:_texto.rindex("---", 0, _b)].rstrip()
+
+    for _marcador, _valor in PRIVADOS.items():
+        _texto = _texto.replace(_marcador, _valor)
+
+    _faltan = sorted(set(_re.findall(r"\[[^\]\n]{3,45}\]", _texto)))
+
+    # El título ya lo pone el encabezado; se saca del cuerpo para no repetirlo.
+    _texto = _re.sub(r"^# .+?\n", "", _texto, count=1)
+    # El encabezado ya dice a quién va dirigido; repetirlo en el cuerpo sobra.
+    _texto = _texto.replace(
+        "**Documento preparado para el Servicio de Impuestos Internos**\n", "", 1)
+
+    _ESTILO = (
+        "<style>\n"
+        "  @page { size: letter; margin: 18mm 20mm; }\n"
+        "  .hoja { min-height: 0; }\n"
+        "  h2 { font-size: 12pt; margin: 18px 0 7px; padding-bottom: 3px;\n"
+        "       border-bottom: .75pt solid " + LINEA + "; page-break-after: avoid; }\n"
+        "  h3 { font-size: 10.5pt; margin: 13px 0 5px; color: " + GRIS + ";\n"
+        "       page-break-after: avoid; }\n"
+        "  p { margin: 0 0 7px; text-align: justify; }\n"
+        "  ul { margin: 4px 0 9px 16px; padding: 0; }\n"
+        "  li { margin: 3px 0; }\n"
+        "  table.datos { margin: 7px 0 12px; font-size: 9.5pt; page-break-inside: avoid; }\n"
+        "  table.datos th, table.datos td { border: .75pt solid " + LINEA + ";\n"
+        "       padding: 4px 7px; text-align: left; vertical-align: top; }\n"
+        "  table.datos th { background: #F4F3EF; font-weight: bold; }\n"
+        "  blockquote { margin: 9px 0; padding: 7px 12px;\n"
+        "       border-left: 2.5pt solid " + AMBAR + "; background: #FBF7EC; font-size: 10pt; }\n"
+        "  code { font-family: " + MONO + "; font-size: 9.5pt; }\n"
+        "  @media print { .hoja { padding: 0; width: auto; } }\n"
+        "</style>"
+    )
+
+    _cab = (
+        '<div class="kicker">Servicio de Impuestos Internos</div>'
+        '<div style="font-size:12.5pt; font-weight:bold; margin-top:3px;">'
+        'Descripción del negocio</div>'
+        '<div style="font-family:' + MONO + '; font-size:8.5pt; color:' + GRIS +
+        '; margin-top:3px;">' + RAZON + '<br>RUT ' + RUT + '</div>'
+    )
+
+    if _faltan:
+        _aviso = nota("<strong>Faltan datos por completar:</strong> " + ", ".join(_faltan) +
+                      ". Se rellenan en <code>marca/comercial/_datos_privados.py</code>, "
+                      "que no se versiona.")
+    else:
+        _aviso = nota("Documento con papelería CompAI. Se genera desde "
+                      "<code>sii-descripcion-del-negocio.md</code>: si el texto cambia allá, "
+                      "hay que volver a correr este script. Ctrl+P para guardar como PDF.")
+
+    _cuerpo = (_aviso + '\n<div class="hoja">\n  <div class="cuerpo">\n    ' +
+               encabezado(_cab) + "\n" + _md(_texto) + "\n  </div>\n  " +
+               pie(RAZON + " · RUT " + RUT, contacto()) + "\n</div>")
+
+    _html = (BASE.replace("__TITULO__", "Descripción del negocio para el SII — " + FANTASIA)
+                 .replace("__CUERPO__", _cuerpo)
+                 .replace("</style></head>", "</style>" + _ESTILO + "</head>"))
+    (AQUI / "sii-descripcion-del-negocio.html").write_text(_html, encoding="utf-8")
+    print("Escrito: sii-descripcion-del-negocio.html" +
+          ("" if not _faltan else "  — faltan por completar: " + ", ".join(_faltan)))
+else:
+    print("No se encontró el markdown del SII; ese documento no se generó.")

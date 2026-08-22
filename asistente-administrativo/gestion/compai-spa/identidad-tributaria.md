@@ -23,7 +23,8 @@
 | **Administración** | Gerente General, con las facultades de un factor de comercio |
 | **Inicio de actividades** | **16-ago-2026** · folio 16884724 · certificado el 17-ago |
 | **Clasificación SII** | **Primera categoría · afecto a IVA · segmento MICRO EMPRESA** |
-| **Registro de Proveedores** | Inscrita y **hábil por 1 año** desde ago-2026 — había opción de 6 y 12 meses, **se pagó la anual**. Renueva en ago-2027 |
+| **Registro de Proveedores** | Inscrita y **hábil**, acreditada **hasta el 19-08-2027** (verificado el 22-ago-2026 en la ficha pública). Había opción de 6 y 12 meses; se pagó la anual |
+| **Domicilio tributario** | Comuna de **Independencia** (actualizado en el RES en ago-2026; el estatuto original decía comuna de Santiago). Inmueble propio del titular |
 | **Declaración de beneficiarios finales** | N° 948459, firmada 19-ago-2026 |
 
 **Por qué importa el segmento MICRO EMPRESA:** Mercado Público registra como
@@ -53,8 +54,11 @@ Las siete son **primera categoría, afectas a IVA, con fecha 16-08-2026**.
 | 631100 | PROCESAMIENTO DE DATOS, HOSPEDAJE Y ACTIVIDADES CONEXAS |
 | 711002 | EMPRESAS DE SERVICIOS DE INGENIERIA Y ACTIVIDADES CONEXAS DE CONSULTORIA TECNICA |
 | 829900 | OTRAS ACTIVIDADES DE SERVICIOS DE APOYO A LAS EMPRESAS N.C.P. |
-| 711002 | Servicios de ingeniería y consultoría técnica |
-| 829900 | Otras actividades de servicios de apoyo a las empresas |
+
+> **Estado ante el SII al 22-ago-2026:** la solicitud de **emisión de facturas**
+> está observada. El Servicio pidió acreditar **todas** las actividades y una
+> descripción del negocio. Ver `sii-descripcion-del-negocio.md` en esta misma
+> carpeta.
 
 ## El estatuto está redactado para vender al Estado
 
